@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import Header from '../components/Header/Header';
 import { theme } from '../context';
 import s from './App.module.scss';
 
@@ -17,7 +18,7 @@ function App() {
   return (
     <div className={`${state.theme === 'dark' && 'dark-theme'} app`}>
       <div className="container">
-        <h1>Kanban board</h1>
+        <Header />
         <div className={s.container}>Something</div>
         <button type="button" data-theme="light" onClick={handleTheme}>
           Light
