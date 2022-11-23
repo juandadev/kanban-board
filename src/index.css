@@ -42,7 +42,7 @@ body {
   --container-2-color: linear-gradient(180deg, #E9EFFA 0%, rgba(233, 239, 250, 0.5) 100%);
   --primary-text: var(--black);
   --secondary-text: var(--medium-grey);
-  background-color: var(--background-color);
+  background-color: var(--container-1-color);
   color: var(--primary-text);
   transition: background 0.3s ease-in-out;
 }

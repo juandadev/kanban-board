@@ -17,15 +17,17 @@ function App() {
 
   return (
     <div className={`${state.theme === 'dark' && 'dark-theme'} app`}>
-      <div className="container">
-        <Header />
-        <div className={s.container}>Something</div>
-        <button type="button" data-theme="light" onClick={handleTheme}>
-          Light
-        </button>
-        <button type="button" data-theme="dark" onClick={handleTheme}>
-          Dark
-        </button>
+      <div className={`container ${s.dashboard}`}>
+        <Header containerClassName={s.header} />
+        <main className={s.container}>Something</main>
+        <nav className={s.nav}>
+          <button type="button" data-theme="light" onClick={handleTheme}>
+            Light
+          </button>
+          <button type="button" data-theme="dark" onClick={handleTheme}>
+            Dark
+          </button>
+        </nav>
       </div>
     </div>
   );
