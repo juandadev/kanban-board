@@ -18,7 +18,7 @@ export default function ToggleSwitch({ onClick, defaultChecked }) {
   };
 
   return (
-    <label className={s.switch} htmlFor="toggleSwitch" aria-hidden="true">
+    <label className={s.switch} htmlFor="toggleSwitch" aria-hidden>
       <input type="checkbox" id="toggleSwitch" checked={isChecked} onChange={handleChange} />
       <span className={s.slider} />
     </label>

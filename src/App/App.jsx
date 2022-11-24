@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import Header from '../components/Header/Header';
 import Navbar from '../components/Navbar/Navbar';
-import { theme } from '../context';
+import { context } from '../context';
 import s from './App.module.scss';
 
 function App() {
-  const { state } = useContext(theme);
+  const { state } = useContext(context);
 
   return (
     <div className={`${state.theme === 'dark' && 'dark-theme'} app`}>

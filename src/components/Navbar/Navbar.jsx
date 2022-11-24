@@ -1,13 +1,14 @@
 import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { theme } from '../../context';
+import { context } from '../../context';
 import s from './Navbar.module.scss';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import Icon from '../Icon/Icon';
 
 export default function Navbar({ containerClassName }) {
-  const { dispatch } = useContext(theme);
   const [defaultTheme, setDefaultTheme] = useState('light');
+  const { state, dispatch } = useContext(context);
+  const isNavbarOpen = state.navbar;
 
   useEffect(() => {
     if (localStorage.getItem('theme')) {
@@ -28,7 +29,7 @@ export default function Navbar({ containerClassName }) {
 
   return (
     <>
-      <nav className={`${s.container} ${containerClassName}`}>
+      <nav className={`${isNavbarOpen && s.show} ${s.container} ${containerClassName}`}>
         <span className={s.title}>All Boards (3)</span>
         <div className={s.boardContainer}>
           <ul className={s.boardList}>
@@ -56,7 +57,7 @@ export default function Navbar({ containerClassName }) {
           <Icon icon="dark-theme" />
         </div>
       </nav>
-      <div className={s.overlay} />
+      <div className={`${isNavbarOpen && s.show} ${s.overlay}`} />
     </>
   );
 }
