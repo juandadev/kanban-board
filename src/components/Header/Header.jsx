@@ -5,13 +5,15 @@ import s from './Header.module.scss';
 
 function Header({ containerClassName }) {
   return (
-    <header className={containerClassName}>
-      <h1>Platform Launch</h1>
-      <button type="button">
-        <Icon icon="add-task" className={s.addTaskIcon} />
-        Add New Task
-      </button>
-      <Icon icon="vertical-ellipsis" className={s.verticalEllipsisIcon} />
+    <header className={`${s.container} ${containerClassName}`}>
+      <h1 className={s.title}>Platform Launch</h1>
+      <div className={s.actions}>
+        <button type="button" className={s.button}>
+          <Icon icon="add-task" className={s.addTaskIcon} />
+          Add New Task
+        </button>
+        <Icon icon="vertical-ellipsis" className={s.verticalEllipsisIcon} />
+      </div>
     </header>
   );
 }

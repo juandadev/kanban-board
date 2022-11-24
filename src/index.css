@@ -7,6 +7,10 @@
   --dark-grey: #2B2C37;
   --medium-grey: #828FA3;
   --black: #000112;
+  --lines-light: #E4EBFA;
+  --lines-dark: #3E3F4E;
+
+  --main-purple: #635FC7;
 
   --medium: 500;
   --bold: 700;
@@ -42,6 +46,7 @@ body {
   --container-2-color: linear-gradient(180deg, #E9EFFA 0%, rgba(233, 239, 250, 0.5) 100%);
   --primary-text: var(--black);
   --secondary-text: var(--medium-grey);
+  --lines: var(--lines-light);
   background-color: var(--container-1-color);
   color: var(--primary-text);
   transition: background 0.3s ease-in-out;
@@ -53,6 +58,7 @@ body {
   --container-2-color: linear-gradient(180deg, rgba(43, 44, 55, 0.25) 0%, rgba(43, 44, 55, 0.125) 100%);
   --primary-text: var(--white);
   --secondary-text: var(--medium-grey);
+  --lines: var(--lines-dark);
 }
 
 @media (min-width: 576px) {
