@@ -8,10 +8,7 @@
 }
 
 .nav {
-  display: none;
-
   @media (min-width: 768px) {
-    display: block;
     grid-area: nav;
   }
 }

@@ -3,3 +3,7 @@ export { default as AddTask } from './AddTaskMobile';
 export { default as LogoMobile } from './LogoMobile';
 export { default as ChevronUp } from './ChevronUp';
 export { default as ChevronDown } from './ChevronDown';
+export { default as LogoLight } from './LogoLight';
+export { default as LightTheme } from './LightTheme';
+export { default as DarkTheme } from './DarkTheme';
+export { default as Board } from './Board';
