@@ -6,11 +6,15 @@ import s from './Header.module.scss';
 function Header({ containerClassName }) {
   return (
     <header className={`${s.container} ${containerClassName}`}>
-      <h1 className={s.title}>Platform Launch</h1>
+      <h1 className={s.title}>
+        <Icon icon="logo-mobile" className={s.logo} />
+        Platform Launch
+        <Icon icon="chevron-down" className={s.chevron} />
+      </h1>
       <div className={s.actions}>
         <button type="button" className={s.button}>
           <Icon icon="add-task" className={s.addTaskIcon} />
-          Add New Task
+          <span className={s.buttonText}>+ Add New Task</span>
         </button>
         <Icon icon="vertical-ellipsis" className={s.verticalEllipsisIcon} />
       </div>
