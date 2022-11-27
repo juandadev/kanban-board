@@ -4,9 +4,8 @@ import Icon from '../Icon/Icon';
 import { context } from '../../context';
 import s from './Header.module.scss';
 
-function Header({ containerClassName }) {
+function Header({ containerClassName, isMobile }) {
   const { state, dispatch } = useContext(context);
-  const isMobile = window.innerWidth < 768;
   const isNavbarOpen = state.navbar;
 
   const handleClick = () => {
@@ -39,11 +38,13 @@ function Header({ containerClassName }) {
 }
 
 Header.propTypes = {
-  containerClassName: PropTypes.string
+  containerClassName: PropTypes.string,
+  isMobile: PropTypes.bool
 };
 
 Header.defaultProps = {
-  containerClassName: null
+  containerClassName: null,
+  isMobile: false
 };
 
 export default Header;

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import Header from '../components/Header/Header';
-import Navbar from '../components/Navbar/Navbar';
+import Header from '../components/Header';
+import Navbar from '../components/Navbar';
 import { context } from '../context';
 import s from './App.module.scss';
 
@@ -10,7 +10,7 @@ function App() {
 
   return (
     <div className={`${state.theme === 'dark' && 'dark-theme'} app`}>
-      <div className={`container ${s.dashboard} ${isNavbarOpen && s.hiddenNavbar}`}>
+      <div className={`container ${s.dashboard} ${!isNavbarOpen && s.hiddenNavbar}`}>
         <Header containerClassName={s.header} />
         <Navbar containerClassName={s.nav} />
         <main className={s.container}>Something</main>

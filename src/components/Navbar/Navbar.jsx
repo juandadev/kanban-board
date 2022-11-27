@@ -5,12 +5,10 @@ import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import Icon from '../Icon/Icon';
 import s from './Navbar.module.scss';
 
-export default function Navbar({ containerClassName }) {
+export default function Navbar({ containerClassName, isMobile }) {
   const [defaultTheme, setDefaultTheme] = useState('light');
-  const [navbarHidden, setNavbarHidden] = useState(false);
   const { state, dispatch } = useContext(context);
   const isLightTheme = state.theme === 'light';
-  const isMobile = window.innerWidth < 768;
   const isNavbarOpen = state.navbar;
 
   useEffect(() => {
@@ -31,8 +29,6 @@ export default function Navbar({ containerClassName }) {
   };
 
   const handleNavbar = () => {
-    setNavbarHidden((prevState) => !prevState);
-
     dispatch({
       type: 'TOGGLE_NAVBAR',
       navbar: !state.navbar
@@ -44,7 +40,7 @@ export default function Navbar({ containerClassName }) {
       <nav
         className={`${isNavbarOpen ? s.modalShow : s.modalClose} ${
           s.container
-        } ${containerClassName} ${!navbarHidden && s.showAnimation}`}>
+        } ${containerClassName} ${isNavbarOpen ? s.showAnimation : s.hideAnimation}`}>
         <div className={s.boardContainer}>
           {!isMobile && (
             <Icon icon={isLightTheme ? 'logo-dark' : 'logo-light'} className={s.logo} />
@@ -85,7 +81,7 @@ export default function Navbar({ containerClassName }) {
       </nav>
       {!isMobile && (
         <div
-          className={`${s.showNav} ${navbarHidden ? s.showAnimation : s.hideAnimation}`}
+          className={`${s.showNav} ${!isNavbarOpen ? s.showAnimation : s.hideAnimation}`}
           onClick={handleNavbar}
           aria-hidden>
           <Icon icon="show-sidebar" />
@@ -97,9 +93,11 @@ export default function Navbar({ containerClassName }) {
 }
 
 Navbar.propTypes = {
-  containerClassName: PropTypes.string
+  containerClassName: PropTypes.string,
+  isMobile: PropTypes.bool
 };
 
 Navbar.defaultProps = {
-  containerClassName: null
+  containerClassName: null,
+  isMobile: false
 };

@@ -19,6 +19,7 @@
     top: 0;
     margin: 0;
     width: 100%;
+    min-width: 24.8rem;
     box-shadow: none;
     display: flex;
     justify-content: space-between;
@@ -224,7 +225,8 @@
   animation-fill-mode: forwards;
 
   @media (min-width: 768px) {
-    display: none;
+    animation: none;
+    -webkit-animation: none;
   }
 }
 
@@ -232,6 +234,11 @@
   animation-name: modalClose;
   animation-duration: 0.5s;
   animation-fill-mode: forwards;
+
+  @media (min-width: 768px) {
+    animation: none;
+    -webkit-animation: none;
+  }
 }
 
 .showAnimation {
