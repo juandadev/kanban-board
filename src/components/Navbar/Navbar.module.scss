@@ -27,6 +27,11 @@
     border-right: 1px solid var(--lines);
     border-radius: 0;
   }
+
+  @media (min-width: 992px) {
+    padding-left: 2.4rem;
+    padding-right: 2.5rem;
+  }
 }
 
 .logo {
@@ -83,6 +88,10 @@
         padding-left: 1.1rem;
       }
 
+      @media (min-width: 992px) {
+        padding-left: 0.8rem;
+      }
+
       p {
         margin: 0;
       }
@@ -110,6 +119,10 @@
           background-color: var(--main-purple);
           border-radius: 0 10rem 10rem 0;
           z-index: -1;
+
+          @media (min-width: 992px) {
+            left: -3.2rem;
+          }
         }
 
         &>.boardIcon {
