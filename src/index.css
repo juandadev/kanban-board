@@ -11,6 +11,8 @@
   --lines-dark: #3E3F4E;
 
   --main-purple: #635FC7;
+  --hover-purple-1: rgba(98, 95, 199, 0.10);
+  --hover-purple-2: #A8A4FF;
 
   --medium: 500;
   --bold: 700;
@@ -46,6 +48,7 @@ body {
   --primary-text: var(--black);
   --secondary-text: var(--medium-grey);
   --lines: var(--lines-light);
+  --hover-state: var(--hover-purple-1);
   background-color: var(--container-1-color);
   color: var(--primary-text);
   transition: background 0.3s ease-in-out;
@@ -58,6 +61,7 @@ body {
   --primary-text: var(--white);
   --secondary-text: var(--medium-grey);
   --lines: var(--lines-dark);
+  --hover-state: var(--white);
 }
 
 @media (min-width: 576px) {

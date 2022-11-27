@@ -8,23 +8,20 @@
 }
 
 .nav {
-  display: none;
-
   @media (min-width: 768px) {
-    display: block;
     grid-area: nav;
   }
 }
 
 .dashboard {
   display: grid;
-  grid-template-areas:
-    "header"
-    "content";
+  grid-template-areas:    "header"    "content";
   grid-template-rows: 6.4rem 1fr;
   grid-template-columns: 1fr;
-
-  @media (min-width: 768px) {
+  overflow-x: hidden;
+  transition: all 0.5s ease-in-out;
+  
+  @media(min-width: 768px) {
     grid-template-areas:
       "nav header header"
       "nav content content";
@@ -35,5 +32,11 @@
   @media (min-width: 992px) {
     grid-template-rows: 9.7rem 1fr;
     grid-template-columns: 30rem 1fr;
+  }
+}
+
+.hiddenNavbar {
+  @media (min-width: 768px) {
+    grid-template-columns: 0 1fr;
   }
 }

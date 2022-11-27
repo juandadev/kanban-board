@@ -1,16 +1,31 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../Icon/Icon';
+import { context } from '../../context';
 import s from './Header.module.scss';
 
-function Header({ containerClassName }) {
+function Header({ containerClassName, isMobile }) {
+  const { state, dispatch } = useContext(context);
+  const isNavbarOpen = state.navbar;
+
+  const handleClick = () => {
+    const invertedValue = !isNavbarOpen;
+
+    if (isMobile) {
+      dispatch({
+        type: 'TOGGLE_NAVBAR',
+        navbar: invertedValue
+      });
+    }
+  };
+
   return (
     <header className={`${s.container} ${containerClassName}`}>
-      <h1 className={s.title}>
+      <span className={s.title} onClick={handleClick} aria-hidden>
         <Icon icon="logo-mobile" className={s.logo} />
         Platform Launch
-        <Icon icon="chevron-down" className={s.chevron} />
-      </h1>
+        <Icon icon={isNavbarOpen ? 'chevron-up' : 'chevron-down'} className={s.chevron} />
+      </span>
       <div className={s.actions}>
         <button type="button" className={s.button}>
           <Icon icon="add-task" className={s.addTaskIcon} />
@@ -23,11 +38,13 @@ function Header({ containerClassName }) {
 }
 
 Header.propTypes = {
-  containerClassName: PropTypes.string
+  containerClassName: PropTypes.string,
+  isMobile: PropTypes.bool
 };
 
 Header.defaultProps = {
-  containerClassName: null
+  containerClassName: null,
+  isMobile: false
 };
 
 export default Header;

@@ -1,16 +1,23 @@
 import React, { createContext, useReducer } from 'react';
 import PropTypes from 'prop-types';
 
-const initialState = { theme: 'light' };
-const theme = createContext(initialState);
-const { Provider } = theme;
+const initialState = { theme: 'light', navbar: false };
+const context = createContext(initialState);
+const { Provider } = context;
 
 function ContextProvider({ children }) {
   const [state, dispatch] = useReducer((reducerState, action) => {
     switch (action.type) {
       case 'CHANGE_THEME':
         return {
+          ...reducerState,
           theme: action.theme
+        };
+
+      case 'TOGGLE_NAVBAR':
+        return {
+          ...reducerState,
+          navbar: action.navbar
         };
 
       default:
@@ -25,4 +32,4 @@ ContextProvider.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-export { theme, ContextProvider };
+export { context, ContextProvider };

@@ -1,0 +1,432 @@
+.container {
+  position: fixed;
+  top: 8rem;
+  left: 0;
+  right: 0;
+  margin: auto;
+  flex-direction: column;
+  width: fit-content;
+  padding: 1.6rem;
+  padding-right: 1.3rem;
+  background-color: var(--container-1-color);
+  border-radius: 0.8rem;
+  box-shadow: 0px 10px 20px rgba(54, 78, 126, 0.25);
+  z-index: 1;
+  transition: background 0.3s ease-in-out, border 0.3s ease-in-out;
+  
+  @media(min-width: 768px) {
+    position: relative;
+    top: 0;
+    margin: 0;
+    width: 100%;
+    min-width: 24.8rem;
+    box-shadow: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 3.2rem 1.2rem 3.2rem 1.3rem;
+    border-right: 1px solid var(--lines);
+    border-radius: 0;
+  }
+
+  @media (min-width: 992px) {
+    padding-left: 2.4rem;
+    padding-right: 2.5rem;
+  }
+}
+
+.logo {
+  @media (min-width: 768px) {
+    margin-left: 1.1rem;
+  }
+}
+
+.title {
+  margin-top: 5.4rem;
+  margin-left: 0.8rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+  letter-spacing: 0.24rem;
+  color: var(--secondary-text);
+  text-transform: uppercase;
+
+  @media (min-width: 768px) {
+    margin-left: 1.1rem;
+  }
+}
+
+.board {
+  &Container {
+    margin-left: 0.8rem;
+    margin-bottom: 1.6rem;
+
+    @media (min-width: 768px) {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  &List {
+    margin: 0;
+    margin-top: 1.9rem;
+    padding: 0;
+    list-style: none;
+
+    &Item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 1.6rem;
+      padding-left: 0.8rem;
+      font-weight: 700;
+      font-size: 1.5rem;
+      line-height: 1.9rem;
+      color: var(--secondary-text);
+      gap: 1.2rem;
+
+      @media (min-width: 768px) {
+        padding-left: 1.1rem;
+        cursor: pointer;
+      }
+
+      @media (min-width: 992px) {
+        padding-left: 0.8rem;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      &.create {
+        color: var(--main-purple);
+
+        &>.boardIcon {
+          path {
+            fill: var(--main-purple);
+          }
+        }
+      }
+
+      &:hover {
+        @media (min-width: 992px) {
+          color: var(--main-purple);
+        }
+
+        &>.boardIcon {
+          path {
+            @media (min-width: 992px) {
+              fill: var(--main-purple);
+            }
+          }
+        }
+
+        &::after {
+          @media (min-width: 992px) {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -2.4rem;
+            width: 105%;
+            height: 5rem;
+            background-color: var(--hover-state);
+            border-radius: 0 10rem 10rem 0;
+            z-index: -1;
+          }
+
+          @media (min-width: 992px) {
+            left: -3.2rem;
+          }
+        }
+      }
+      
+      &.selected {
+        color: var(--white);
+        
+        &::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: -2.4rem;
+          width: 105%;
+          height: 4.8rem;
+          background-color: var(--main-purple);
+          border-radius: 0 10rem 10rem 0;
+          z-index: -1;
+          transition: background 0.3s ease-in-out;
+
+          @media (min-width: 992px) {
+            left: -3.2rem;
+            height: 5rem;
+          }
+        }
+
+        &:hover::after {
+          background-color: var(--hover-purple-2);
+        }
+
+        &>.boardIcon {
+          path {
+            fill: var(--white);
+          }
+        }
+      }
+    }
+  }
+}
+
+.footerNav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.themeSwitcher {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 23.5rem;
+  height: 4.8rem;
+  background-color: var(--background-color);
+  border-radius: 0.6rem;
+  gap: 2.3rem;
+  transition: background 0.3s ease-in-out;
+}
+
+.hideNav {
+  position: relative;
+  padding: 1.4rem 1.4rem 1.5rem 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--secondary-text);
+  cursor: pointer;
+
+  &:hover {
+    @media (min-width: 992px) {
+      color: var(--main-purple);
+    }
+
+    &>.hideNavIcon {
+      path {
+        @media (min-width: 992px) {
+          fill: var(--main-purple);  
+        }
+      }
+    }
+
+    &::after {
+      @media (min-width: 992px) {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -2.4rem;
+        width: 103%;
+        height: 4.8rem;
+        background-color: var(--hover-state);
+        border-radius: 0 10rem 10rem 0;
+        z-index: -1;
+        transition: background 0.3s ease-in-out;
+      }
+    }
+  }
+}
+
+.showNav {
+  position: absolute;
+  bottom: 3.2rem;
+  left: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 2.2rem;
+  width: 5.6rem;
+  height: 4.8rem;
+  background-color: var(--main-purple);
+  border-radius: 0 10rem 10rem 0;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+  z-index: 1;
+  
+  &:hover {
+    background-color: var(--hover-purple-2);
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 6.4rem;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #000000;
+  opacity: 0.5;
+  overflow: hidden;
+  z-index: 0;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+
+.overlayShow {
+  animation-name: overlayOpen;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+
+.overlayClose {
+  animation-name: overlayClose;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+
+.modalShow {
+  display: flex;
+  animation-name: modalOpen;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+
+  @media (min-width: 768px) {
+    animation: none;
+    -webkit-animation: none;
+  }
+}
+
+.modalClose {
+  animation-name: modalClose;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+
+  @media (min-width: 768px) {
+    animation: none;
+    -webkit-animation: none;
+  }
+}
+
+.showAnimation {
+  @media (min-width: 768px) {
+    animation-name: showAnimation;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+  }
+}
+
+.hideAnimation {
+  @media (min-width: 768px) {
+    animation-name: hideAnimation;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+  }
+}
+
+@keyframes overlayOpen {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes overlayClose {
+  0% {
+    opacity: 0.5;
+    visibility: visible;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes modalOpen {
+  0% {
+    opacity: 0;
+    transform: translateY(-4rem);
+    -webkit-transform: translateY(-4rem);
+    -moz-transform: translateY(-4rem);
+    -ms-transform: translateY(-4rem);
+    -o-transform: translateY(-4rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+  }
+}
+
+@keyframes modalClose {
+  0% {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0rem);
+    -webkit-transform: translateY(0rem);
+    -moz-transform: translateY(0rem);
+    -ms-transform: translateY(0rem);
+    -o-transform: translateY(0rem);
+  }
+
+  99% {
+    visibility: visible;
+  }
+
+  100% {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-4rem);
+    -webkit-transform: translateY(-4rem);
+    -moz-transform: translateY(-4rem);
+    -ms-transform: translateY(-4rem);
+    -o-transform: translateY(-4rem);
+  }
+}
+
+@keyframes showAnimation {
+  0% {
+    transform: translateX(-30.4rem);
+    -webkit-transform: translateX(-30.4rem);
+    -moz-transform: translateX(-30.4rem);
+    -ms-transform: translateX(-30.4rem);
+    -o-transform: translateX(-30.4rem);
+  }
+
+  100% {
+    transform: translateX(0);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+  }
+}
+
+@keyframes hideAnimation {
+  0% {
+    transform: translateX(0);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-30.4rem);
+    -webkit-transform: translateX(-30.4rem);
+    -moz-transform: translateX(-30.4rem);
+    -ms-transform: translateX(-30.4rem);
+    -o-transform: translateX(-30.4rem);
+  }
+}

@@ -1,13 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { VerticalEllipsis, AddTask, LogoMobile, ChevronUp, ChevronDown } from '../../assets/icons';
+import {
+  VerticalEllipsis,
+  AddTask,
+  LogoMobile,
+  ChevronUp,
+  ChevronDown,
+  LogoLight,
+  LogoDark,
+  LightTheme,
+  DarkTheme,
+  Board,
+  HideSidebar,
+  ShowSidebar
+} from '../../assets/icons';
 
 const svgList = {
   'vertical-ellipsis': VerticalEllipsis,
   'add-task': AddTask,
   'logo-mobile': LogoMobile,
   'chevron-up': ChevronUp,
-  'chevron-down': ChevronDown
+  'chevron-down': ChevronDown,
+  'logo-light': LogoLight,
+  'light-theme': LightTheme,
+  'dark-theme': DarkTheme,
+  'hide-sidebar': HideSidebar,
+  'show-sidebar': ShowSidebar,
+  'logo-dark': LogoDark,
+  board: Board
 };
 
 export default function Icon({ icon, className }) {

@@ -5,8 +5,9 @@
   padding: 2rem 1.6rem 1.9rem 1.6rem;
   background-color: var(--container-1-color);
   border-bottom: 1px solid var(--lines);
+  transition: background 0.3s ease-in-out, border 0.3s ease-in-out;
   
-  @media (min-width: 768px) {
+  @media(min-width: 768px) {
     padding: 2.8rem 2.4rem 2.7rem 2.4rem;
   }
 
