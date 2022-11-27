@@ -1,13 +1,15 @@
 import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { context } from '../../context';
-import s from './Navbar.module.scss';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import Icon from '../Icon/Icon';
+import s from './Navbar.module.scss';
 
 export default function Navbar({ containerClassName }) {
   const [defaultTheme, setDefaultTheme] = useState('light');
   const { state, dispatch } = useContext(context);
+  const isLightTheme = state.theme === 'light';
+  const isMobile = window.innerWidth < 768;
   const isNavbarOpen = state.navbar;
 
   useEffect(() => {
@@ -30,8 +32,11 @@ export default function Navbar({ containerClassName }) {
   return (
     <>
       <nav className={`${isNavbarOpen && s.modalShow} ${s.container} ${containerClassName}`}>
-        <span className={s.title}>All Boards (3)</span>
         <div className={s.boardContainer}>
+          {!isMobile && (
+            <Icon icon={isLightTheme ? 'logo-dark' : 'logo-light'} className={s.logo} />
+          )}
+          <span className={s.title}>All Boards (3)</span>
           <ul className={s.boardList}>
             <li className={`${s.boardListItem} ${s.selected}`}>
               <Icon icon="board" className={s.boardIcon} />
@@ -51,10 +56,18 @@ export default function Navbar({ containerClassName }) {
             </li>
           </ul>
         </div>
-        <div className={s.themeSwitcher}>
-          <Icon icon="light-theme" />
-          <ToggleSwitch onClick={handleClick} defaultChecked={defaultTheme === 'dark'} />
-          <Icon icon="dark-theme" />
+        <div className={s.footerNav}>
+          <div className={s.themeSwitcher}>
+            <Icon icon="light-theme" />
+            <ToggleSwitch onClick={handleClick} defaultChecked={defaultTheme === 'dark'} />
+            <Icon icon="dark-theme" />
+          </div>
+          {!isMobile && (
+            <span className={s.hideNav}>
+              <Icon icon="hide-sidebar" />
+              Hide Sidebar
+            </span>
+          )}
         </div>
       </nav>
       <div className={`${isNavbarOpen && s.overlayShow} ${s.overlay}`} />

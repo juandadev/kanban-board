@@ -7,3 +7,6 @@ export { default as LogoLight } from './LogoLight';
 export { default as LightTheme } from './LightTheme';
 export { default as DarkTheme } from './DarkTheme';
 export { default as Board } from './Board';
+export { default as HideSidebar } from './HideSidebar';
+export { default as ShowSidebar } from './ShowSidebar';
+export { default as LogoDark } from './LogoDark';

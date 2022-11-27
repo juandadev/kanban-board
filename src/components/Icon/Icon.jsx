@@ -7,9 +7,12 @@ import {
   ChevronUp,
   ChevronDown,
   LogoLight,
+  LogoDark,
   LightTheme,
   DarkTheme,
-  Board
+  Board,
+  HideSidebar,
+  ShowSidebar
 } from '../../assets/icons';
 
 const svgList = {
@@ -21,6 +24,9 @@ const svgList = {
   'logo-light': LogoLight,
   'light-theme': LightTheme,
   'dark-theme': DarkTheme,
+  'hide-sidebar': HideSidebar,
+  'show-sidebar': ShowSidebar,
+  'logo-dark': LogoDark,
   board: Board
 };
 
