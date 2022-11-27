@@ -126,8 +126,8 @@
             position: absolute;
             top: 0;
             left: -2.4rem;
-            width: 24rem;
-            height: 4.8rem;
+            width: 105%;
+            height: 5rem;
             background-color: var(--hover-state);
             border-radius: 0 10rem 10rem 0;
             z-index: -1;
@@ -147,7 +147,7 @@
           position: absolute;
           top: 0;
           left: -2.4rem;
-          width: 24rem;
+          width: 105%;
           height: 4.8rem;
           background-color: var(--main-purple);
           border-radius: 0 10rem 10rem 0;
@@ -156,6 +156,7 @@
 
           @media (min-width: 992px) {
             left: -3.2rem;
+            height: 5rem;
           }
         }
 
