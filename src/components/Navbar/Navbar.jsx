@@ -7,6 +7,7 @@ import s from './Navbar.module.scss';
 
 export default function Navbar({ containerClassName }) {
   const [defaultTheme, setDefaultTheme] = useState('light');
+  const [navbarHidden, setNavbarHidden] = useState(false);
   const { state, dispatch } = useContext(context);
   const isLightTheme = state.theme === 'light';
   const isMobile = window.innerWidth < 768;
@@ -29,9 +30,21 @@ export default function Navbar({ containerClassName }) {
     });
   };
 
+  const handleNavbar = () => {
+    setNavbarHidden((prevState) => !prevState);
+
+    dispatch({
+      type: 'TOGGLE_NAVBAR',
+      navbar: !state.navbar
+    });
+  };
+
   return (
     <>
-      <nav className={`${isNavbarOpen && s.modalShow} ${s.container} ${containerClassName}`}>
+      <nav
+        className={`${isNavbarOpen && s.modalShow} ${s.container} ${containerClassName} ${
+          navbarHidden ? s.hideAnimation : s.showAnimation
+        }`}>
         <div className={s.boardContainer}>
           {!isMobile && (
             <Icon icon={isLightTheme ? 'logo-dark' : 'logo-light'} className={s.logo} />
@@ -63,13 +76,21 @@ export default function Navbar({ containerClassName }) {
             <Icon icon="dark-theme" />
           </div>
           {!isMobile && (
-            <span className={s.hideNav}>
+            <span className={s.hideNav} onClick={handleNavbar} aria-hidden>
               <Icon icon="hide-sidebar" />
               Hide Sidebar
             </span>
           )}
         </div>
       </nav>
+      {!isMobile && (
+        <div
+          className={`${s.showNav} ${navbarHidden ? s.showAnimation : s.hideAnimation}`}
+          onClick={handleNavbar}
+          aria-hidden>
+          <Icon icon="show-sidebar" />
+        </div>
+      )}
       <div className={`${isNavbarOpen && s.overlayShow} ${s.overlay}`} />
     </>
   );

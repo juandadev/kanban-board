@@ -6,10 +6,11 @@ import s from './App.module.scss';
 
 function App() {
   const { state } = useContext(context);
+  const isNavbarOpen = state.navbar;
 
   return (
     <div className={`${state.theme === 'dark' && 'dark-theme'} app`}>
-      <div className={`container ${s.dashboard}`}>
+      <div className={`container ${s.dashboard} ${isNavbarOpen && s.hiddenNavbar}`}>
         <Header containerClassName={s.header} />
         <Navbar containerClassName={s.nav} />
         <main className={s.container}>Something</main>
