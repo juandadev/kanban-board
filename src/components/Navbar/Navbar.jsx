@@ -42,9 +42,9 @@ export default function Navbar({ containerClassName }) {
   return (
     <>
       <nav
-        className={`${isNavbarOpen && s.modalShow} ${s.container} ${containerClassName} ${
-          navbarHidden ? s.hideAnimation : s.showAnimation
-        }`}>
+        className={`${isNavbarOpen ? s.modalShow : s.modalClose} ${
+          s.container
+        } ${containerClassName} ${navbarHidden ? s.hideAnimation : s.showAnimation}`}>
         <div className={s.boardContainer}>
           {!isMobile && (
             <Icon icon={isLightTheme ? 'logo-dark' : 'logo-light'} className={s.logo} />
@@ -91,7 +91,7 @@ export default function Navbar({ containerClassName }) {
           <Icon icon="show-sidebar" />
         </div>
       )}
-      <div className={`${isNavbarOpen && s.overlayShow} ${s.overlay}`} />
+      <div className={`${isNavbarOpen ? s.overlayShow : s.overlayClose} ${s.overlay}`} />
     </>
   );
 }
