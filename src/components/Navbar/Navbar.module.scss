@@ -14,6 +14,14 @@
   box-shadow: 0px 10px 20px rgba(54, 78, 126, 0.25);
   z-index: 1;
   transition: background 0.3s ease-in-out;
+
+  @media (min-width: 768px) {
+    display: flex;
+    position: relative;
+    top: 0;
+    margin: 0;
+    box-shadow: none;
+  }
 }
 
 .title {
@@ -117,6 +125,33 @@
   }
 }
 
-.show {
+.overlayShow {
   display: flex;
+}
+
+.modalShow {
+  display: flex;
+  animation-name: modalOpen;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes modalOpen {
+  0% {
+    opacity: 0;
+    transform: translateY(-4rem);
+    -webkit-transform: translateY(-4rem);
+    -moz-transform: translateY(-4rem);
+    -ms-transform: translateY(-4rem);
+    -o-transform: translateY(-4rem);
+}
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+}
 }

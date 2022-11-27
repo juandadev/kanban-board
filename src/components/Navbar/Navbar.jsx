@@ -29,7 +29,7 @@ export default function Navbar({ containerClassName }) {
 
   return (
     <>
-      <nav className={`${isNavbarOpen && s.show} ${s.container} ${containerClassName}`}>
+      <nav className={`${isNavbarOpen && s.modalShow} ${s.container} ${containerClassName}`}>
         <span className={s.title}>All Boards (3)</span>
         <div className={s.boardContainer}>
           <ul className={s.boardList}>
@@ -57,7 +57,7 @@ export default function Navbar({ containerClassName }) {
           <Icon icon="dark-theme" />
         </div>
       </nav>
-      <div className={`${isNavbarOpen && s.show} ${s.overlay}`} />
+      <div className={`${isNavbarOpen && s.overlayShow} ${s.overlay}`} />
     </>
   );
 }

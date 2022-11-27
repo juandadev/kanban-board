@@ -10,11 +10,13 @@ function ContextProvider({ children }) {
     switch (action.type) {
       case 'CHANGE_THEME':
         return {
+          ...reducerState,
           theme: action.theme
         };
 
       case 'TOGGLE_NAVBAR':
         return {
+          ...reducerState,
           navbar: action.navbar
         };
 
