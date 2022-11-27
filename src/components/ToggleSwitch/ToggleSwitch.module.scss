@@ -31,6 +31,12 @@
   -webkit-transition: .4s;
   transition: .4s;
   
+  &:hover {
+    @media (min-width: 992px) {
+      background-color: var(--hover-purple-2);
+    }
+  }
+  
   &::before {
     position: absolute;
     content: "";

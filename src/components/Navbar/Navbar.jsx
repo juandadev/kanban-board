@@ -14,10 +14,18 @@ export default function Navbar({ containerClassName, isMobile }) {
   useEffect(() => {
     if (localStorage.getItem('theme')) {
       const getTheme = JSON.stringify(localStorage.getItem('theme'));
-
       setDefaultTheme(getTheme);
     }
   }, []);
+
+  useEffect(() => {
+    if (!isMobile) {
+      dispatch({
+        type: 'TOGGLE_NAVBAR',
+        navbar: true
+      });
+    }
+  }, [isMobile]);
 
   const handleClick = (isChecked) => {
     const targetTheme = isChecked ? 'dark' : 'light';
@@ -73,7 +81,7 @@ export default function Navbar({ containerClassName, isMobile }) {
           </div>
           {!isMobile && (
             <span className={s.hideNav} onClick={handleNavbar} aria-hidden>
-              <Icon icon="hide-sidebar" />
+              <Icon icon="hide-sidebar" className={s.hideNavIcon} />
               Hide Sidebar
             </span>
           )}

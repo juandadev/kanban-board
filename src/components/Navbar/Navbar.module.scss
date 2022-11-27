@@ -23,7 +23,7 @@
     box-shadow: none;
     display: flex;
     justify-content: space-between;
-    padding: 3.2rem 1.2rem 4.7rem 1.3rem;
+    padding: 3.2rem 1.2rem 3.2rem 1.3rem;
     border-right: 1px solid var(--lines);
     border-radius: 0;
   }
@@ -86,6 +86,7 @@
 
       @media (min-width: 768px) {
         padding-left: 1.1rem;
+        cursor: pointer;
       }
 
       @media (min-width: 992px) {
@@ -105,6 +106,38 @@
           }
         }
       }
+
+      &:hover {
+        @media (min-width: 992px) {
+          color: var(--main-purple);
+        }
+
+        &>.boardIcon {
+          path {
+            @media (min-width: 992px) {
+              fill: var(--main-purple);
+            }
+          }
+        }
+
+        &::after {
+          @media (min-width: 992px) {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -2.4rem;
+            width: 24rem;
+            height: 4.8rem;
+            background-color: var(--hover-state);
+            border-radius: 0 10rem 10rem 0;
+            z-index: -1;
+          }
+
+          @media (min-width: 992px) {
+            left: -3.2rem;
+          }
+        }
+      }
       
       &.selected {
         color: var(--white);
@@ -119,10 +152,15 @@
           background-color: var(--main-purple);
           border-radius: 0 10rem 10rem 0;
           z-index: -1;
+          transition: background 0.3s ease-in-out;
 
           @media (min-width: 992px) {
             left: -3.2rem;
           }
+        }
+
+        &:hover::after {
+          background-color: var(--hover-purple-2);
         }
 
         &>.boardIcon {
@@ -138,7 +176,7 @@
 .footerNav {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 0.8rem;
 }
 
 .themeSwitcher {
@@ -154,12 +192,42 @@
 }
 
 .hideNav {
-  margin-left: 1.1rem;
+  position: relative;
+  padding: 1.4rem 1.4rem 1.5rem 1.1rem;
   display: flex;
   align-items: center;
   gap: 1rem;
   color: var(--secondary-text);
   cursor: pointer;
+
+  &:hover {
+    @media (min-width: 992px) {
+      color: var(--main-purple);
+    }
+
+    &>.hideNavIcon {
+      path {
+        @media (min-width: 992px) {
+          fill: var(--main-purple);  
+        }
+      }
+    }
+
+    &::after {
+      @media (min-width: 992px) {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -2.4rem;
+        width: 103%;
+        height: 4.8rem;
+        background-color: var(--hover-state);
+        border-radius: 0 10rem 10rem 0;
+        z-index: -1;
+        transition: background 0.3s ease-in-out;
+      }
+    }
+  }
 }
 
 .showNav {
@@ -177,15 +245,16 @@
   cursor: pointer;
   transition: background 0.3s ease-in-out;
   z-index: 1;
-
+  
   &:hover {
-    background-color: var(--hover-purple);
+    background-color: var(--hover-purple-2);
   }
 }
 
 .overlay {
   position: fixed;
   top: 6.4rem;
+  left: 0;
   width: 100%;
   height: 100vh;
   background-color: #000000;
