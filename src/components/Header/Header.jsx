@@ -20,7 +20,8 @@ function Header({ containerClassName, isMobile }) {
   };
 
   return (
-    <header className={`${s.container} ${containerClassName}`}>
+    <header
+      className={`${s.container} ${containerClassName} ${!isNavbarOpen && s.containerPaddingOpen}`}>
       <span className={s.title} onClick={handleClick} aria-hidden>
         <Icon icon="logo-mobile" className={s.logo} />
         Platform Launch
