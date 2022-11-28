@@ -1,4 +1,8 @@
 .container {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 2rem;
   grid-area: content;
   padding: 2.3rem 1.6rem;
 }
