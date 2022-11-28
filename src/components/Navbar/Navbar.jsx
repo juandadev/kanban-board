@@ -45,14 +45,16 @@ export default function Navbar({ containerClassName, isMobile }) {
 
   return (
     <>
+      {!isMobile && (
+        <div className={`${s.logoContainer} ${!isNavbarOpen && s.logoClose}`}>
+          <Icon icon={isLightTheme ? 'logo-dark' : 'logo-light'} className={s.logo} />
+        </div>
+      )}
       <nav
         className={`${isNavbarOpen ? s.modalShow : s.modalClose} ${
           s.container
         } ${containerClassName} ${isNavbarOpen ? s.showAnimation : s.hideAnimation}`}>
         <div className={s.boardContainer}>
-          {!isMobile && (
-            <Icon icon={isLightTheme ? 'logo-dark' : 'logo-light'} className={s.logo} />
-          )}
           <span className={s.title}>All Boards (3)</span>
           <ul className={s.boardList}>
             <li className={`${s.boardListItem} ${s.selected}`}>
