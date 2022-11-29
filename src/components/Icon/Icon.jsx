@@ -12,7 +12,9 @@ import {
   DarkTheme,
   Board,
   HideSidebar,
-  ShowSidebar
+  ShowSidebar,
+  Cross,
+  Check
 } from '../../assets/icons';
 
 const svgList = {
@@ -27,6 +29,8 @@ const svgList = {
   'hide-sidebar': HideSidebar,
   'show-sidebar': ShowSidebar,
   'logo-dark': LogoDark,
+  cross: Cross,
+  check: Check,
   board: Board
 };
 

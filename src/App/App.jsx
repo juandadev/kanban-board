@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import Button from '../components/Button/Button';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
+import Subtask from '../components/Subtask/Subtask';
 import { context } from '../context';
 import s from './App.module.scss';
 
@@ -30,6 +31,7 @@ function App() {
           <Button type="primary" size="large" fluid>
             Button Fluid (L)
           </Button>
+          <Subtask>Some subtask here</Subtask>
         </main>
       </div>
     </div>
