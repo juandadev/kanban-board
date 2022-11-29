@@ -3,6 +3,7 @@ import Button from '../components/Button/Button';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import Subtask from '../components/Subtask/Subtask';
+import TextField from '../components/TextField/TextField';
 import { context } from '../context';
 import s from './App.module.scss';
 
@@ -32,6 +33,8 @@ function App() {
             Button Fluid (L)
           </Button>
           <Subtask>Some subtask here</Subtask>
+          <TextField placeholder="Enter task name" label="Text Field" value="Bar" />
+          <TextField placeholder="Enter task name" label="Text Field (Error)" error />
         </main>
       </div>
     </div>

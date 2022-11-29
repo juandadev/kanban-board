@@ -9,6 +9,7 @@
   --black: #000112;
   --lines-light: #E4EBFA;
   --lines-dark: #3E3F4E;
+  --input-border-color: rgba(130, 143, 163, 0.25);
 
   --main-purple: #635FC7;
   --hover-purple-1: rgba(98, 95, 199, 0.10);
@@ -55,6 +56,7 @@ body {
   --hover-state: var(--hover-purple-1);
   --secondary-btn: rgba(99, 95, 199, 0.1);
   --secondary-btn-hover: rgba(99, 95, 199, 0.25);
+  --label-color: var(--medium-grey);
   background-color: var(--container-1-color);
   color: var(--primary-text);
   transition: background 0.3s ease-in-out;
@@ -70,6 +72,7 @@ body {
   --hover-state: var(--white);
   --secondary-btn: var(--white);
   --secondary-btn-hover: var(--white);
+  --label-color: var(--white);
 }
 
 @media (min-width: 576px) {
