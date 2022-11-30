@@ -1,0 +1,71 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+}
+
+.label {
+  margin-bottom: 0.8rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+  color: var(--label-color);
+}
+
+.field {
+  position: relative;
+  width: 100%;
+  padding: 0.8rem 4.1rem 0.9rem 1.6rem;
+  border: 1px solid var(--input-border-color);
+  border-radius: 0.4rem;
+  user-select: none;
+  cursor: pointer;
+
+  span {
+    font-weight: 500;
+    font-size: 1.3rem;
+    line-height: 2.3rem;
+  }
+
+  .icon {
+    position: absolute;
+    bottom: 1.6rem;
+    right: 1.6rem;
+  }
+
+  &Active {
+    border-color: var(--main-purple);
+  }
+}
+
+.optionsContainer {
+  position: absolute;
+  top: 4.9rem;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 100%;
+  padding: 1.6rem;
+  background-color: var(--background-color);
+  border-radius: 0.8rem;
+  box-shadow: 0px 10px 20px rgba(54, 78, 126, 0.25);
+  user-select: none;
+  
+  &.optionsWithLabel {
+    top: 7.2rem;
+  }
+}
+
+.option {
+  color: var(--medium-grey);
+  font-weight: 500;
+  font-size: 1.3rem;
+  line-height: 2.3rem;
+  cursor: pointer;
+}
+
+.closed {
+  display: none;
+}

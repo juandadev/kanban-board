@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import Button from '../components/Button/Button';
+import Dropdown from '../components/Dropdown/Dropdown';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import Subtask from '../components/Subtask/Subtask';
@@ -35,6 +36,14 @@ function App() {
           <Subtask>Some subtask here</Subtask>
           <TextField placeholder="Enter task name" label="Text Field" value="Bar" />
           <TextField placeholder="Enter task name" label="Text Field (Error)" error />
+          <Dropdown
+            label="Dropdown"
+            options={[
+              { label: 'Todo', value: 'todo' },
+              { label: 'Doing', value: 'doing' },
+              { label: 'Done', value: 'done' }
+            ]}
+          />
         </main>
       </div>
     </div>
