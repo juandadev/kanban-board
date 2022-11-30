@@ -10,3 +10,5 @@ export { default as Board } from './Board';
 export { default as HideSidebar } from './HideSidebar';
 export { default as ShowSidebar } from './ShowSidebar';
 export { default as LogoDark } from './LogoDark';
+export { default as Check } from './Check';
+export { default as Cross } from './Cross';

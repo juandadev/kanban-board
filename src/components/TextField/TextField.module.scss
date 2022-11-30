@@ -1,0 +1,50 @@
+.container {
+  position: relative;
+  width: 100%;
+}
+
+.field {
+  width: 100%;
+  padding: 0.8rem 1.6rem 0.9rem 1.6rem;
+  background-color: transparent;
+  border: 1px solid var(--input-border-color);
+  border-radius: 0.4rem;
+  color: var(--primary-text);
+  font-weight: 500;
+  font-size: 1.3rem;
+  line-height: 2.3rem;
+
+  &::placeholder {
+    opacity: 0.25;
+  }
+
+  &.error {
+    padding-right: 12.9rem;
+  }
+}
+
+.label {
+  margin: 0;
+  margin-bottom: 0.8rem;
+  color: var(--label-color);
+  font-weight: 700;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+}
+
+.helperText {
+  position: absolute;
+  bottom: 0.9rem;
+  right: 1.6rem;
+  font-weight: 500;
+  font-size: 1.3rem;
+  line-height: 2.3rem;
+}
+
+.error {
+  border-color: var(--red);
+}
+
+.textError {
+  color: var(--red);
+}

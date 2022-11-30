@@ -1,0 +1,65 @@
+.container {
+  display: block;
+  position: relative;
+  padding: 1.2rem;
+  padding-left: 4.4rem;
+  background-color: var(--background-color);
+  font-weight: 700;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 0.4rem;
+  transition: background 0.3s ease-in-out;
+
+  &:hover {
+    background-color: var(--hover-purple-3);
+  }
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+
+    &:checked {
+      &~.icon {
+        display: block;
+      }
+
+      &~.checkmark {
+        background-color: var(--main-purple);
+        border-color: var(--main-purple);
+      }
+
+      &~.content {
+        opacity: 0.5;
+        text-decoration: line-through;
+      }
+    }
+  }
+}
+
+.checkmark {
+  position: absolute;
+  top: 1.2rem;
+  left: 1.2rem;
+  height: 1.6rem;
+  width: 1.6rem;
+  background: var(--container-1-color);
+  border: 1px solid var(--input-border-color);
+  border-radius: 0.2rem;
+  transition: background 0.3s ease-in-out;
+}
+
+.icon {
+  display: none;
+  position: absolute;
+  top: 1.7rem;
+  left: 1.5rem;
+}
+
+.content {
+  margin: 0;
+}

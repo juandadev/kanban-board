@@ -13,7 +13,7 @@ function App() {
       <div className={`container ${s.dashboard} ${!isNavbarOpen && s.hiddenNavbar}`}>
         <Header containerClassName={s.header} />
         <Navbar containerClassName={s.nav} />
-        <main className={s.container}>Something</main>
+        <main className={s.container} />
       </div>
     </div>
   );
