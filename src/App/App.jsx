@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import Header from '../components/Header';
+import Main from '../components/Main/Main';
 import Navbar from '../components/Navbar';
 import { context } from '../context';
 import s from './App.module.scss';
@@ -13,7 +14,7 @@ function App() {
       <div className={`container ${s.dashboard} ${!isNavbarOpen && s.hiddenNavbar}`}>
         <Header containerClassName={s.header} />
         <Navbar containerClassName={s.nav} />
-        <main className={s.container} />
+        <Main containerClassName={s.container} />
       </div>
     </div>
   );
