@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from 'react';
 import PropTypes from 'prop-types';
 
-const initialState = { theme: 'light', navbar: false, boards: [] };
+const initialState = { theme: 'light', navbar: false, boards: [], activeBoard: {} };
 const context = createContext(initialState);
 const { Provider } = context;
 
@@ -24,6 +24,12 @@ function ContextProvider({ children }) {
         return {
           ...reducerState,
           boards: action.boards
+        };
+
+      case 'SELECT_BOARD':
+        return {
+          ...reducerState,
+          activeBoard: action.activeBoard
         };
 
       default:

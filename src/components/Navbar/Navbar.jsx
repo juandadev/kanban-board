@@ -42,13 +42,29 @@ export default function Navbar({ containerClassName, isMobile, boards }) {
     });
   };
 
-  const renderBoardNames = () =>
-    boards.map((board) => (
-      <li key={`board-name-${board.toLowerCase()}`} className={`${s.boardListItem}`}>
+  const handleActiveBoard = (boardName) => {
+    const selectedBoard = state.boards.filter((board) => board.name === boardName);
+
+    dispatch({
+      type: 'SELECT_BOARD',
+      activeBoard: selectedBoard[0]
+    });
+  };
+
+  const renderBoardNames = () => {
+    const selectedBoard = state.activeBoard;
+
+    return boards.map((board) => (
+      <li
+        key={`board-name-${board.trim().toLowerCase()}`}
+        className={`${s.boardListItem} ${selectedBoard.name === board && s.selected}`}
+        onClick={() => handleActiveBoard(board)}
+        aria-hidden>
         <Icon icon="board" className={s.boardIcon} />
         <p>{board}</p>
       </li>
     ));
+  };
 
   return (
     <>
