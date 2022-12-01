@@ -22,7 +22,7 @@ export default function Button(props) {
 }
 
 Button.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   className: PropTypes.string,
   onClick: PropTypes.func,
   type: PropTypes.oneOf(['primary', 'secondary', 'danger']),
