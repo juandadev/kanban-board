@@ -1,22 +1,14 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { context } from '../../context';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import Icon from '../Icon/Icon';
 import s from './Navbar.module.scss';
 
-export default function Navbar({ containerClassName, isMobile }) {
-  const [defaultTheme, setDefaultTheme] = useState('light');
+export default function Navbar({ containerClassName, isMobile, boards }) {
   const { state, dispatch } = useContext(context);
   const isLightTheme = state.theme === 'light';
   const isNavbarOpen = state.navbar;
-
-  useEffect(() => {
-    if (localStorage.getItem('theme')) {
-      const getTheme = JSON.stringify(localStorage.getItem('theme'));
-      setDefaultTheme(getTheme);
-    }
-  }, []);
 
   useEffect(() => {
     if (!isMobile) {
@@ -27,13 +19,20 @@ export default function Navbar({ containerClassName, isMobile }) {
     }
   }, [isMobile]);
 
-  const handleClick = (isChecked) => {
+  const handleTheme = (isChecked) => {
     const targetTheme = isChecked ? 'dark' : 'light';
 
     dispatch({
       type: 'CHANGE_THEME',
       theme: targetTheme
     });
+
+    if (localStorage.getItem('theme')) {
+      localStorage.removeItem('theme');
+      localStorage.setItem('theme', targetTheme);
+    } else {
+      localStorage.setItem('theme', targetTheme);
+    }
   };
 
   const handleNavbar = () => {
@@ -42,6 +41,14 @@ export default function Navbar({ containerClassName, isMobile }) {
       navbar: !state.navbar
     });
   };
+
+  const renderBoardNames = () =>
+    boards.map((board) => (
+      <li key={`board-name-${board.toLowerCase()}`} className={`${s.boardListItem}`}>
+        <Icon icon="board" className={s.boardIcon} />
+        <p>{board}</p>
+      </li>
+    ));
 
   return (
     <>
@@ -57,18 +64,7 @@ export default function Navbar({ containerClassName, isMobile }) {
         <div className={s.boardContainer}>
           <span className={s.title}>All Boards (3)</span>
           <ul className={s.boardList}>
-            <li className={`${s.boardListItem} ${s.selected}`}>
-              <Icon icon="board" className={s.boardIcon} />
-              <p>Platform Launch</p>
-            </li>
-            <li className={`${s.boardListItem}`}>
-              <Icon icon="board" className={s.boardIcon} />
-              <p>Marketing Plan</p>
-            </li>
-            <li className={`${s.boardListItem}`}>
-              <Icon icon="board" className={s.boardIcon} />
-              <p>Roadmap</p>
-            </li>
+            {renderBoardNames()}
             <li className={`${s.boardListItem} ${s.create}`}>
               <Icon icon="board" className={s.boardIcon} />
               <p>+ Create New Board</p>
@@ -78,7 +74,7 @@ export default function Navbar({ containerClassName, isMobile }) {
         <div className={s.footerNav}>
           <div className={s.themeSwitcher}>
             <Icon icon="light-theme" />
-            <ToggleSwitch onClick={handleClick} defaultChecked={defaultTheme === 'dark'} />
+            <ToggleSwitch onClick={handleTheme} defaultChecked={state.theme === 'dark'} />
             <Icon icon="dark-theme" />
           </div>
           {!isMobile && (
@@ -104,10 +100,12 @@ export default function Navbar({ containerClassName, isMobile }) {
 
 Navbar.propTypes = {
   containerClassName: PropTypes.string,
-  isMobile: PropTypes.bool
+  isMobile: PropTypes.bool,
+  boards: PropTypes.arrayOf(PropTypes.string)
 };
 
 Navbar.defaultProps = {
   containerClassName: null,
-  isMobile: false
+  isMobile: false,
+  boards: []
 };
