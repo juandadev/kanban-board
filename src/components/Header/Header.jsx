@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Icon from '../Icon/Icon';
 import { context } from '../../context';
 import s from './Header.module.scss';
+import Button from '../Button/Button';
 
 function Header({ containerClassName, isMobile }) {
   const { state, dispatch } = useContext(context);
@@ -28,10 +29,10 @@ function Header({ containerClassName, isMobile }) {
         <Icon icon={isNavbarOpen ? 'chevron-up' : 'chevron-down'} className={s.chevron} />
       </span>
       <div className={s.actions}>
-        <button type="button" className={s.button}>
+        <Button type="primary" size="large">
           <Icon icon="add-task" className={s.addTaskIcon} />
           <span className={s.buttonText}>+ Add New Task</span>
-        </button>
+        </Button>
         <Icon icon="vertical-ellipsis" className={s.verticalEllipsisIcon} />
       </div>
     </header>
