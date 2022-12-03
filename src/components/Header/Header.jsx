@@ -5,7 +5,7 @@ import { context } from '../../context';
 import s from './Header.module.scss';
 import Button from '../Button/Button';
 
-function Header({ containerClassName, isMobile }) {
+function Header({ containerClassName, isMobile, activeBoardName }) {
   const { state, dispatch } = useContext(context);
   const isNavbarOpen = state.navbar;
 
@@ -25,7 +25,7 @@ function Header({ containerClassName, isMobile }) {
       className={`${s.container} ${containerClassName} ${!isNavbarOpen && s.containerPaddingOpen}`}>
       <span className={s.title} onClick={handleClick} aria-hidden>
         <Icon icon="logo-mobile" className={s.logo} />
-        Platform Launch
+        {activeBoardName}
         <Icon icon={isNavbarOpen ? 'chevron-up' : 'chevron-down'} className={s.chevron} />
       </span>
       <div className={s.actions}>
@@ -41,12 +41,14 @@ function Header({ containerClassName, isMobile }) {
 
 Header.propTypes = {
   containerClassName: PropTypes.string,
-  isMobile: PropTypes.bool
+  isMobile: PropTypes.bool,
+  activeBoardName: PropTypes.string
 };
 
 Header.defaultProps = {
   containerClassName: null,
-  isMobile: false
+  isMobile: false,
+  activeBoardName: ''
 };
 
 export default Header;

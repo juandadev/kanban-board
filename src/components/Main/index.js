@@ -7,7 +7,6 @@ function MainVM(props) {
   const [activeBoard, setActiveBoard] = useState({});
 
   useEffect(() => {
-    console.log('bar');
     setActiveBoard(state.activeBoard);
   }, [state]);
 

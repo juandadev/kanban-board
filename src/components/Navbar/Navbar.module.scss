@@ -188,10 +188,6 @@
           }
         }
 
-        &:hover::after {
-          background-color: var(--hover-purple-2);
-        }
-
         &>.boardIcon {
           path {
             fill: var(--white);
