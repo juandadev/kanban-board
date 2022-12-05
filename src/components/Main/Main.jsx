@@ -4,6 +4,15 @@ import Button from '../Button/Button';
 import s from './Main.module.scss';
 
 export default function Main({ containerClassName, activeBoard }) {
+  const { name, columns } = activeBoard;
+
+  const renderColumns = () =>
+    columns.map((column) => (
+      <div key={`${name.trim().toLowerCase()}-column-${column.name}`} className={s.column}>
+        <span className={s.columnTitle}>{column.name}</span>
+      </div>
+    ));
+
   return (
     <main className={`${s.container} ${containerClassName}`}>
       {Object.keys(activeBoard).length === 0 ? (
@@ -14,7 +23,7 @@ export default function Main({ containerClassName, activeBoard }) {
           </Button>
         </>
       ) : (
-        <h1>{activeBoard.name}</h1>
+        <>{renderColumns()}</>
       )}
     </main>
   );

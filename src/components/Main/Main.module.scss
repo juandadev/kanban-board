@@ -1,10 +1,8 @@
 .container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 3.2rem;
-  padding: 2.4rem;
+  flex-direction: row;
+  gap: 2.4rem;
+  padding: 2.4rem 1.6rem;
   background-color: var(--background-color);
   overflow: scroll;
   transition: background 0.3s ease-in-out;
@@ -16,4 +14,18 @@
   font-size: 1.8rem;
   line-height: 2.3rem;
   color: var(--label-color);
+}
+
+.column {
+  width: 28rem;
+  min-width: 28rem;
+
+  &Title {
+    color: var(--secondary-text);
+    font-weight: 700;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+    letter-spacing: 0.24rem;
+    text-transform: uppercase;
+  }
 }
