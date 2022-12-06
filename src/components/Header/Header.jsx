@@ -29,7 +29,7 @@ function Header({ containerClassName, isMobile, activeBoardName }) {
         <Icon icon={isNavbarOpen ? 'chevron-up' : 'chevron-down'} className={s.chevron} />
       </span>
       <div className={s.actions}>
-        <Button type="primary" size="large">
+        <Button type="primary" size="large" className={s.button}>
           <Icon icon="add-task" className={s.addTaskIcon} />
           <span className={s.buttonText}>+ Add New Task</span>
         </Button>
