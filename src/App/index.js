@@ -13,7 +13,13 @@ function AppVM(props) {
       }
     })
       .then((response) => response.json())
-      .then((jsonResponse) => dispatch({ type: 'INITIALIZE_BOARDS', boards: jsonResponse.boards }));
+      .then((jsonResponse) => {
+        dispatch({ type: 'INITIALIZE_BOARDS', boards: jsonResponse.boards });
+
+        if (jsonResponse.boards.length !== 0) {
+          dispatch({ type: 'SELECT_BOARD', activeBoard: jsonResponse.boards[0] });
+        }
+      });
 
   useEffect(() => {
     setBoards();

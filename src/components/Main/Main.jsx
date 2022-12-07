@@ -7,6 +7,7 @@ export default function Main({ containerClassName, activeBoard }) {
   const { name, columns } = activeBoard;
 
   const renderTasks = (tasks) => {
+    console.log('Render tasks');
     const subtaskList = tasks.map((task) => task.subtasks);
     const completedSubtasks = (index) =>
       subtaskList[index].filter((subtask) => subtask.isCompleted);
@@ -34,12 +35,12 @@ export default function Main({ containerClassName, activeBoard }) {
   return (
     <main className={`${s.container} ${containerClassName}`}>
       {Object.keys(activeBoard).length === 0 ? (
-        <>
+        <div className={s.emptyBoard}>
           <p className={s.text}>This board is empty. Create a new column to get started.</p>
           <Button type="primary" size="large">
             + Add New Column
           </Button>
-        </>
+        </div>
       ) : (
         <>{renderColumns()}</>
       )}

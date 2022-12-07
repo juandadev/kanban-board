@@ -8,7 +8,7 @@ function MainVM(props) {
 
   useEffect(() => {
     setActiveBoard(state.activeBoard);
-  }, [state]);
+  }, [state.activeBoard]);
 
   return <Main activeBoard={activeBoard} {...props} />;
 }
