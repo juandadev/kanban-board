@@ -9,7 +9,7 @@ function HeaderVM(props) {
 
   useEffect(() => {
     setActiveBoardName(state.activeBoard.name);
-  }, [state]);
+  }, [state.activeBoard.name]);
 
   return <Header activeBoardName={activeBoardName} {...props} />;
 }

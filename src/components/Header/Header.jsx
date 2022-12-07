@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../Icon/Icon';
 import { context } from '../../context';
-import s from './Header.module.scss';
 import Button from '../Button/Button';
+import s from './Header.module.scss';
 
-function Header({ containerClassName, isMobile, activeBoardName }) {
+const Header = ({ containerClassName, isMobile, activeBoardName }) => {
   const { state, dispatch } = useContext(context);
   const isNavbarOpen = state.navbar;
 
@@ -37,7 +37,7 @@ function Header({ containerClassName, isMobile, activeBoardName }) {
       </div>
     </header>
   );
-}
+};
 
 Header.propTypes = {
   containerClassName: PropTypes.string,
