@@ -10,12 +10,10 @@ const Header = ({ containerClassName, isMobile, activeBoardName }) => {
   const isNavbarOpen = state.navbar;
 
   const handleClick = () => {
-    const invertedValue = !isNavbarOpen;
-
-    if (isMobile) {
+    if (isMobile && !isNavbarOpen) {
       dispatch({
         type: 'TOGGLE_NAVBAR',
-        navbar: invertedValue
+        navbar: true
       });
     }
   };

@@ -1,14 +1,28 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { context } from '../../context';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import Icon from '../Icon/Icon';
 import s from './Navbar.module.scss';
+import useOnClickOutside from '../../hooks/useOnClickOutside';
 
 export default function Navbar({ containerClassName, isMobile, boards }) {
   const { state, dispatch } = useContext(context);
   const isLightTheme = state.theme === 'light';
   const isNavbarOpen = state.navbar;
+  const ref = useRef();
+
+  useOnClickOutside(
+    ref,
+    useCallback(() => {
+      if (isMobile) {
+        dispatch({
+          type: 'TOGGLE_NAVBAR',
+          navbar: false
+        });
+      }
+    }, [isMobile])
+  );
 
   useEffect(() => {
     if (!isMobile) {
@@ -36,9 +50,11 @@ export default function Navbar({ containerClassName, isMobile, boards }) {
   };
 
   const handleNavbar = () => {
+    const invertedValue = !state.navbar;
+
     dispatch({
       type: 'TOGGLE_NAVBAR',
-      navbar: !state.navbar
+      navbar: invertedValue
     });
   };
 
@@ -49,6 +65,13 @@ export default function Navbar({ containerClassName, isMobile, boards }) {
       type: 'SELECT_BOARD',
       activeBoard: selectedBoard[0]
     });
+
+    if (isMobile) {
+      dispatch({
+        type: 'TOGGLE_NAVBAR',
+        navbar: false
+      });
+    }
   };
 
   const renderBoardNames = () => {
@@ -74,6 +97,7 @@ export default function Navbar({ containerClassName, isMobile, boards }) {
         </div>
       )}
       <nav
+        ref={ref}
         className={`${isNavbarOpen ? s.modalShow : s.modalClose} ${
           s.container
         } ${containerClassName} ${isNavbarOpen ? s.showAnimation : s.hideAnimation}`}>
