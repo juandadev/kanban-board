@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import Button from '../Button/Button';
 import s from './Main.module.scss';
 
-export default function Main({ containerClassName, activeBoard }) {
+const Main = ({ containerClassName, activeBoard }) => {
   const { name, columns } = activeBoard;
 
   const renderTasks = (tasks) => {
-    console.log('Render tasks');
     const subtaskList = tasks.map((task) => task.subtasks);
     const completedSubtasks = (index) =>
       subtaskList[index].filter((subtask) => subtask.isCompleted);
@@ -46,7 +45,7 @@ export default function Main({ containerClassName, activeBoard }) {
       )}
     </main>
   );
-}
+};
 
 Main.propTypes = {
   containerClassName: PropTypes.string,
@@ -57,3 +56,5 @@ Main.defaultProps = {
   containerClassName: null,
   activeBoard: null
 };
+
+export default memo(Main);
