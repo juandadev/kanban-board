@@ -1,13 +1,21 @@
 .container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 3.2rem;
-  padding: 2.4rem;
+  flex-direction: row;
+  gap: 2.4rem;
+  padding: 2.4rem 1.6rem;
   background-color: var(--background-color);
   overflow: scroll;
   transition: background 0.3s ease-in-out;
+}
+
+.emptyBoard {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
 }
 
 .text {
@@ -15,5 +23,68 @@
   font-weight: 700;
   font-size: 1.8rem;
   line-height: 2.3rem;
+  text-align: center;
   color: var(--label-color);
+}
+
+.column {
+  width: 28rem;
+  min-width: 28rem;
+
+  &Title {
+    position: relative;
+    display: flex;
+    padding-left: 2.7rem;
+    margin-bottom: 2.4rem;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1.5rem;
+      height: 1.5rem;
+      background-color: var(--main-purple);
+      border-radius: 100%;
+    }
+  }
+}
+
+.title {
+  color: var(--secondary-text);
+  font-weight: 700;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+  letter-spacing: 0.24rem;
+  text-transform: uppercase;
+}
+
+.task {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 2.3rem 1.6rem;
+  background-color: var(--container-1-color);
+  box-shadow: 0px 4px 6px rgba(54, 78, 126, 0.101545);
+  border-radius: 0.8rem;
+
+  &Container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    overflow: hidden;
+  }
+
+  &Title {
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 1.9rem;
+  }
+
+  &Subtitle {
+    font-weight: 700;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+    color: var(--secondary-text);
+  }
 }

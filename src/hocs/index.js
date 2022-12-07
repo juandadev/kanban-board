@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 export default function withDimensions(Component) {
-  return function renderComponent(props) {
+  return function RenderComponent(props) {
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
     const updateWindowDimensions = () => {

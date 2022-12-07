@@ -7,7 +7,7 @@ export default function ToggleSwitch({ onClick, defaultChecked }) {
 
   useEffect(() => {
     setIsChecked(defaultChecked);
-  }, []);
+  }, [defaultChecked]);
 
   const handleChange = (event) => {
     setIsChecked(event.target.checked);
