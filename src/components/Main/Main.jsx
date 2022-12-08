@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import Button from '../Button/Button';
 import s from './Main.module.scss';
+import DetailsPopUp from '../DetailsPopUp/DetailsPopUp';
 
 const Main = ({ containerClassName, activeBoard }) => {
   const { name, columns } = activeBoard;
@@ -43,6 +44,7 @@ const Main = ({ containerClassName, activeBoard }) => {
       ) : (
         <>{renderColumns()}</>
       )}
+      <DetailsPopUp />
     </main>
   );
 };

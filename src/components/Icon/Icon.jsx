@@ -41,7 +41,22 @@ export default function Icon({ icon, className }) {
 }
 
 Icon.propTypes = {
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.oneOf([
+    'vertical-ellipsis',
+    'add-task',
+    'logo-mobile',
+    'chevron-up',
+    'chevron-down',
+    'logo-light',
+    'light-theme',
+    'dark-theme',
+    'hide-sidebar',
+    'show-sidebar',
+    'logo-dark',
+    'cross',
+    'check',
+    'board'
+  ]).isRequired,
   className: PropTypes.string
 };
 

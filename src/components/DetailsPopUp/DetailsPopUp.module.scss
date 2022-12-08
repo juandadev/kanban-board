@@ -1,0 +1,72 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000000;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto 1.6rem;
+  height: fit-content;
+  padding: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  background-color: var(--container-1-color);
+  border-radius: 0.6rem;
+  z-index: 2;
+
+  &Info {
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+  }
+
+  &Title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &Text {
+      width: 27.4rem;
+      font-weight: 700;
+      font-size: 1.8rem;
+      line-height: 2.3rem;
+    }
+  }
+
+  &Label {
+    color: var(--secondary-text);
+    font-weight: 700;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+  }
+
+  &Description {
+    color: var(--secondary-text);
+    font-weight: 500;
+    font-size: 1.3rem;
+    line-height: 2.3rem;
+  }
+
+  &Subtasks {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+}
+
+.subtaskContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}

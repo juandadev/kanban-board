@@ -4,12 +4,12 @@ import s from './Subtask.module.scss';
 import Icon from '../Icon/Icon';
 
 export default function Subtask(props) {
-  const { containerClassName, checkboxClassName, contentClassName, children } = props;
+  const { id, containerClassName, checkboxClassName, contentClassName, children } = props;
 
   return (
     <div>
-      <label className={`${s.container} ${containerClassName}`} htmlFor="subtask">
-        <input id="subtask" type="checkbox" />
+      <label className={`${s.container} ${containerClassName}`} htmlFor={`subtask-${id}`}>
+        <input id={`subtask-${id}`} type="checkbox" />
         <p className={`${s.content} ${contentClassName}`}>{children}</p>
         <span className={`${s.checkmark} ${checkboxClassName}`} />
         <Icon icon="check" className={s.icon} />
@@ -19,6 +19,7 @@ export default function Subtask(props) {
 }
 
 Subtask.propTypes = {
+  id: PropTypes.number.isRequired,
   containerClassName: PropTypes.string,
   checkboxClassName: PropTypes.string,
   contentClassName: PropTypes.string,
