@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { context } from '../../context';
+import types from '../../context/types';
 import withDimensions from '../../hocs';
 import Navbar from './Navbar';
 
@@ -12,7 +13,7 @@ function NavbarVM(props) {
       const getTheme = localStorage.getItem('theme');
 
       dispatch({
-        type: 'CHANGE_THEME',
+        type: types.CHANGE_THEME,
         theme: getTheme
       });
     }

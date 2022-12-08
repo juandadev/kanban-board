@@ -21,7 +21,7 @@ const AppVM = (props) => {
             dispatch({ type: 'SELECT_BOARD', activeBoard: jsonResponse.boards[0] });
           }
         }),
-    [dispatch]
+    []
   );
 
   useEffect(() => {

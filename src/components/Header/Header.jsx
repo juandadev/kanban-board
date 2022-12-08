@@ -1,20 +1,29 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../Icon/Icon';
 import { context } from '../../context';
+import types from '../../context/types';
 import Button from '../Button/Button';
 import s from './Header.module.scss';
 
 const Header = ({ containerClassName, isMobile, activeBoardName }) => {
   const { state, dispatch } = useContext(context);
   const isNavbarOpen = state.navbar;
+  const ref = useRef();
+
+  useEffect(() => {
+    dispatch({
+      type: types.SET_REF,
+      headerRef: ref
+    });
+  }, []);
 
   const handleClick = () => {
-    const invertedValue = !isNavbarOpen;
+    const invertedValue = !state.navbar;
 
     if (isMobile) {
       dispatch({
-        type: 'TOGGLE_NAVBAR',
+        type: types.TOGGLE_NAVBAR,
         navbar: invertedValue
       });
     }
@@ -23,7 +32,7 @@ const Header = ({ containerClassName, isMobile, activeBoardName }) => {
   return (
     <header
       className={`${s.container} ${containerClassName} ${!isNavbarOpen && s.containerPaddingOpen}`}>
-      <span className={s.title} onClick={handleClick} aria-hidden>
+      <span className={s.title} onClick={handleClick} ref={ref} aria-hidden>
         <Icon icon="logo-mobile" className={s.logo} />
         {activeBoardName}
         <Icon icon={isNavbarOpen ? 'chevron-up' : 'chevron-down'} className={s.chevron} />

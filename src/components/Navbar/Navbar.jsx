@@ -1,19 +1,35 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { context } from '../../context';
+import types from '../../context/types';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import Icon from '../Icon/Icon';
+import useOnClickOutside from '../../hooks/useOnClickOutside';
 import s from './Navbar.module.scss';
 
 export default function Navbar({ containerClassName, isMobile, boards }) {
   const { state, dispatch } = useContext(context);
   const isLightTheme = state.theme === 'light';
   const isNavbarOpen = state.navbar;
+  const ref = useRef();
+
+  useOnClickOutside(
+    [ref, state.headerRef],
+    useCallback(() => {
+      if (isMobile) {
+        dispatch({
+          type: types.TOGGLE_NAVBAR,
+          navbar: false
+        });
+      }
+    }, [isMobile]),
+    { isMobile, disableOnDesktop: true }
+  );
 
   useEffect(() => {
     if (!isMobile) {
       dispatch({
-        type: 'TOGGLE_NAVBAR',
+        type: types.TOGGLE_NAVBAR,
         navbar: true
       });
     }
@@ -23,7 +39,7 @@ export default function Navbar({ containerClassName, isMobile, boards }) {
     const targetTheme = isChecked ? 'dark' : 'light';
 
     dispatch({
-      type: 'CHANGE_THEME',
+      type: types.CHANGE_THEME,
       theme: targetTheme
     });
 
@@ -36,9 +52,11 @@ export default function Navbar({ containerClassName, isMobile, boards }) {
   };
 
   const handleNavbar = () => {
+    const invertedValue = !state.navbar;
+
     dispatch({
-      type: 'TOGGLE_NAVBAR',
-      navbar: !state.navbar
+      type: types.TOGGLE_NAVBAR,
+      navbar: invertedValue
     });
   };
 
@@ -46,9 +64,16 @@ export default function Navbar({ containerClassName, isMobile, boards }) {
     const selectedBoard = state.boards.filter((board) => board.name === boardName);
 
     dispatch({
-      type: 'SELECT_BOARD',
+      type: types.SELECT_BOARD,
       activeBoard: selectedBoard[0]
     });
+
+    if (isMobile) {
+      dispatch({
+        type: types.TOGGLE_NAVBAR,
+        navbar: false
+      });
+    }
   };
 
   const renderBoardNames = () => {
@@ -74,6 +99,7 @@ export default function Navbar({ containerClassName, isMobile, boards }) {
         </div>
       )}
       <nav
+        ref={ref}
         className={`${isNavbarOpen ? s.modalShow : s.modalClose} ${
           s.container
         } ${containerClassName} ${isNavbarOpen ? s.showAnimation : s.hideAnimation}`}>
