@@ -1,23 +1,32 @@
 import { useEffect } from 'react';
 
-const useOnClickOutside = (ref, callback) => {
+const useOnClickOutside = (refs, callback, { isMobile = false, disableOnDesktop = false }) => {
+  const undefinedRefs = refs.filter((ref) => !!ref?.current === false);
+  const listener = (event) => {
+    const matchRefs = refs.filter((ref) => ref?.current.contains(event.target));
+
+    if (undefinedRefs.length !== 0 || matchRefs.length === 1) {
+      return;
+    }
+
+    callback(event);
+  };
+
   useEffect(() => {
-    const listener = (event) => {
-      if (!ref.current || ref.current.contains(event.target)) {
-        return;
-      }
-
-      callback(event);
-    };
-
-    document.addEventListener('mousedown', listener);
-    document.addEventListener('touchstart', listener);
+    if (isMobile) {
+      document.addEventListener('touchstart', listener);
+    } else if (!disableOnDesktop) {
+      document.addEventListener('mousedown', listener);
+    }
 
     return () => {
-      document.removeEventListener('mousedown', listener);
-      document.removeEventListener('touchstart', listener);
+      if (isMobile) {
+        document.removeEventListener('touchstart', listener);
+      } else if (!disableOnDesktop) {
+        document.removeEventListener('mousedown', listener);
+      }
     };
-  }, [ref, callback]);
+  }, [refs, callback, isMobile]);
 };
 
 export default useOnClickOutside;

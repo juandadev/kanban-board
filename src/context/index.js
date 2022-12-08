@@ -1,7 +1,13 @@
 import React, { createContext, useReducer } from 'react';
 import PropTypes from 'prop-types';
 
-const initialState = { theme: 'light', navbar: false, boards: [], activeBoard: {} };
+const initialState = {
+  theme: 'light',
+  navbar: false,
+  boards: [],
+  activeBoard: {},
+  headerRef: null
+};
 const context = createContext(initialState);
 const { Provider } = context;
 
@@ -30,6 +36,12 @@ function ContextProvider({ children }) {
         return {
           ...reducerState,
           activeBoard: action.activeBoard
+        };
+
+      case 'SET_REF':
+        return {
+          ...reducerState,
+          headerRef: action.headerRef
         };
 
       default:
