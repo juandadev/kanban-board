@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 
-const useOnClickOutside = (refs, callback, { isMobile = false, disableOnDesktop = false }) => {
+const useOnClickOutside = (refs, callback, options = {}) => {
+  const { isMobile = false, disableOnDesktop = false } = options;
   const undefinedRefs = refs.filter((ref) => !!ref?.current === false);
+
   const listener = (event) => {
     const matchRefs = refs.filter((ref) => ref?.current.contains(event.target));
 
