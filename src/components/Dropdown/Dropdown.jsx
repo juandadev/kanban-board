@@ -18,7 +18,7 @@ export default function Dropdown(props) {
   const ref = useRef();
 
   useEffect(() => {
-    if (getDefaultOption.length !== 0) {
+    if (getDefaultOption && getDefaultOption.length !== 0) {
       setOptionSelected(getDefaultOption);
     }
   }, []);

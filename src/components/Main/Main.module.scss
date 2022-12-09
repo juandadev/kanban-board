@@ -8,6 +8,10 @@
   background-color: var(--background-color);
   overflow: scroll;
   transition: background 0.3s ease-in-out;
+
+  @media(min-width: 768px) {
+    min-height: unset;
+  }
 }
 
 .emptyBoard {
