@@ -1,13 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Dropdown from '../Dropdown/Dropdown';
 import Icon from '../Icon/Icon';
 import Modal from '../Modal/Modal';
 import Subtask from '../Subtask/Subtask';
 import s from './DetailsPopUp.module.scss';
 
-export default function DetailsPopUp() {
+export default function DetailsPopUp({ isModalOpen, onModalClose }) {
   return (
-    <Modal className={s.modal}>
+    <Modal isModalOpen={isModalOpen} onModalClose={onModalClose} className={s.modal}>
       <div className={s.modalInfo}>
         <span className={s.modalTitle}>
           <span className={s.modalTitleText}>
@@ -42,3 +43,8 @@ export default function DetailsPopUp() {
     </Modal>
   );
 }
+
+DetailsPopUp.propTypes = {
+  isModalOpen: PropTypes.bool.isRequired,
+  onModalClose: PropTypes.func.isRequired
+};
