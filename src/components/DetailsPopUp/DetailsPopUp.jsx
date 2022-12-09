@@ -6,49 +6,61 @@ import Modal from '../Modal/Modal';
 import Subtask from '../Subtask/Subtask';
 import s from './DetailsPopUp.module.scss';
 
-export default function DetailsPopUp({ isModalOpen, onModalClose }) {
-  return (
-    <Modal isModalOpen={isModalOpen} onModalClose={onModalClose} className={s.modal}>
-      <div className={s.modalInfo}>
-        <span className={s.modalTitle}>
-          <span className={s.modalTitleText}>
-            Research pricing points of various competitors and trial different business models
+export default function DetailsPopUp({ isModalOpen, onModalClose, task = {} }) {
+  if (Object.keys(task).length !== 0) {
+    const optionsObject = () =>
+      task.columnNames?.map((name) => ({ label: name, value: name.toLowerCase() })) || [];
+
+    const renderSubTasks = () =>
+      task.subtasks?.map((subtask, id) => (
+        <Subtask key={`subtask-${subtask.title}`} id={id} defaultChecked={subtask.isCompleted}>
+          {subtask.title}
+        </Subtask>
+      ));
+
+    const completedSubtasks = () => {
+      const completed = task.subtasks?.filter((subtask) => subtask.isCompleted) || [];
+
+      return completed?.length || 0;
+    };
+
+    return (
+      <Modal isModalOpen={isModalOpen} onModalClose={onModalClose} className={s.modal}>
+        <div className={s.modalInfo}>
+          <span className={s.modalTitle}>
+            <span className={s.modalTitleText}>{task.title}</span>
+            <Icon icon="vertical-ellipsis" className={s.modalTitleIcon} />
           </span>
-          <Icon icon="vertical-ellipsis" className={s.modalTitleIcon} />
-        </span>
-        <span className={s.modalDescription}>
-          We know what we&apos;re planning to build for version one. Now we need to finalise the
-          first pricing model we&apos;ll use. Keep iterating the subtasks until we have a coherent
-          proposition.
-        </span>
-      </div>
-      <div className={s.modalSubtasks}>
-        <span className={s.modalLabel}>Subtasks (2 of 3)</span>
-        <div className={s.subtaskContainer}>
-          <Subtask id={1}>Research competitor pricing and business models</Subtask>
-          <Subtask id={2}>Outline a business model that works for our solution</Subtask>
-          <Subtask id={3}>Surveying and testing</Subtask>
-          <Subtask id={4}>Surveying and testing</Subtask>
-          <Subtask id={5}>Surveying and testing</Subtask>
-          <Subtask id={6}>Surveying and testing</Subtask>
-          <Subtask id={7}>Surveying and testing</Subtask>
+          {task.description && <span className={s.modalDescription}>{task.description}</span>}
         </div>
-      </div>
-      <div className={s.modalStatus}>
-        <Dropdown
-          label="Current Status"
-          options={[
-            { label: 'Todo', value: 'todo' },
-            { label: 'Doing', value: 'doing' },
-            { label: 'Done', value: 'done' }
-          ]}
-        />
-      </div>
-    </Modal>
-  );
+        <div className={s.modalSubtasks}>
+          <span className={s.modalLabel}>
+            Subtasks ({`${completedSubtasks()} of ${task.subtasks?.length || 0}`})
+          </span>
+          <div className={s.subtaskContainer}>{renderSubTasks()}</div>
+        </div>
+        <div className={s.modalStatus}>
+          <Dropdown label="Current Status" options={optionsObject()} defaultOption={task.status} />
+        </div>
+      </Modal>
+    );
+  }
+
+  return null;
 }
 
 DetailsPopUp.propTypes = {
   isModalOpen: PropTypes.bool.isRequired,
-  onModalClose: PropTypes.func.isRequired
+  onModalClose: PropTypes.func.isRequired,
+  task: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+    status: PropTypes.string,
+    subtasks: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string,
+        isCompleted: PropTypes.bool
+      })
+    )
+  })
 };

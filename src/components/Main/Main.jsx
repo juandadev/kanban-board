@@ -1,19 +1,24 @@
 import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '../Button/Button';
-import s from './Main.module.scss';
 import DetailsPopUp from '../DetailsPopUp/DetailsPopUp';
+import s from './Main.module.scss';
 
 const Main = ({ containerClassName, activeBoard }) => {
   const { name, columns } = activeBoard;
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [activeTask, setActiveTask] = useState({});
 
-  const handleDetailsModal = () => {
+  const handleDetailsModal = (task, columnNames) => {
+    const newTaskObject = { ...task, columnNames };
+
     setIsDetailsModalOpen((state) => !state);
+    setActiveTask(newTaskObject);
   };
 
   const renderTasks = (tasks) => {
     const subtaskList = tasks.map((task) => task.subtasks);
+    const columnNames = columns.map((column) => column.name);
     const completedSubtasks = (index) =>
       subtaskList[index].filter((subtask) => subtask.isCompleted);
 
@@ -21,7 +26,7 @@ const Main = ({ containerClassName, activeBoard }) => {
       <div
         key={`${task.title.trim().toLowerCase()}`}
         className={s.task}
-        onClick={handleDetailsModal}
+        onClick={() => handleDetailsModal(task, columnNames)}
         aria-hidden>
         <span className={s.taskTitle}>{task.title}</span>
         <span className={s.taskSubtitle}>{`${completedSubtasks(index)?.length ?? '0'} of ${
@@ -53,7 +58,11 @@ const Main = ({ containerClassName, activeBoard }) => {
       ) : (
         <>{renderColumns()}</>
       )}
-      <DetailsPopUp isModalOpen={isDetailsModalOpen} onModalClose={handleDetailsModal} />
+      <DetailsPopUp
+        isModalOpen={isDetailsModalOpen}
+        onModalClose={handleDetailsModal}
+        task={activeTask}
+      />
     </main>
   );
 };

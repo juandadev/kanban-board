@@ -43,6 +43,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  height: 16.3rem;
+  height: fit-content;
+  max-height: 16.3rem;
   overflow-y:auto;
 }

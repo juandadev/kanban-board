@@ -1,14 +1,27 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../Icon/Icon';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
 import s from './Dropdown.module.scss';
 
 export default function Dropdown(props) {
-  const { label = null, options, onChange = null, containerClassName = '' } = props;
+  const {
+    label = null,
+    options,
+    onChange = null,
+    containerClassName = '',
+    defaultOption = ''
+  } = props;
   const [dropdownClosed, setDropdownClosed] = useState(true);
   const [optionSelected, setOptionSelected] = useState(options[0]);
+  const getDefaultOption = options.filter((option) => option.label === defaultOption)[0];
   const ref = useRef();
+
+  useEffect(() => {
+    if (getDefaultOption.length !== 0) {
+      setOptionSelected(getDefaultOption);
+    }
+  }, []);
 
   useOnClickOutside([ref], () => {
     setDropdownClosed(true);
@@ -72,5 +85,6 @@ Dropdown.propTypes = {
     })
   ).isRequired,
   onChange: PropTypes.func,
-  containerClassName: PropTypes.string
+  containerClassName: PropTypes.string,
+  defaultOption: PropTypes.string
 };
