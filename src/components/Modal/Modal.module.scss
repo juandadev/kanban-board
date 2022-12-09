@@ -7,6 +7,9 @@
   background: #000000;
   opacity: 0.5;
   z-index: 1;
+  animation-name: overlayOpen;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
 }
 
 .modal {
@@ -24,4 +27,37 @@
   background-color: var(--container-1-color);
   border-radius: 0.6rem;
   z-index: 2;
+  animation-name: modalOpen;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes overlayOpen {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes modalOpen {
+  0% {
+    opacity: 0;
+    transform: translateY(-4rem);
+    -webkit-transform: translateY(-4rem);
+    -moz-transform: translateY(-4rem);
+    -ms-transform: translateY(-4rem);
+    -o-transform: translateY(-4rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+  }
 }
