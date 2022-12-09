@@ -1,5 +1,5 @@
 .container {
-  position: fixed;
+  position: sticky;
   top: 8rem;
   left: 0;
   right: 0;
@@ -15,11 +15,11 @@
   transition: background 0.3s ease-in-out, border 0.3s ease-in-out;
   
   @media(min-width: 768px) {
-    position: relative;
     top: 0;
+    left: 0;
     margin: 0;
-    width: 100%;
-    min-width: 24.8rem;
+    width: 26.1rem;
+    height: 100vh;
     box-shadow: none;
     display: flex;
     justify-content: space-between;
@@ -29,6 +29,7 @@
   }
 
   @media (min-width: 992px) {
+    width: 30rem;
     padding-left: 2.4rem;
     padding-right: 2.5rem;
   }
@@ -41,7 +42,7 @@
       height: 8.1rem;
       padding-top: 3.2rem;
       padding-left: 2.6rem;
-      position: absolute;
+      position: fixed;
       z-index: 2;
     }
 
@@ -50,6 +51,8 @@
       height: 9.7rem;
       padding-left: 3.4rem;
     }
+
+    transition: all 0.3s ease-in-out;
   }
 
   &Close {
@@ -64,8 +67,6 @@
       padding-right: 3.2rem;
     }
   }
-
-  transition: width 0.5s ease-in-out;
 }
 
 .title {
@@ -256,7 +257,7 @@
 }
 
 .showNav {
-  position: absolute;
+  position: fixed;
   bottom: 3.2rem;
   left: 0;
   display: flex;
@@ -427,7 +428,7 @@
     -ms-transform: translateX(-30.4rem);
     -o-transform: translateX(-30.4rem);
   }
-
+  
   100% {
     transform: translateX(0);
     -webkit-transform: translateX(0);
@@ -439,6 +440,8 @@
 
 @keyframes hideAnimation {
   0% {
+    visibility: visible;
+    opacity: 1;
     transform: translateX(0);
     -webkit-transform: translateX(0);
     -moz-transform: translateX(0);
@@ -446,7 +449,13 @@
     -o-transform: translateX(0);
   }
 
+  99% {
+    visibility: visible;
+  }
+
   100% {
+    visibility: hidden;
+    opacity: 0;
     transform: translateX(-30.4rem);
     -webkit-transform: translateX(-30.4rem);
     -moz-transform: translateX(-30.4rem);
