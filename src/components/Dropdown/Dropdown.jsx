@@ -1,16 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import s from './Dropdown.module.scss';
 import Icon from '../Icon/Icon';
+import useOnClickOutside from '../../hooks/useOnClickOutside';
+import s from './Dropdown.module.scss';
 
 export default function Dropdown(props) {
-  const { label, options, onChange, containerClassName } = props;
+  const {
+    label = null,
+    options,
+    onChange = null,
+    containerClassName = '',
+    defaultOption = ''
+  } = props;
   const [dropdownClosed, setDropdownClosed] = useState(true);
-  const [optionSelected, setOptionSelected] = useState({ label: '', value: '' });
+  const [optionSelected, setOptionSelected] = useState(options[0]);
+  const getDefaultOption = options.filter((option) => option.label === defaultOption)[0];
+  const ref = useRef();
 
   useEffect(() => {
-    setOptionSelected(options[0]);
+    if (getDefaultOption && getDefaultOption.length !== 0) {
+      setOptionSelected(getDefaultOption);
+    }
   }, []);
+
+  useOnClickOutside([ref], () => {
+    setDropdownClosed(true);
+  });
 
   const handleClick = () => {
     setDropdownClosed((state) => !state);
@@ -38,7 +53,7 @@ export default function Dropdown(props) {
   };
 
   return (
-    <div className={`${s.container} ${containerClassName}`}>
+    <div ref={ref} className={`${s.container} ${containerClassName}`}>
       {label && label !== '' && (
         <span className={`${s.label}`}>
           <span>{label}</span>
@@ -70,11 +85,6 @@ Dropdown.propTypes = {
     })
   ).isRequired,
   onChange: PropTypes.func,
-  containerClassName: PropTypes.string
-};
-
-Dropdown.defaultProps = {
-  label: null,
-  onChange: null,
-  containerClassName: null
+  containerClassName: PropTypes.string,
+  defaultOption: PropTypes.string
 };

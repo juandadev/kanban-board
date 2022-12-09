@@ -7,7 +7,7 @@ import s from './App.module.scss';
 
 function App() {
   const { state } = useContext(context);
-  const isNavbarOpen = state.navbar;
+  const { isNavbarOpen } = state;
 
   return (
     <div className={`${state.theme === 'dark' && 'dark-theme'} app`}>

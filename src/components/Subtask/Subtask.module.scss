@@ -13,7 +13,9 @@
   transition: background 0.3s ease-in-out;
 
   &:hover {
-    background-color: var(--hover-purple-3);
+    @media (min-width: 768px) {
+      background-color: var(--hover-purple-3);
+    }
   }
 
   input {

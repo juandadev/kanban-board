@@ -21,6 +21,7 @@
     "react/jsx-filename-extension": ["off"],
     "react-hooks/rules-of-hooks": ["error"],
     "react-hooks/exhaustive-deps": ["warn"],
-    "react/function-component-definition": ["off"]
+    "react/function-component-definition": ["off"],
+    "react/require-default-props": ["off"]
   }
 }
