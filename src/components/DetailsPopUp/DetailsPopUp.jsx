@@ -28,6 +28,10 @@ export default function DetailsPopUp({ isModalOpen, onModalClose }) {
           <Subtask id={1}>Research competitor pricing and business models</Subtask>
           <Subtask id={2}>Outline a business model that works for our solution</Subtask>
           <Subtask id={3}>Surveying and testing</Subtask>
+          <Subtask id={4}>Surveying and testing</Subtask>
+          <Subtask id={5}>Surveying and testing</Subtask>
+          <Subtask id={6}>Surveying and testing</Subtask>
+          <Subtask id={7}>Surveying and testing</Subtask>
         </div>
       </div>
       <div className={s.modalStatus}>

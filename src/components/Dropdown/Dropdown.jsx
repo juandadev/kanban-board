@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../Icon/Icon';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
@@ -7,16 +7,12 @@ import s from './Dropdown.module.scss';
 export default function Dropdown(props) {
   const { label = null, options, onChange = null, containerClassName = '' } = props;
   const [dropdownClosed, setDropdownClosed] = useState(true);
-  const [optionSelected, setOptionSelected] = useState({ label: '', value: '' });
+  const [optionSelected, setOptionSelected] = useState(options[0]);
   const ref = useRef();
 
   useOnClickOutside([ref], () => {
     setDropdownClosed(true);
   });
-
-  useEffect(() => {
-    setOptionSelected(options[0]);
-  }, []);
 
   const handleClick = () => {
     setDropdownClosed((state) => !state);

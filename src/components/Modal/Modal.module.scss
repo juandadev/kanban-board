@@ -14,12 +14,12 @@
 
 .modal {
   position: fixed;
-  top: 0;
-  bottom: 0;
+  top: 8rem;
   left: 0;
   right: 0;
   margin: auto 1.6rem;
   height: fit-content;
+  max-height: 54rem;
   padding: 2.4rem;
   display: flex;
   flex-direction: column;
@@ -30,6 +30,14 @@
   animation-name: modalOpen;
   animation-duration: 0.5s;
   animation-fill-mode: forwards;
+
+  @media(min-width: 768px) {
+    top: 9.7rem;
+  }
+
+  @media(min-width: 992px) {
+    top: 11.3rem;
+  }
 }
 
 @keyframes overlayOpen {
