@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const initialState = {
   theme: 'light',
-  navbar: false,
+  isNavbarOpen: false,
   boards: [],
   activeBoard: {},
   headerRef: null
@@ -23,7 +23,7 @@ function ContextProvider({ children }) {
       case 'TOGGLE_NAVBAR':
         return {
           ...reducerState,
-          navbar: action.navbar
+          isNavbarOpen: action.isNavbarOpen
         };
 
       case 'INITIALIZE_BOARDS':

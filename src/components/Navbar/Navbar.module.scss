@@ -304,13 +304,7 @@
 }
 
 .overlayClose {
-  animation-name: overlayClose;
-  animation-duration: 0.5s;
-  animation-fill-mode: forwards;
-
-  @media (min-width: 768px) {
-    display: none;
-  }
+  display: none;
 }
 
 .modalShow {
@@ -326,13 +320,10 @@
 }
 
 .modalClose {
-  animation-name: modalClose;
-  animation-duration: 0.5s;
-  animation-fill-mode: forwards;
+  display: none;
 
   @media (min-width: 768px) {
-    animation: none;
-    -webkit-animation: none;
+    display: block;
   }
 }
 
@@ -362,18 +353,6 @@
   }
 }
 
-@keyframes overlayClose {
-  0% {
-    opacity: 0.5;
-    visibility: visible;
-  }
-
-  100% {
-    opacity: 0;
-    visibility: hidden;
-  }
-}
-
 @keyframes modalOpen {
   0% {
     opacity: 0;
@@ -391,32 +370,6 @@
     -moz-transform: translateY(0);
     -ms-transform: translateY(0);
     -o-transform: translateY(0);
-  }
-}
-
-@keyframes modalClose {
-  0% {
-    visibility: visible;
-    opacity: 1;
-    transform: translateY(0rem);
-    -webkit-transform: translateY(0rem);
-    -moz-transform: translateY(0rem);
-    -ms-transform: translateY(0rem);
-    -o-transform: translateY(0rem);
-  }
-
-  99% {
-    visibility: visible;
-  }
-
-  100% {
-    visibility: hidden;
-    opacity: 0;
-    transform: translateY(-4rem);
-    -webkit-transform: translateY(-4rem);
-    -moz-transform: translateY(-4rem);
-    -ms-transform: translateY(-4rem);
-    -o-transform: translateY(-4rem);
   }
 }
 

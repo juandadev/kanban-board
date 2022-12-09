@@ -8,7 +8,7 @@ import s from './Header.module.scss';
 
 const Header = ({ containerClassName, isMobile, activeBoardName }) => {
   const { state, dispatch } = useContext(context);
-  const isNavbarOpen = state.navbar;
+  const { isNavbarOpen } = state;
   const ref = useRef();
 
   useEffect(() => {
@@ -19,12 +19,12 @@ const Header = ({ containerClassName, isMobile, activeBoardName }) => {
   }, []);
 
   const handleClick = () => {
-    const invertedValue = !state.navbar;
+    const invertedValue = !state.isNavbarOpen;
 
     if (isMobile) {
       dispatch({
         type: types.TOGGLE_NAVBAR,
-        navbar: invertedValue
+        isNavbarOpen: invertedValue
       });
     }
   };
