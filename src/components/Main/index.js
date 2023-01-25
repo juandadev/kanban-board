@@ -4,11 +4,15 @@ import Main from './Main';
 
 function MainVM(props) {
   const { state } = useContext(boardsContext);
+  const { activeBoard: activeBoardIndex, boards } = state;
   const [activeBoard, setActiveBoard] = useState({});
 
   useEffect(() => {
-    setActiveBoard(state.activeBoard);
-  }, [state.activeBoard]);
+    if (state.boards.length !== 0) {
+      const getActiveBoard = boards.find((board) => board.id === activeBoardIndex);
+      setActiveBoard(getActiveBoard);
+    }
+  }, [activeBoardIndex]);
 
   return <Main activeBoard={activeBoard} {...props} />;
 }

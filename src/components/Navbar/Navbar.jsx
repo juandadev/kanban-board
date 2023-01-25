@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { context } from '../../context';
 import { boardsContext } from '../../context/boardContext';
 import types from '../../context/types';
@@ -7,7 +6,7 @@ import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import Icon from '../Icon/Icon';
 import s from './Navbar.module.scss';
 
-export default function Navbar({ containerClassName, isMobile, boards }) {
+export default function Navbar({ containerClassName = '', isMobile = false, boardNames = [] }) {
   const { state, dispatch } = useContext(context);
   const { state: boardState, dispatch: boardDispatch } = useContext(boardsContext);
   const isLightTheme = state.theme === 'light';
@@ -47,12 +46,10 @@ export default function Navbar({ containerClassName, isMobile, boards }) {
     });
   };
 
-  const handleActiveBoard = (boardName) => {
-    const selectedBoard = boardState.boards.filter((board) => board.name === boardName);
-
+  const handleActiveBoard = (boardId) => {
     boardDispatch({
       type: types.SELECT_BOARD,
-      activeBoard: selectedBoard[0]
+      activeBoard: boardId
     });
 
     if (isMobile) {
@@ -64,16 +61,16 @@ export default function Navbar({ containerClassName, isMobile, boards }) {
   };
 
   const renderBoardNames = () => {
-    const selectedBoard = boardState.activeBoard;
+    const { activeBoard } = boardState;
 
-    return boards.map((board) => (
+    return boardNames.map((board) => (
       <li
-        key={`board-name-${board.trim().toLowerCase()}`}
-        className={`${s.boardListItem} ${selectedBoard.name === board && s.selected}`}
-        onClick={() => handleActiveBoard(board)}
+        key={`board-name-${board.name.trim().toLowerCase()}`}
+        className={`${s.boardListItem} ${activeBoard === board.id && s.selected}`}
+        onClick={() => handleActiveBoard(board.id)}
         aria-hidden>
         <Icon icon="board" className={s.boardIcon} />
-        <p>{board}</p>
+        <p>{board.name}</p>
       </li>
     ));
   };
@@ -129,15 +126,3 @@ export default function Navbar({ containerClassName, isMobile, boards }) {
     </>
   );
 }
-
-Navbar.propTypes = {
-  containerClassName: PropTypes.string,
-  isMobile: PropTypes.bool,
-  boards: PropTypes.arrayOf(PropTypes.string)
-};
-
-Navbar.defaultProps = {
-  containerClassName: null,
-  isMobile: false,
-  boards: []
-};

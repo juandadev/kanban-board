@@ -1,9 +1,8 @@
 import React, { createContext, useReducer } from 'react';
-import PropTypes from 'prop-types';
 
 const initialState = {
   boards: [],
-  activeBoard: {}
+  activeBoard: 1
 };
 const boardsContext = createContext(initialState);
 const { Provider } = boardsContext;
@@ -23,6 +22,12 @@ function BoardsProvider({ children }) {
           activeBoard: action.activeBoard
         };
 
+      case 'TOGGLE_SUBTASK':
+        return {
+          ...reducerState,
+          boards: action.activeBoard
+        };
+
       default:
         return reducerState;
     }
@@ -30,9 +35,5 @@ function BoardsProvider({ children }) {
 
   return <Provider value={{ state, dispatch }}>{children}</Provider>;
 }
-
-BoardsProvider.propTypes = {
-  children: PropTypes.node.isRequired
-};
 
 export { boardsContext, BoardsProvider };

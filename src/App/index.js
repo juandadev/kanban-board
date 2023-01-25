@@ -17,9 +17,10 @@ const AppVM = (props) => {
         .then((jsonResponse) => {
           dispatch({ type: 'INITIALIZE_BOARDS', boards: jsonResponse.boards });
 
-          if (jsonResponse.boards.length !== 0) {
-            dispatch({ type: 'SELECT_BOARD', activeBoard: jsonResponse.boards[0] });
-          }
+          // TODO: Store board index in localStorage to remember the last board selected by the user and load it at the beginning
+          // if (jsonResponse.boards.length !== 0) {
+          //   dispatch({ type: 'SELECT_BOARD', activeBoard: 0 });
+          // }
         }),
     []
   );

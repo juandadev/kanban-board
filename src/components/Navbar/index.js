@@ -8,7 +8,7 @@ import Navbar from './Navbar';
 function NavbarVM(props) {
   const { state } = useContext(boardsContext);
   const { dispatch } = useContext(context);
-  const [boards, setBoards] = useState([]);
+  const [boardNames, setBoardNames] = useState([]);
 
   useEffect(() => {
     if (localStorage.getItem('theme')) {
@@ -22,12 +22,12 @@ function NavbarVM(props) {
   }, []);
 
   useEffect(() => {
-    const boardNames = state.boards.map((board) => board.name);
+    const getBoardNames = state.boards.map((board) => ({ id: board.id, name: board.name }));
 
-    setBoards(boardNames);
+    setBoardNames(getBoardNames);
   }, [state.boards]);
 
-  return <Navbar boards={boards} {...props} />;
+  return <Navbar boardNames={boardNames} {...props} />;
 }
 
 export default withDimensions(NavbarVM);

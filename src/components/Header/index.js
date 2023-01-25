@@ -5,11 +5,15 @@ import Header from './Header';
 
 function HeaderVM(props) {
   const { state } = useContext(boardsContext);
+  const { activeBoard, boards } = state;
   const [activeBoardName, setActiveBoardName] = useState('');
 
   useEffect(() => {
-    setActiveBoardName(state.activeBoard.name);
-  }, [state.activeBoard.name]);
+    if (boards.length !== 0) {
+      const findActiveBoardName = boards.find((board) => board.id === activeBoard);
+      setActiveBoardName(findActiveBoardName.name);
+    }
+  }, [boards, activeBoard]);
 
   return <Header activeBoardName={activeBoardName} {...props} />;
 }
