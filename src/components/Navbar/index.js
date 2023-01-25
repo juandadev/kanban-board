@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { context } from '../../context';
+import { boardsContext } from '../../context/boardContext';
 import types from '../../context/types';
 import withDimensions from '../../hocs';
 import Navbar from './Navbar';
 
 function NavbarVM(props) {
-  const { state, dispatch } = useContext(context);
+  const { state } = useContext(boardsContext);
+  const { dispatch } = useContext(context);
   const [boards, setBoards] = useState([]);
 
   useEffect(() => {
@@ -23,7 +25,7 @@ function NavbarVM(props) {
     const boardNames = state.boards.map((board) => board.name);
 
     setBoards(boardNames);
-  }, [state]);
+  }, [state.boards]);
 
   return <Navbar boards={boards} {...props} />;
 }

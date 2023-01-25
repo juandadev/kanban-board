@@ -1,9 +1,9 @@
 import React, { useCallback, useContext, useEffect } from 'react';
-import { context } from '../context';
+import { boardsContext } from '../context/boardContext';
 import App from './App';
 
 const AppVM = (props) => {
-  const { dispatch } = useContext(context);
+  const { dispatch } = useContext(boardsContext);
 
   const setBoards = useCallback(
     async () =>

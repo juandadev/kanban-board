@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { context } from '../../context';
+import { boardsContext } from '../../context/boardContext';
 import types from '../../context/types';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import Icon from '../Icon/Icon';
@@ -8,6 +9,7 @@ import s from './Navbar.module.scss';
 
 export default function Navbar({ containerClassName, isMobile, boards }) {
   const { state, dispatch } = useContext(context);
+  const { state: boardState, dispatch: boardDispatch } = useContext(boardsContext);
   const isLightTheme = state.theme === 'light';
   const { isNavbarOpen } = state;
 
@@ -46,9 +48,9 @@ export default function Navbar({ containerClassName, isMobile, boards }) {
   };
 
   const handleActiveBoard = (boardName) => {
-    const selectedBoard = state.boards.filter((board) => board.name === boardName);
+    const selectedBoard = boardState.boards.filter((board) => board.name === boardName);
 
-    dispatch({
+    boardDispatch({
       type: types.SELECT_BOARD,
       activeBoard: selectedBoard[0]
     });
@@ -62,7 +64,7 @@ export default function Navbar({ containerClassName, isMobile, boards }) {
   };
 
   const renderBoardNames = () => {
-    const selectedBoard = state.activeBoard;
+    const selectedBoard = boardState.activeBoard;
 
     return boards.map((board) => (
       <li

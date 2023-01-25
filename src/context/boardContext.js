@@ -2,32 +2,25 @@ import React, { createContext, useReducer } from 'react';
 import PropTypes from 'prop-types';
 
 const initialState = {
-  theme: 'light',
-  isNavbarOpen: false,
-  headerRef: null
+  boards: [],
+  activeBoard: {}
 };
-const context = createContext(initialState);
-const { Provider } = context;
+const boardsContext = createContext(initialState);
+const { Provider } = boardsContext;
 
-function ContextProvider({ children }) {
+function BoardsProvider({ children }) {
   const [state, dispatch] = useReducer((reducerState, action) => {
     switch (action.type) {
-      case 'CHANGE_THEME':
+      case 'INITIALIZE_BOARDS':
         return {
           ...reducerState,
-          theme: action.theme
+          boards: action.boards
         };
 
-      case 'TOGGLE_NAVBAR':
+      case 'SELECT_BOARD':
         return {
           ...reducerState,
-          isNavbarOpen: action.isNavbarOpen
-        };
-
-      case 'SET_REF':
-        return {
-          ...reducerState,
-          headerRef: action.headerRef
+          activeBoard: action.activeBoard
         };
 
       default:
@@ -38,8 +31,8 @@ function ContextProvider({ children }) {
   return <Provider value={{ state, dispatch }}>{children}</Provider>;
 }
 
-ContextProvider.propTypes = {
+BoardsProvider.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-export { context, ContextProvider };
+export { boardsContext, BoardsProvider };

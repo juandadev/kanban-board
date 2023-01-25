@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { context } from '../../context';
+import { boardsContext } from '../../context/boardContext';
 import Main from './Main';
 
 function MainVM(props) {
-  const { state } = useContext(context);
+  const { state } = useContext(boardsContext);
   const [activeBoard, setActiveBoard] = useState({});
 
   useEffect(() => {
