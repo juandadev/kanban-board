@@ -8,11 +8,11 @@ function MainVM(props) {
   const [activeBoard, setActiveBoard] = useState({});
 
   useEffect(() => {
-    if (state.boards.length !== 0) {
+    if (boards.length !== 0) {
       const getActiveBoard = boards.find((board) => board.id === activeBoardIndex);
       setActiveBoard(getActiveBoard);
     }
-  }, [activeBoardIndex]);
+  }, [activeBoardIndex, boards]);
 
   return <Main activeBoard={activeBoard} {...props} />;
 }

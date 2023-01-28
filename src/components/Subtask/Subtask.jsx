@@ -10,13 +10,19 @@ export default function Subtask(props) {
     checkboxClassName = '',
     contentClassName = '',
     children = '',
-    defaultChecked = false
+    defaultChecked = false,
+    onChange = () => {}
   } = props;
 
   return (
     <div>
       <label className={`${s.container} ${containerClassName}`} htmlFor={`subtask-${id}`}>
-        <input id={`subtask-${id}`} type="checkbox" defaultChecked={defaultChecked} />
+        <input
+          id={`subtask-${id}`}
+          type="checkbox"
+          defaultChecked={defaultChecked}
+          onChange={onChange}
+        />
         <p className={`${s.content} ${contentClassName}`}>{children}</p>
         <span className={`${s.checkmark} ${checkboxClassName}`} />
         <Icon icon="check" className={s.icon} />

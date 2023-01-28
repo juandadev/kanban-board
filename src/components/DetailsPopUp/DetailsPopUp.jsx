@@ -11,9 +11,19 @@ export default function DetailsPopUp({ isModalOpen, onModalClose, task = {} }) {
     const optionsObject = () =>
       task.columnNames?.map((name) => ({ label: name, value: name.toLowerCase() })) || [];
 
+    const handleSubtaskChange = (event) => {
+      const { target } = event;
+
+      console.log(target);
+    };
+
     const renderSubTasks = () =>
       task.subtasks?.map((subtask, id) => (
-        <Subtask key={`subtask-${subtask.title}`} id={id} defaultChecked={subtask.isCompleted}>
+        <Subtask
+          key={`subtask-${subtask.title}`}
+          id={id}
+          defaultChecked={subtask.isCompleted}
+          onChange={handleSubtaskChange}>
           {subtask.title}
         </Subtask>
       ));

@@ -24,8 +24,7 @@ function BoardsProvider({ children }) {
 
       case 'TOGGLE_SUBTASK':
         return {
-          ...reducerState,
-          boards: action.activeBoard
+          ...reducerState
         };
 
       default:
