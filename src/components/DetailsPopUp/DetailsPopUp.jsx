@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useEffect, useState } from 'react';
 import Dropdown from '../Dropdown/Dropdown';
 import Icon from '../Icon/Icon';
 import Modal from '../Modal/Modal';
@@ -10,6 +9,11 @@ import s from './DetailsPopUp.module.scss';
 
 export default function DetailsPopUp({ isModalOpen, onModalClose, task = {} }) {
   const { dispatch } = useContext(boardsContext);
+  const [subtasks, setSubtasks] = useState([]);
+
+  useEffect(() => {
+    setSubtasks(task.subtasks);
+  }, [task]);
 
   const optionsObject = () =>
     task.columnNames?.map((name) => ({ label: name, value: name.toLowerCase() })) || [];
@@ -17,16 +21,22 @@ export default function DetailsPopUp({ isModalOpen, onModalClose, task = {} }) {
   const handleSubtaskChange = (event) => {
     const { title } = event.target.dataset;
 
+    setSubtasks((state) =>
+      state.map((item) =>
+        item.title === title ? { ...item, isCompleted: !item.isCompleted } : item
+      )
+    );
+
     dispatch({
       type: types.TOGGLE_SUBTASK,
       idxColumn: task.idxColumn,
       idxTask: task.idxTask,
-      title
+      subtaskTitle: title
     });
   };
 
   const renderSubTasks = () =>
-    task.subtasks?.map((subtask, id) => (
+    subtasks?.map((subtask, id) => (
       <Subtask
         key={`subtask-${subtask.title}`}
         id={id}
@@ -38,9 +48,9 @@ export default function DetailsPopUp({ isModalOpen, onModalClose, task = {} }) {
     ));
 
   const completedSubtasks = () => {
-    const completed = task.subtasks?.filter((subtask) => subtask.isCompleted) || [];
+    const completed = subtasks?.filter((subtask) => subtask.isCompleted) || [];
 
-    return completed?.length || 0;
+    return completed.length;
   };
 
   return (
@@ -54,7 +64,7 @@ export default function DetailsPopUp({ isModalOpen, onModalClose, task = {} }) {
       </div>
       <div className={s.modalSubtasks}>
         <span className={s.modalLabel}>
-          Subtasks ({`${completedSubtasks()} of ${task.subtasks?.length || 0}`})
+          Subtasks ({`${completedSubtasks()} of ${subtasks?.length || 0}`})
         </span>
         <div className={s.subtaskContainer}>{renderSubTasks()}</div>
       </div>
@@ -64,19 +74,3 @@ export default function DetailsPopUp({ isModalOpen, onModalClose, task = {} }) {
     </Modal>
   );
 }
-
-DetailsPopUp.propTypes = {
-  isModalOpen: PropTypes.bool.isRequired,
-  onModalClose: PropTypes.func.isRequired,
-  task: PropTypes.shape({
-    title: PropTypes.string,
-    description: PropTypes.string,
-    status: PropTypes.string,
-    subtasks: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string,
-        isCompleted: PropTypes.bool
-      })
-    )
-  })
-};
