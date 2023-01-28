@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import s from './Subtask.module.scss';
 import Icon from '../Icon/Icon';
 
@@ -11,7 +10,8 @@ export default function Subtask(props) {
     contentClassName = '',
     children = '',
     defaultChecked = false,
-    onChange = () => {}
+    onChange = () => {},
+    ...passThroughProps
   } = props;
 
   return (
@@ -22,6 +22,7 @@ export default function Subtask(props) {
           type="checkbox"
           defaultChecked={defaultChecked}
           onChange={onChange}
+          {...passThroughProps}
         />
         <p className={`${s.content} ${contentClassName}`}>{children}</p>
         <span className={`${s.checkmark} ${checkboxClassName}`} />
@@ -30,12 +31,3 @@ export default function Subtask(props) {
     </div>
   );
 }
-
-Subtask.propTypes = {
-  id: PropTypes.number.isRequired,
-  containerClassName: PropTypes.string,
-  checkboxClassName: PropTypes.string,
-  contentClassName: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-  defaultChecked: PropTypes.bool
-};
