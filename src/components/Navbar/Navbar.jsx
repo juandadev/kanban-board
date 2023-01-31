@@ -61,16 +61,16 @@ export default function Navbar({ containerClassName = '', isMobile = false, boar
   };
 
   const renderBoardNames = () => {
-    const { activeBoard } = boardState;
+    const { activeBoardIdx } = boardState;
 
-    return boardNames.map((board) => (
+    return boardNames.map((board, index) => (
       <li
-        key={`board-name-${board.name.trim().toLowerCase()}`}
-        className={`${s.boardListItem} ${activeBoard === board.id && s.selected}`}
-        onClick={() => handleActiveBoard(board.id)}
+        key={`board-name-${board.trim().toLowerCase()}`}
+        className={`${s.boardListItem} ${index === activeBoardIdx && s.selected}`}
+        onClick={() => handleActiveBoard(index)}
         aria-hidden>
         <Icon icon="board" className={s.boardIcon} />
-        <p>{board.name}</p>
+        <p>{board}</p>
       </li>
     ));
   };

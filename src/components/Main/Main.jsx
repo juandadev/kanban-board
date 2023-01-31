@@ -1,10 +1,12 @@
-import React, { memo, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { memo, useContext, useState } from 'react';
 import Button from '../Button/Button';
 import DetailsPopUp from '../DetailsPopUp';
+import { boardsContext } from '../../context/boardContext';
 import s from './Main.module.scss';
 
-const Main = ({ containerClassName, activeBoard }) => {
+const Main = ({ containerClassName }) => {
+  const { state: boardsState } = useContext(boardsContext);
+  const { board: activeBoard } = boardsState;
   const { name, columns } = activeBoard;
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [activeTask, setActiveTask] = useState({});
@@ -65,16 +67,6 @@ const Main = ({ containerClassName, activeBoard }) => {
       />
     </main>
   );
-};
-
-Main.propTypes = {
-  containerClassName: PropTypes.string,
-  activeBoard: PropTypes.shape()
-};
-
-Main.defaultProps = {
-  containerClassName: null,
-  activeBoard: null
 };
 
 export default memo(Main);

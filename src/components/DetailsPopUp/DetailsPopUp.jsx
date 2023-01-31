@@ -35,6 +35,17 @@ export default function DetailsPopUp({ isModalOpen, onModalClose, task = {} }) {
     });
   };
 
+  const handleColumnChange = (event, input) => {
+    dispatch({
+      type: types.CHANGE_TASK_COLUMN,
+      task,
+      idxColumn: task.idxColumn,
+      idxTargetColumn: task.columnNames.indexOf(input.label),
+      columnName: task.status,
+      newColumnName: input.label
+    });
+  };
+
   const renderSubTasks = () =>
     subtasks?.map((subtask, id) => (
       <Subtask
@@ -69,7 +80,12 @@ export default function DetailsPopUp({ isModalOpen, onModalClose, task = {} }) {
         <div className={s.subtaskContainer}>{renderSubTasks()}</div>
       </div>
       <div className={s.modalStatus}>
-        <Dropdown label="Current Status" options={optionsObject()} defaultOption={task.status} />
+        <Dropdown
+          label="Current Status"
+          options={optionsObject()}
+          defaultOption={task.status}
+          onChange={handleColumnChange}
+        />
       </div>
     </Modal>
   );

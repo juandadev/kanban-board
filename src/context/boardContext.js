@@ -1,38 +1,40 @@
 import React, { createContext, useReducer } from 'react';
-import BoardManager from '../helpers/BoardManager';
 
 const initialState = {
-  boards: [],
-  activeBoard: 1
+  board: {},
+  boardNames: [],
+  activeBoardIdx: 0
 };
 const boardsContext = createContext(initialState);
 const { Provider } = boardsContext;
 
 function BoardsProvider({ children }) {
   const [state, dispatch] = useReducer((reducerState, action) => {
-    const boardManager = new BoardManager(reducerState, action);
-
     switch (action.type) {
-      case 'INITIALIZE_BOARDS':
+      case 'INITIALIZE_BOARD':
         return {
           ...reducerState,
-          boards: action.boards
+          board: action.board
+        };
+
+      case 'SET_BOARD_NAMES':
+        return {
+          ...reducerState,
+          boardNames: action.boardNames
         };
 
       case 'SELECT_BOARD':
         return {
           ...reducerState,
-          activeBoard: action.activeBoard
+          activeBoardIdx: action.activeBoard
         };
 
       case 'TOGGLE_SUBTASK': {
-        const newBoards = boardManager.editBoard('subtask');
-
-        return {
-          ...reducerState,
-          boards: newBoards
-        };
+        return { ...reducerState };
       }
+
+      case 'CHANGE_TASK_COLUMN':
+        return null;
 
       default:
         return reducerState;
