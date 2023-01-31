@@ -26,9 +26,6 @@ const AppVM = (props) => {
           });
 
           // TODO: Store board index in localStorage to remember the last board selected by the user and load it at the beginning
-          // if (jsonResponse.boards.length !== 0) {
-          //   dispatch({ type: 'SELECT_BOARD', activeBoard: 0 });
-          // }
         }),
     [state.activeBoardIdx]
   );

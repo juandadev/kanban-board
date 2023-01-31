@@ -2,6 +2,9 @@ import React, { createContext, useReducer } from 'react';
 
 const initialState = {
   board: {},
+  columns: [],
+  tasks: [],
+  subtasks: [],
   boardNames: [],
   activeBoardIdx: 0
 };
@@ -11,11 +14,26 @@ const { Provider } = boardsContext;
 function BoardsProvider({ children }) {
   const [state, dispatch] = useReducer((reducerState, action) => {
     switch (action.type) {
-      case 'INITIALIZE_BOARD':
+      case 'INITIALIZE_BOARD': {
+        const columns = action.board.columns.map((column) => column.name);
+        const tasks = action.board.columns.reduce(
+          (accumulator, current) => accumulator.concat(current.tasks),
+          []
+        );
+        // TODO: Remove subtasks array if it isn't being used
+        // const subtasks = tasks.reduce(
+        //   (accumulator, current) => accumulator.concat(current.subtasks),
+        //   []
+        // );
+
         return {
           ...reducerState,
-          board: action.board
+          board: action.board.name,
+          columns,
+          tasks
+          // subtasks
         };
+      }
 
       case 'SET_BOARD_NAMES':
         return {
