@@ -1,4 +1,4 @@
-import React, { memo, useContext, useState } from 'react';
+import React, { memo, useCallback, useContext, useState } from 'react';
 import DetailsPopUp from '../DetailsPopUp';
 import { boardsContext } from '../../context/boardContext';
 import s from './Main.module.scss';
@@ -19,38 +19,42 @@ const Main = ({ containerClassName = '', isLoading = true }) => {
     };
 
     const renderTasks = (idxColumn) => {
-      const subtaskList = tasks.map((task) => task.subtasks);
-      const completedSubtasks = (index) =>
-        subtaskList[index].filter((subtask) => subtask.isCompleted);
       const filteredTasks = tasks.filter((task) => task.status === columns[idxColumn]);
 
-      return filteredTasks.map((task, idxTask) => (
-        <div
-          key={`${task.title.trim().toLowerCase()}`}
-          className={s.task}
-          onClick={() => handleDetailsModal(task, columns, idxColumn, idxTask)}
-          aria-hidden>
-          <span className={s.taskTitle}>{task.title}</span>
-          <span className={s.taskSubtitle}>{`${completedSubtasks(idxTask)?.length ?? '0'} of ${
-            task.subtasks?.length ?? '0'
-          } subtasks`}</span>
-        </div>
-      ));
-    };
-
-    const renderColumns = () =>
-      columns.map((column, index) => {
-        const getColumnTasks = tasks.filter((task) => task.status === column);
+      return filteredTasks.map((task, idxTask) => {
+        const completedSubtasks = task.subtasks.filter((subtask) => subtask.isCompleted);
 
         return (
-          <div key={`${board.trim().toLowerCase()}-column-${column}`} className={s.column}>
-            <div className={s.columnTitle}>
-              <span className={s.title}>{`${column} (${getColumnTasks.length ?? '0'})`}</span>
-            </div>
-            <div className={s.taskContainer}>{tasks && renderTasks(index)}</div>
+          <div
+            key={`${task.title.trim().toLowerCase()}`}
+            className={s.task}
+            onClick={() => handleDetailsModal(task, columns, idxColumn, idxTask)}
+            aria-hidden>
+            <span className={s.taskTitle}>{task.title}</span>
+            <span className={s.taskSubtitle}>{`${completedSubtasks.length ?? '0'} of ${
+              task.subtasks?.length ?? '0'
+            } subtasks`}</span>
           </div>
         );
       });
+    };
+
+    const renderColumns = useCallback(
+      () =>
+        columns.map((column, index) => {
+          const getColumnTasks = tasks.filter((task) => task.status === column);
+
+          return (
+            <div key={`${board.trim().toLowerCase()}-column-${column}`} className={s.column}>
+              <div className={s.columnTitle}>
+                <span className={s.title}>{`${column} (${getColumnTasks.length ?? '0'})`}</span>
+              </div>
+              <div className={s.taskContainer}>{tasks && renderTasks(index)}</div>
+            </div>
+          );
+        }),
+      [tasks]
+    );
 
     return (
       <main className={`${s.container} ${containerClassName}`}>

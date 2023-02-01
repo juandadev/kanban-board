@@ -29,8 +29,7 @@ export default function DetailsPopUp({ isModalOpen, onModalClose, task = {} }) {
 
     dispatch({
       type: types.TOGGLE_SUBTASK,
-      idxColumn: task.idxColumn,
-      idxTask: task.idxTask,
+      taskTitle: task.title,
       subtaskTitle: title
     });
   };

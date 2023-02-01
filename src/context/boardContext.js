@@ -20,18 +20,12 @@ function BoardsProvider({ children }) {
           (accumulator, current) => accumulator.concat(current.tasks),
           []
         );
-        // TODO: Remove subtasks array if it isn't being used
-        // const subtasks = tasks.reduce(
-        //   (accumulator, current) => accumulator.concat(current.subtasks),
-        //   []
-        // );
 
         return {
           ...reducerState,
           board: action.board.name,
           columns,
           tasks
-          // subtasks
         };
       }
 
@@ -48,7 +42,19 @@ function BoardsProvider({ children }) {
         };
 
       case 'TOGGLE_SUBTASK': {
-        return { ...reducerState };
+        const { tasks } = reducerState;
+        const { taskTitle, subtaskTitle } = action;
+        const targetTask = tasks.filter((task) => task.title === taskTitle)[0];
+        const newSubtasks = targetTask.subtasks.map((subtask) =>
+          subtask.title === subtaskTitle
+            ? { ...subtask, isCompleted: !subtask.isCompleted }
+            : subtask
+        );
+        const newTasks = tasks.map((task) =>
+          task.title === targetTask.title ? { ...task, subtasks: newSubtasks } : task
+        );
+
+        return { ...reducerState, tasks: newTasks };
       }
 
       case 'CHANGE_TASK_COLUMN':
