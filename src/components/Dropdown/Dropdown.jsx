@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
 import Icon from '../Icon/Icon';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
 import s from './Dropdown.module.scss';
@@ -31,12 +30,12 @@ export default function Dropdown(props) {
     setDropdownClosed((state) => !state);
   };
 
-  const handleOption = (index) => {
+  const handleOption = (event, index) => {
     setOptionSelected(options[index]);
     setDropdownClosed(true);
 
     if (onChange && typeof onChange === 'function') {
-      onChange(options[index].value);
+      onChange(event, options[index]);
     }
   };
 
@@ -45,7 +44,7 @@ export default function Dropdown(props) {
       <span
         key={`option-${option.value}`}
         className={s.option}
-        onClick={() => handleOption(index)}
+        onClick={(event) => handleOption(event, index)}
         aria-hidden>
         {option.label}
       </span>
@@ -75,16 +74,3 @@ export default function Dropdown(props) {
     </div>
   );
 }
-
-Dropdown.propTypes = {
-  label: PropTypes.string,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.string,
-      value: PropTypes.string
-    })
-  ).isRequired,
-  onChange: PropTypes.func,
-  containerClassName: PropTypes.string,
-  defaultOption: PropTypes.string
-};

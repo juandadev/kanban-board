@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 const initialState = {
   theme: 'light',
   isNavbarOpen: false,
-  boards: [],
-  activeBoard: {},
   headerRef: null
 };
 const context = createContext(initialState);
@@ -24,18 +22,6 @@ function ContextProvider({ children }) {
         return {
           ...reducerState,
           isNavbarOpen: action.isNavbarOpen
-        };
-
-      case 'INITIALIZE_BOARDS':
-        return {
-          ...reducerState,
-          boards: action.boards
-        };
-
-      case 'SELECT_BOARD':
-        return {
-          ...reducerState,
-          activeBoard: action.activeBoard
         };
 
       case 'SET_REF':

@@ -1,11 +1,12 @@
 import React, { useCallback, useContext, useEffect } from 'react';
-import { context } from '../context';
+import { boardsContext } from '../context/boardContext';
+import types from '../context/types';
 import App from './App';
 
 const AppVM = (props) => {
-  const { dispatch } = useContext(context);
+  const { state, dispatch } = useContext(boardsContext);
 
-  const setBoards = useCallback(
+  const setBoard = useCallback(
     async () =>
       fetch('data.json', {
         headers: {
@@ -15,18 +16,23 @@ const AppVM = (props) => {
       })
         .then((response) => response.json())
         .then((jsonResponse) => {
-          dispatch({ type: 'INITIALIZE_BOARDS', boards: jsonResponse.boards });
+          dispatch({
+            type: types.INITIALIZE_BOARD,
+            board: jsonResponse.boards[state.activeBoardIdx]
+          });
+          dispatch({
+            type: types.SET_BOARD_NAMES,
+            boardNames: jsonResponse.boards.map((board) => board.name)
+          });
 
-          if (jsonResponse.boards.length !== 0) {
-            dispatch({ type: 'SELECT_BOARD', activeBoard: jsonResponse.boards[0] });
-          }
+          // TODO: Store board index in localStorage to remember the last board selected by the user and load it at the beginning
         }),
-    []
+    [state.activeBoardIdx]
   );
 
   useEffect(() => {
-    setBoards();
-  }, [setBoards]);
+    setBoard();
+  }, [state.activeBoardIdx]);
 
   return <App {...props} />;
 };

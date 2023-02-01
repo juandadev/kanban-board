@@ -1,12 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { context } from '../../context';
+import { boardsContext } from '../../context/boardContext';
 import types from '../../context/types';
 import withDimensions from '../../hocs';
 import Navbar from './Navbar';
 
 function NavbarVM(props) {
-  const { state, dispatch } = useContext(context);
-  const [boards, setBoards] = useState([]);
+  const { state } = useContext(boardsContext);
+  const { dispatch } = useContext(context);
 
   useEffect(() => {
     if (localStorage.getItem('theme')) {
@@ -19,13 +20,7 @@ function NavbarVM(props) {
     }
   }, []);
 
-  useEffect(() => {
-    const boardNames = state.boards.map((board) => board.name);
-
-    setBoards(boardNames);
-  }, [state]);
-
-  return <Navbar boards={boards} {...props} />;
+  return <Navbar boardNames={state.boardNames} {...props} />;
 }
 
 export default withDimensions(NavbarVM);

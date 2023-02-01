@@ -1,17 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { context } from '../../context';
+import React from 'react';
 import withDimensions from '../../hocs';
 import Header from './Header';
 
 function HeaderVM(props) {
-  const { state } = useContext(context);
-  const [activeBoardName, setActiveBoardName] = useState('');
-
-  useEffect(() => {
-    setActiveBoardName(state.activeBoard.name);
-  }, [state.activeBoard.name]);
-
-  return <Header activeBoardName={activeBoardName} {...props} />;
+  return <Header {...props} />;
 }
 
 export default withDimensions(HeaderVM);

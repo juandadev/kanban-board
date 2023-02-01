@@ -1,13 +1,14 @@
 import React, { useContext, useRef, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import Icon from '../Icon/Icon';
 import { context } from '../../context';
+import { boardsContext } from '../../context/boardContext';
 import types from '../../context/types';
 import Button from '../Button/Button';
 import s from './Header.module.scss';
 
-const Header = ({ containerClassName, isMobile, activeBoardName }) => {
+const Header = ({ containerClassName = '', isMobile = false }) => {
   const { state, dispatch } = useContext(context);
+  const { state: boardsState } = useContext(boardsContext);
   const { isNavbarOpen } = state;
   const ref = useRef();
 
@@ -34,7 +35,7 @@ const Header = ({ containerClassName, isMobile, activeBoardName }) => {
       className={`${s.container} ${containerClassName} ${!isNavbarOpen && s.containerPaddingOpen}`}>
       <span className={s.title} onClick={handleClick} ref={ref} aria-hidden>
         <Icon icon="logo-mobile" className={s.logo} />
-        {activeBoardName}
+        {boardsState.board}
         <Icon icon={isNavbarOpen ? 'chevron-up' : 'chevron-down'} className={s.chevron} />
       </span>
       <div className={s.actions}>
@@ -46,18 +47,6 @@ const Header = ({ containerClassName, isMobile, activeBoardName }) => {
       </div>
     </header>
   );
-};
-
-Header.propTypes = {
-  containerClassName: PropTypes.string,
-  isMobile: PropTypes.bool,
-  activeBoardName: PropTypes.string
-};
-
-Header.defaultProps = {
-  containerClassName: null,
-  isMobile: false,
-  activeBoardName: ''
 };
 
 export default Header;
