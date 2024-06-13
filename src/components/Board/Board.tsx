@@ -1,17 +1,12 @@
 "use client";
 
 import React from "react";
-import { Button } from "@/components/Button/Button";
-
 import styles from "./Board.module.css";
+import { Button } from "@/components/Button/Button";
 import { useActiveBoard } from "@/hooks/useActiveBoard";
 
 export function Board() {
-  const { board, columns, tasks, subtasks } = useActiveBoard();
-  console.log(board);
-  console.log(columns);
-  console.log(tasks);
-  console.log(subtasks);
+  const { board } = useActiveBoard();
 
   if (!board) {
     return (

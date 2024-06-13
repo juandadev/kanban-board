@@ -1,17 +1,12 @@
-"use client";
-
 import React from "react";
-import { Button } from "@/components/Button/Button";
-
 import styles from "./Navbar.module.css";
-import { useActiveBoard } from "@/hooks/useActiveBoard";
+import { Button } from "@/components/Button/Button";
+import { BoardName } from "@/components/Navbar/BoardName";
 
 export function Navbar() {
-  const { board } = useActiveBoard();
-
   return (
     <nav className={styles.container}>
-      <span>{board?.name || "Kanban Board"}</span>
+      <BoardName />
       <Button>New Board</Button>
       <Button>Options</Button>
     </nav>
