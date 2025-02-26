@@ -1,19 +1,19 @@
 import { Button } from "@/components/Button/Button";
 import styles from "./AddBoardColumns.module.css";
-import React, { useState } from "react";
+import React, { forwardRef, useImperativeHandle, useState } from "react";
 import { AddBoardItem } from "@/components/EditBoardModal/subcomponents/BoardColumns/AddBoardItem";
 import { useModal } from "@/context/modalContext";
 import { useBoardContext } from "@/context/boardContext";
 import { ColumnType } from "@/types/Boards";
 
-export function AddBoardColumns() {
+export const AddBoardColumns = forwardRef((props, ref) => {
   const [columns, setColumns] = useState<Omit<ColumnType, "boardId">[]>([]);
   const { closeModal } = useModal();
   const { dispatch } = useBoardContext();
 
   const handleModalClose = () => {
     dispatch({
-      type: "ADD_COLUMNS",
+      type: "UPDATE_COLUMNS",
       payload: { columns },
     });
     closeModal();
@@ -31,6 +31,10 @@ export function AddBoardColumns() {
     });
   };
 
+  useImperativeHandle(ref, () => ({
+    handleModalClose,
+  }));
+
   return (
     <div className={styles.container}>
       <span>Board Columns</span>
@@ -43,7 +47,6 @@ export function AddBoardColumns() {
         />
       ))}
       <Button onClick={handleAddColumn}>+ Add New Column</Button>
-      <Button onClick={handleModalClose}>Save Changes</Button>
     </div>
   );
-}
+});

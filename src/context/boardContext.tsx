@@ -15,12 +15,19 @@ type BoardStateType = {
   subtasks: SubtaskType[];
 };
 
-type BoardActionsType = {
-  type: "ADD_COLUMNS";
-  payload: {
-    columns: Omit<ColumnType, "boardId">[];
-  };
-};
+type BoardActionsType =
+  | {
+      type: "UPDATE_COLUMNS";
+      payload: {
+        columns: Omit<ColumnType, "boardId">[];
+      };
+    }
+  | {
+      type: "UPDATE_BOARD_NAME";
+      payload: {
+        name: string;
+      };
+    };
 
 const initialState: BoardStateType = {
   activeBoardId: 1,
@@ -40,7 +47,7 @@ const boardReducer = (
   action: BoardActionsType,
 ): BoardStateType => {
   switch (action.type) {
-    case "ADD_COLUMNS": {
+    case "UPDATE_COLUMNS": {
       const { columns } = action.payload;
 
       const assignColumnsToBoard: ColumnType[] = columns.map((column) => ({
@@ -53,6 +60,19 @@ const boardReducer = (
         columns: [...state.columns, ...assignColumnsToBoard],
       };
     }
+
+    case "UPDATE_BOARD_NAME":
+      return {
+        ...state,
+        boards: state.boards.map((board) => {
+          if (board.id !== state.activeBoardId) return board;
+
+          return {
+            ...board,
+            name: action.payload.name,
+          };
+        }),
+      };
 
     default:
       return state;
