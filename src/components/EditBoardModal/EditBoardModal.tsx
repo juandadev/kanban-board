@@ -1,16 +1,18 @@
-"use client";
-
 import { Modal } from "@/components/Modal/Modal";
-import { useModal } from "@/context/modalContext";
-import { Button } from "@/components/Button/Button";
+import styles from "./EditBoardModal.module.css";
+import { TextField } from "@/components/TextField/TextField";
+import { AddBoardColumns } from "@/components/EditBoardModal/subcomponents/BoardColumns/AddBoardColumns";
 
 export function EditBoardModal() {
-  const { closeModal } = useModal();
-
   return (
     <Modal type={"editBoard"}>
-      <h2>Edit Board</h2>
-      <Button onClick={closeModal}>Close</Button>
+      <div className={styles.modal_container}>
+        <h2>Edit Board</h2>
+        <div className={styles.form_container}>
+          <TextField label={"Board Name"} id={"board-name"} />
+        </div>
+        <AddBoardColumns />
+      </div>
     </Modal>
   );
 }
