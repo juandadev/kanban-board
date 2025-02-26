@@ -8,8 +8,14 @@ import { useModal } from "@/context/modalContext";
 import { EditBoardModal } from "@/components/EditBoardModal/EditBoardModal";
 
 export function Board() {
-  const { board } = useActiveBoard();
+  const { board, columns } = useActiveBoard();
   const { openModal } = useModal();
+
+  const renderColumns = columns.map((column) => (
+    <div key={column.id} className={styles.column}>
+      {column.name}
+    </div>
+  ));
 
   if (!board) {
     return (
@@ -29,8 +35,16 @@ export function Board() {
     <>
       <section className={styles.container}>
         <div className={styles.emptyColumn}>
-          <p>This board is empty. Create a new column to get started.</p>
-          <Button onClick={() => openModal("editBoard")}>Add new Column</Button>
+          {columns.length === 0 ? (
+            <>
+              <p>This board is empty. Create a new column to get started.</p>
+              <Button onClick={() => openModal("editBoard")}>
+                Add new Column
+              </Button>
+            </>
+          ) : (
+            renderColumns
+          )}
         </div>
       </section>
       <EditBoardModal />

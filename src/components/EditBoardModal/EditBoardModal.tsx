@@ -22,9 +22,7 @@ export function EditBoardModal() {
     setBoardName(e.target.value);
   };
 
-  const handleBoardSave: React.MouseEventHandler<HTMLButtonElement> = (
-    event,
-  ) => {
+  const handleBoardSave: React.MouseEventHandler<HTMLButtonElement> = () => {
     addBoardColumnsRef.current?.handleModalClose();
     dispatch({
       type: "UPDATE_BOARD_NAME",
