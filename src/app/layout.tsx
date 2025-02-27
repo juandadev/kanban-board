@@ -1,10 +1,14 @@
 import React from "react";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/app/providers";
 
-const inter = Inter({ subsets: ["latin"] });
+const plus_jakarta_sans = Plus_Jakarta_Sans({
+  weight: ["500", "700"],
+  subsets: ["latin"],
+  style: ["normal"],
+});
 
 export const metadata: Metadata = {
   title: "Kanban Board",
@@ -18,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={plus_jakarta_sans.className}>
         <Providers>{children}</Providers>
       </body>
     </html>
