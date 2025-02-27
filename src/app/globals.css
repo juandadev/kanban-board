@@ -1,5 +1,27 @@
 :root {
   --rem: 16;
+
+  /* COLORS */
+  --palette-black: #000112;
+  --palette-very-dark-black: #20212c;
+  --palette-dark-grey: #2b2c37;
+  --palette-dark-lines: #3e3f4e;
+  --palette-medium-grey: #828fa3;
+  --palette-light-lines: #e4ebfa;
+  --palette-light-grey: #f4f7fd;
+  --palette-white: #ffffff;
+  --palette-main-purple: #635fc7;
+  --palette-main-purple-hover: #a8a4ff;
+  --palette-red: #ea5555;
+  --palette-red-hover: #ff9898;
+
+  /* TYPOGRAPHY */
+  --font-heading-xl: 700 1.5rem / auto "Plus Jakarta Sans", sans-serif;
+  --font-heading-l: 700 1.125 / auto "Plus Jakarta Sans", sans-serif;
+  --font-heading-m: 700 0.9375rem / auto "Plus Jakarta Sans", sans-serif;
+  --font-heading-s: 700 0.75rem / auto "Plus Jakarta Sans", sans-serif;
+  --font-body-l: 500 0.8125rem / 1.7 "Plus Jakarta Sans", sans-serif;
+  --font-body-m: 500 0.75rem / auto "Plus Jakarta Sans", sans-serif;
 }
 
 * {
