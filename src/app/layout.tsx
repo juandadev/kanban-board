@@ -24,6 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={plus_jakarta_sans.className}>
         <Providers>{children}</Providers>
+        <div className="modal"></div>
       </body>
     </html>
   );
