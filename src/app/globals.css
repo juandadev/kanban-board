@@ -3,7 +3,7 @@
 
   /* COLORS */
   --palette-black: #000112;
-  --palette-very-dark-black: #20212c;
+  --palette-very-dark-grey: #20212c;
   --palette-dark-grey: #2b2c37;
   --palette-dark-lines: #3e3f4e;
   --palette-medium-grey: #828fa3;
@@ -22,6 +22,18 @@
   --font-heading-s: 700 0.75rem / auto "Plus Jakarta Sans", sans-serif;
   --font-body-l: 500 0.8125rem / 1.7 "Plus Jakarta Sans", sans-serif;
   --font-body-m: 500 0.75rem / auto "Plus Jakarta Sans", sans-serif;
+
+  /* LIGHT MODE */
+  --text-color: var(--palette-black);
+  --background-color-1: var(--palette-white);
+  --background-color-2: var(--palette-light-grey);
+}
+
+.dark {
+  /* DARK MODE */
+  --text-color: var(--palette-white);
+  --background-color-1: var(--palette-dark-grey);
+  --background-color-2: var(--palette-very-dark-grey);
 }
 
 * {
