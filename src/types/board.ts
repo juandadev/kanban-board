@@ -32,15 +32,15 @@ export interface ActiveBoard {
   name: string;
   user_id: string;
   work_schedule: WorkSchedule | null;
-  columns: Column[] & {
-    tasks: Task[] & {
+  columns: (Column & {
+    tasks: (Task & {
       subtasks: Subtask[];
-    };
-  };
+    })[];
+  })[];
   board_members: BoardMember[];
   invitations: Invitation[];
-  created_at: Date;
-  updated_at: Date;
+  created_at: Date | null;
+  updated_at: Date | null;
 }
 
 export interface Board {
@@ -126,7 +126,7 @@ export interface BoardsContextType {
 export type BoardsState = {
   boards: Board[];
   activeBoardId: string;
-  activeBoard: ActiveBoard | {};
+  activeBoard: ActiveBoard;
 };
 
 export type BoardsActions =

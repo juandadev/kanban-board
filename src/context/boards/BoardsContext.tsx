@@ -13,7 +13,17 @@ import { getBoards } from "@/services/boards";
 const initialState: BoardsState = {
   activeBoardId: "",
   boards: [],
-  activeBoard: {},
+  activeBoard: {
+    id: "",
+    name: "",
+    user_id: "",
+    work_schedule: null,
+    columns: [],
+    board_members: [],
+    invitations: [],
+    created_at: null,
+    updated_at: null,
+  },
 };
 
 const BoardsContext = createContext<BoardsContextType | null>(null);

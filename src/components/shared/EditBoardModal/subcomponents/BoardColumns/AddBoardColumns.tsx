@@ -20,15 +20,16 @@ const AddBoardColumns = forwardRef((props, ref) => {
   };
 
   const handleAddColumn = () => {
-    setColumns((prevState) => {
-      const columnId = prevState.length + 1;
-      const newColumnObj: Omit<Column, "boardId"> = {
-        id: columnId,
-        name: "",
-      };
-
-      return [...prevState, newColumnObj];
-    });
+    // TODO: Fix this
+    // setColumns((prevState) => {
+    //   const columnId = prevState.length + 1;
+    //   const newColumnObj: Omit<Column, "boardId"> = {
+    //     id: columnId.toString(),
+    //     name: "",
+    //   };
+    //
+    //   return [...prevState, newColumnObj];
+    // });
   };
 
   useImperativeHandle(ref, () => ({
