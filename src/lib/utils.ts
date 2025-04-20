@@ -3,8 +3,18 @@ import {
   columns as PrismaColumn,
   tasks as PrismaTask,
   subtasks as PrismaSubtask,
+  board_members as PrismaBoardMembers,
+  users as PrismaUsers,
 } from "@prisma/client";
-import { Board, Column, Subtask, Task, WorkSchedule } from "@/types";
+import {
+  Board,
+  BoardMember,
+  BoardMemberWithUser,
+  Column,
+  Subtask,
+  Task,
+  WorkSchedule,
+} from "@/types";
 
 export function castToBoard(prismaBoard: PrismaBoard): Board {
   return {
@@ -54,4 +64,26 @@ export function castToSubtask(subtask: PrismaSubtask): Subtask {
 
 export function castToSubtasks(subtasks: PrismaSubtask[]): Subtask[] {
   return subtasks.map(castToSubtask);
+}
+
+type PrismaBoardMembersWithUser = PrismaBoardMembers & {
+  users: Pick<PrismaUsers, "email" | "name">;
+};
+
+export function castToMember(member: PrismaBoardMembers): BoardMember {
+  return {
+    ...member,
+    created_at: member.created_at as Date,
+    updated_at: member.updated_at as Date,
+  };
+}
+
+export function castToMembers(
+  members: PrismaBoardMembersWithUser[],
+): BoardMemberWithUser[] {
+  return members.map((member) => ({
+    ...member,
+    created_at: member.created_at as Date,
+    updated_at: member.updated_at as Date,
+  }));
 }

@@ -68,6 +68,10 @@ export interface BoardMember {
   updated_at: Date;
 }
 
+export interface BoardMemberWithUser extends BoardMember {
+  users: Pick<User, "email" | "name">;
+}
+
 export interface Invitation {
   id: string;
   board_id: string;
