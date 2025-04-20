@@ -2,8 +2,9 @@ import {
   boards as PrismaBoard,
   columns as PrismaColumn,
   tasks as PrismaTask,
+  subtasks as PrismaSubtask,
 } from "@prisma/client";
-import { Board, Column, Task, WorkSchedule } from "@/types";
+import { Board, Column, Subtask, Task, WorkSchedule } from "@/types";
 
 export function castToBoard(prismaBoard: PrismaBoard): Board {
   return {
@@ -41,4 +42,16 @@ export function castToTask(task: PrismaTask): Task {
 
 export function castToTasks(tasks: PrismaTask[]): Task[] {
   return tasks.map(castToTask);
+}
+
+export function castToSubtask(subtask: PrismaSubtask): Subtask {
+  return {
+    ...subtask,
+    created_at: subtask.created_at as Date,
+    updated_at: subtask.updated_at as Date,
+  };
+}
+
+export function castToSubtasks(subtasks: PrismaSubtask[]): Subtask[] {
+  return subtasks.map(castToSubtask);
 }
