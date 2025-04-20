@@ -48,7 +48,7 @@ export async function POST(
   const { id: board_id } = await params;
   const { user_id, role } = await request.json();
 
-  const canEdit = hasPermission(prisma, session, board_id, "edit", "POST");
+  const canEdit = hasPermission(prisma, session, board_id, "admin", "POST");
 
   if (!canEdit) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
@@ -81,4 +81,53 @@ export async function POST(
   const typedMember = castToMember(member);
 
   return NextResponse.json(typedMember, { status: 201 });
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
+): Promise<NextResponse<BoardMember | RequestError>> {
+  const session = await getSession();
+
+  if (!session || !session.user?.id) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const { id: board_id } = await params;
+  const { user_id } = await request.json();
+
+  const canEdit = hasPermission(prisma, session, board_id, "admin", "DELETE");
+
+  if (!canEdit) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  if (!user_id) {
+    return NextResponse.json({ error: "Invalid input" }, { status: 400 });
+  }
+
+  const board = await prisma.boards.findUnique({
+    where: { id: board_id },
+    include: { board_members: { where: { user_id: session.user.id } } },
+  });
+
+  if (
+    !board ||
+    (board.user_id !== session.user.id &&
+      !board.board_members.some((m) => m.role === "admin"))
+  ) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const member = await prisma.board_members.delete({
+    where: {
+      board_id_user_id: {
+        board_id,
+        user_id,
+      },
+    },
+  });
+  const typedMember = castToMember(member);
+
+  return NextResponse.json(typedMember);
 }
