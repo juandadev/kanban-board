@@ -44,9 +44,5 @@ export async function hasPermission(
     // @ts-expect-error if role is admin it will return early
     permissionRules[role];
 
-  if (!rules.methods.includes(method)) {
-    return false;
-  }
-
-  return true;
+  return rules.methods.includes(method);
 }

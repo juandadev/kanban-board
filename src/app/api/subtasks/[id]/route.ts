@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-import { Invitation, Subtask } from "@/types/boards";
+import { Subtask } from "@/types/boards";
 import { RequestError } from "@/types/services";
 import { getSession } from "@/lib/auth";
 import { castToSubtask } from "@/lib/utils";
