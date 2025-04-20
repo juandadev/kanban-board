@@ -6,7 +6,7 @@ import { useModal } from "@/context/modalContext";
 import { useBoardContext } from "@/context/boardContext";
 import { Column } from "@/types";
 
-export const AddBoardColumns = forwardRef((props, ref) => {
+const AddBoardColumns = forwardRef((props, ref) => {
   const [columns, setColumns] = useState<Omit<Column, "boardId">[]>([]);
   const { closeModal } = useModal();
   const { dispatch } = useBoardContext();
@@ -50,3 +50,7 @@ export const AddBoardColumns = forwardRef((props, ref) => {
     </div>
   );
 });
+
+AddBoardColumns.displayName = "AddBoardColumns";
+
+export default AddBoardColumns;

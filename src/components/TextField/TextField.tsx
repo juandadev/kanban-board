@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./TextField.module.css";
 
 type TextFieldProps = React.ComponentProps<"input"> & {
+  id: string;
   label?: string;
 };
 

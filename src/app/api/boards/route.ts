@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession, Session } from "@/lib/auth";
 import { PrismaClient } from "@prisma/client";
-import { Board, WorkSchedule } from "@/types";
+import { Board } from "@/types";
 import { castToBoard, castToBoards } from "@/lib/utils";
 
 const prisma = new PrismaClient();

@@ -1,7 +1,7 @@
 import { Modal } from "@/components/Modal/Modal";
 import styles from "./EditBoardModal.module.css";
 import { TextField } from "@/components/TextField/TextField";
-import { AddBoardColumns } from "@/components/EditBoardModal/subcomponents/BoardColumns/AddBoardColumns";
+import AddBoardColumns from "@/components/EditBoardModal/subcomponents/BoardColumns/AddBoardColumns";
 import React, { MutableRefObject, useRef, useState } from "react";
 import { useActiveBoard } from "@/hooks/useActiveBoard";
 import { Button } from "@/components/Button/Button";
