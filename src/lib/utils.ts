@@ -5,12 +5,14 @@ import {
   subtasks as PrismaSubtask,
   board_members as PrismaBoardMembers,
   users as PrismaUsers,
+  invitations as PrismaInvitation,
 } from "@prisma/client";
 import {
   Board,
   BoardMember,
   BoardMemberWithUser,
   Column,
+  Invitation,
   Subtask,
   Task,
   WorkSchedule,
@@ -86,4 +88,13 @@ export function castToMembers(
     created_at: member.created_at as Date,
     updated_at: member.updated_at as Date,
   }));
+}
+
+export function castToInvitation(invitation: PrismaInvitation): Invitation {
+  return {
+    ...invitation,
+    expires_at: invitation.expires_at as Date,
+    created_at: invitation.created_at as Date,
+    updated_at: invitation.updated_at as Date,
+  };
 }
