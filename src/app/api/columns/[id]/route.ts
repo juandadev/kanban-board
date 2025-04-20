@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Column } from "@/types/boards";
+import { Column } from "@/types/board";
 import { RequestError } from "@/types/services";
 import { getSession } from "@/lib/auth";
 import { hasPermission } from "@/lib/services";

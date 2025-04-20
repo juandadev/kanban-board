@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 import { PrismaClient } from "@prisma/client";
-import { Boards } from "@/types/boards";
+import { Board } from "@/types/board";
 import { castToBoard, castToBoards } from "@/lib/utils";
 import { RequestError } from "@/types/services";
 
 const prisma = new PrismaClient();
 
-export async function GET(): Promise<NextResponse<Boards[] | RequestError>> {
+export async function GET(): Promise<NextResponse<Board[] | RequestError>> {
   const session = await getSession();
 
   if (!session || !session.user?.id) {
@@ -30,7 +30,7 @@ export async function GET(): Promise<NextResponse<Boards[] | RequestError>> {
 
 export async function POST(
   request: NextRequest,
-): Promise<NextResponse<Boards | RequestError>> {
+): Promise<NextResponse<Board | RequestError>> {
   const session = await getSession();
 
   if (!session || !session.user?.id) {

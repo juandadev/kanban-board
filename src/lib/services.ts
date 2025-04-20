@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { Session } from "@/lib/auth";
-import { HttpMethod, MemberRole } from "@/types/boards";
+import { HttpMethod, MemberRole } from "@/types/board";
 
 const permissionRules: Record<
   Exclude<MemberRole, "admin">,

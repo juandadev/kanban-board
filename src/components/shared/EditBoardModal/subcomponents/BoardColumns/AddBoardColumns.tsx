@@ -1,10 +1,10 @@
-import { Button } from "@/components/Button/Button";
+import { Button } from "@/components/shared/Button/Button";
 import styles from "./AddBoardColumns.module.css";
 import React, { forwardRef, useImperativeHandle, useState } from "react";
-import { AddBoardItem } from "@/components/EditBoardModal/subcomponents/BoardColumns/AddBoardItem";
+import { AddBoardItem } from "@/components/shared/EditBoardModal/subcomponents/BoardColumns/AddBoardItem";
 import { useModal } from "@/context/modalContext";
-import { useBoardContext } from "@/context/boardContext";
-import { Column } from "@/types/boards";
+import { useBoardContext } from "@/context/boards/BoardsContext";
+import { Column } from "@/types/board";
 
 const AddBoardColumns = forwardRef((props, ref) => {
   const [columns, setColumns] = useState<Omit<Column, "boardId">[]>([]);

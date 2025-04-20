@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 import { PrismaClient } from "@prisma/client";
-import { Task } from "@/types/boards";
+import { Task } from "@/types/board";
 import { castToTask, castToTasks } from "@/lib/utils";
 import { RequestError } from "@/types/services";
 import { hasPermission } from "@/lib/services";

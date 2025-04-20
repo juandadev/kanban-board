@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "@/components/EditBoardModal/subcomponents/BoardColumns/AddBoardColumns.module.css";
-import { TextField } from "@/components/TextField/TextField";
-import { Button } from "@/components/Button/Button";
-import { Column } from "@/types/boards";
+import styles from "@/components/shared/EditBoardModal/subcomponents/BoardColumns/AddBoardColumns.module.css";
+import { TextField } from "@/components/shared/TextField/TextField";
+import { Button } from "@/components/shared/Button/Button";
+import { Column } from "@/types/board";
 
 type AddBoardItemProps = {
   id: number;

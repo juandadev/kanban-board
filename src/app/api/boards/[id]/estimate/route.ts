@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 import { PrismaClient } from "@prisma/client";
-import { EstimateResult, WorkSchedule } from "@/types/boards";
+import { EstimateResult, WorkSchedule } from "@/types/board";
 import { hasPermission } from "@/lib/services";
 
 const prisma = new PrismaClient();

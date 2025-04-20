@@ -1,3 +1,5 @@
+import { Dispatch } from "react";
+
 export type MemberRole = "read_only" | "edit" | "admin";
 
 export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
@@ -41,7 +43,7 @@ export interface ActiveBoard {
   updated_at: Date;
 }
 
-export interface Boards {
+export interface Board {
   id: string;
   name: string;
   user_id: string;
@@ -115,3 +117,34 @@ export interface EstimateResult {
     hours: number;
   };
 }
+
+export interface BoardsContextType {
+  state: BoardsState;
+  dispatch: Dispatch<BoardsActions>;
+}
+
+export type BoardsState = {
+  boards: Board[];
+  activeBoardId: string;
+  activeBoard: ActiveBoard | {};
+};
+
+export type BoardsActions =
+  | {
+      type: "INITIALIZE_BOARDS";
+      payload: {
+        boards: Board[];
+      };
+    }
+  | {
+      type: "UPDATE_COLUMNS";
+      payload: {
+        columns: Omit<Column, "boardId">[];
+      };
+    }
+  | {
+      type: "UPDATE_BOARD_NAME";
+      payload: {
+        name: string;
+      };
+    };

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 import { PrismaClient } from "@prisma/client";
-import { BoardMember, BoardMemberWithUser } from "@/types/boards";
+import { BoardMember, BoardMemberWithUser } from "@/types/board";
 import { castToMember, castToMembers } from "@/lib/utils";
 import { RequestError } from "@/types/services";
 import { hasPermission } from "@/lib/services";
@@ -128,6 +128,7 @@ export async function DELETE(
     },
   });
   const typedMember = castToMember(member);
+  // TODO: Consider returning a more sofisticated response structure either for success or failure
 
   return NextResponse.json(typedMember);
 }

@@ -1,11 +1,11 @@
-import { Modal } from "@/components/Modal/Modal";
+import { Modal } from "@/components/shared/Modal/Modal";
 import styles from "./EditBoardModal.module.css";
-import { TextField } from "@/components/TextField/TextField";
-import AddBoardColumns from "@/components/EditBoardModal/subcomponents/BoardColumns/AddBoardColumns";
+import { TextField } from "@/components/shared/TextField/TextField";
+import AddBoardColumns from "@/components/shared/EditBoardModal/subcomponents/BoardColumns/AddBoardColumns";
 import React, { MutableRefObject, useRef, useState } from "react";
 import { useActiveBoard } from "@/hooks/useActiveBoard";
-import { Button } from "@/components/Button/Button";
-import { useBoardContext } from "@/context/boardContext";
+import { Button } from "@/components/shared/Button/Button";
+import { useBoardContext } from "@/context/boards/BoardsContext";
 
 type AddBoardColumnsRefType = {
   handleModalClose: () => void;

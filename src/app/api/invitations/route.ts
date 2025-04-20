@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 import { PrismaClient } from "@prisma/client";
 import { v4 as uuidv4 } from "uuid";
-import { Invitation } from "@/types/boards";
+import { Invitation } from "@/types/board";
 import { castToInvitation } from "@/lib/utils";
 import { RequestError } from "@/types/services";
 import { hasPermission } from "@/lib/services";

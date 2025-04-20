@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Navbar.module.css";
-import { Button } from "@/components/Button/Button";
-import { BoardName } from "@/components/Navbar/BoardName";
+import { Button } from "@/components/shared/Button/Button";
+import { BoardName } from "@/components/shared/Navbar/BoardName";
 
 export function Navbar() {
   return (

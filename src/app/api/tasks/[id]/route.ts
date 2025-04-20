@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-import { Task } from "@/types/boards";
+import { Task } from "@/types/board";
 import { RequestError } from "@/types/services";
 import { getSession } from "@/lib/auth";
 import { castToTask } from "@/lib/utils";

@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-import { ActiveBoard, Boards } from "@/types/boards";
+import { ActiveBoard, Board } from "@/types/board";
 import { getSession, Session } from "@/lib/auth";
 import { RequestError } from "@/types/services";
 import { castToBoard } from "@/lib/utils";
@@ -76,7 +76,7 @@ export async function GET(
 export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
-): Promise<NextResponse<Boards | RequestError>> {
+): Promise<NextResponse<Board | RequestError>> {
   const session = await getSession();
 
   if (!session || !session.user?.id) {
@@ -120,7 +120,7 @@ export async function PATCH(
 export async function DELETE(
   _request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
-): Promise<NextResponse<Boards | RequestError>> {
+): Promise<NextResponse<Board | RequestError>> {
   const session = await getSession();
 
   if (!session || !session.user?.id) {

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Invitation } from "@/types/boards";
+import { Invitation } from "@/types/board";
 import { RequestError } from "@/types/services";
 import { getSession } from "@/lib/auth";
 import { PrismaClient } from "@prisma/client";

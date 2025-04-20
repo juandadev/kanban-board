@@ -1,8 +1,8 @@
-import { useBoardContext } from "@/context/boardContext";
-import { Boards, Column, Subtask, Task } from "@/types/boards";
+import { useBoardContext } from "@/context/boards/BoardsContext";
+import { Board, Column, Subtask, Task } from "@/types/board";
 
 type useActiveBoardReturnType = {
-  board: Boards | null;
+  board: Board | null;
   columns: Column[];
   tasks: Task[];
   subtasks: Subtask[];

@@ -8,7 +8,7 @@ import {
   invitations as PrismaInvitation,
 } from "@prisma/client";
 import {
-  Boards,
+  Board,
   BoardMember,
   BoardMemberWithUser,
   Column,
@@ -16,9 +16,9 @@ import {
   Subtask,
   Task,
   WorkSchedule,
-} from "@/types/boards";
+} from "@/types/board";
 
-export function castToBoard(prismaBoard: PrismaBoard): Boards {
+export function castToBoard(prismaBoard: PrismaBoard): Board {
   return {
     ...prismaBoard,
     work_schedule: prismaBoard.work_schedule as WorkSchedule | null,
@@ -27,7 +27,7 @@ export function castToBoard(prismaBoard: PrismaBoard): Boards {
   };
 }
 
-export function castToBoards(prismaBoards: PrismaBoard[]): Boards[] {
+export function castToBoards(prismaBoards: PrismaBoard[]): Board[] {
   return prismaBoards.map(castToBoard);
 }
 
