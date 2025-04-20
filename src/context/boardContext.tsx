@@ -5,21 +5,21 @@ import React, {
   useContext,
   useReducer,
 } from "react";
-import { BoardType, ColumnType, SubtaskType, TaskType } from "@/types/Boards";
+import { Board, Column, Subtask, Task } from "@/types";
 
 type BoardStateType = {
   activeBoardId: number;
-  boards: BoardType[];
-  columns: ColumnType[];
-  tasks: TaskType[];
-  subtasks: SubtaskType[];
+  boards: Board[];
+  columns: Column[];
+  tasks: Task[];
+  subtasks: Subtask[];
 };
 
 type BoardActionsType =
   | {
       type: "UPDATE_COLUMNS";
       payload: {
-        columns: Omit<ColumnType, "boardId">[];
+        columns: Omit<Column, "boardId">[];
       };
     }
   | {
@@ -50,7 +50,7 @@ const boardReducer = (
     case "UPDATE_COLUMNS": {
       const { columns } = action.payload;
 
-      const assignColumnsToBoard: ColumnType[] = columns.map((column) => ({
+      const assignColumnsToBoard: Column[] = columns.map((column) => ({
         ...column,
         boardId: state.activeBoardId,
       }));

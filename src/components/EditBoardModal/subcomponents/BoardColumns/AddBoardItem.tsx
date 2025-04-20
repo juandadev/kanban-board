@@ -2,14 +2,12 @@ import React from "react";
 import styles from "@/components/EditBoardModal/subcomponents/BoardColumns/AddBoardColumns.module.css";
 import { TextField } from "@/components/TextField/TextField";
 import { Button } from "@/components/Button/Button";
-import { ColumnType } from "@/types/Boards";
+import { Column } from "@/types";
 
 type AddBoardItemProps = {
   id: number;
-  columns: Omit<ColumnType, "boardId">[];
-  setColumns: React.Dispatch<
-    React.SetStateAction<Omit<ColumnType, "boardId">[]>
-  >;
+  columns: Omit<Column, "boardId">[];
+  setColumns: React.Dispatch<React.SetStateAction<Omit<Column, "boardId">[]>>;
 };
 
 export function AddBoardItem({ id, columns, setColumns }: AddBoardItemProps) {
