@@ -1,15 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSession, Session } from "@/lib/auth";
+import { getSession } from "@/lib/auth";
 import { PrismaClient } from "@prisma/client";
-import { Board } from "@/types";
+import { Boards } from "@/types/boards";
 import { castToBoard, castToBoards } from "@/lib/utils";
+import { RequestError } from "@/types/services";
 
 const prisma = new PrismaClient();
 
-export async function GET(): Promise<
-  NextResponse<Board[] | { error: string }>
-> {
-  const session: Session | null = await getSession();
+export async function GET(): Promise<NextResponse<Boards[] | RequestError>> {
+  const session = await getSession();
 
   if (!session || !session.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -31,7 +30,7 @@ export async function GET(): Promise<
 
 export async function POST(
   request: NextRequest,
-): Promise<NextResponse<Board | { error: string }>> {
+): Promise<NextResponse<Boards | RequestError>> {
   const session = await getSession();
 
   if (!session || !session.user?.id) {

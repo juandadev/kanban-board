@@ -1,14 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 import { PrismaClient } from "@prisma/client";
-import { Column } from "@/types";
+import { Column } from "@/types/boards";
 import { castToColumns, castToColumn } from "@/lib/utils";
+import { RequestError } from "@/types/services";
+import { hasPermission } from "@/lib/services";
 
 const prisma = new PrismaClient();
 
 export async function GET(
   request: NextRequest,
-): Promise<NextResponse<Column[] | { error: string }>> {
+): Promise<NextResponse<Column[] | RequestError>> {
   const session = await getSession();
 
   if (!session || !session.user?.id) {
@@ -20,9 +22,15 @@ export async function GET(
 
   if (!boardId) {
     return NextResponse.json(
-      { error: "Board ID is required" },
+      { error: "Boards ID is required" },
       { status: 400 },
     );
+  }
+
+  const canView = hasPermission(prisma, session, boardId, "read_only", "GET");
+
+  if (!canView) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
   const columns = await prisma.columns.findMany({
@@ -36,7 +44,7 @@ export async function GET(
 
 export async function POST(
   request: NextRequest,
-): Promise<NextResponse<Column | { error: string }>> {
+): Promise<NextResponse<Column | RequestError>> {
   const session = await getSession();
 
   if (!session || !session.user?.id) {
@@ -50,6 +58,12 @@ export async function POST(
       { error: "Name and board_id are required" },
       { status: 400 },
     );
+  }
+
+  const canEdit = hasPermission(prisma, session, board_id, "edit", "POST");
+
+  if (!canEdit) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
   const board = await prisma.boards.findUnique({

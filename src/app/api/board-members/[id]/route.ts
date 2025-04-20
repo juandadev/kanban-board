@@ -1,32 +1,33 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 import { PrismaClient } from "@prisma/client";
-import { BoardMember, BoardMemberWithUser } from "@/types";
+import { BoardMember, BoardMemberWithUser } from "@/types/boards";
 import { castToMember, castToMembers } from "@/lib/utils";
+import { RequestError } from "@/types/services";
+import { hasPermission } from "@/lib/services";
 
 const prisma = new PrismaClient();
 
 export async function GET(
-  request: NextRequest,
-): Promise<NextResponse<BoardMemberWithUser[] | { error: string }>> {
+  _request: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
+): Promise<NextResponse<BoardMemberWithUser[] | RequestError>> {
   const session = await getSession();
 
   if (!session || !session.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { searchParams } = new URL(request.url);
-  const boardId = searchParams.get("boardId");
+  const { id: board_id } = await params;
 
-  if (!boardId) {
-    return NextResponse.json(
-      { error: "Board ID is required" },
-      { status: 400 },
-    );
+  const canView = hasPermission(prisma, session, board_id, "read_only", "GET");
+
+  if (!canView) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
   const members = await prisma.board_members.findMany({
-    where: { board_id: boardId },
+    where: { board_id },
     include: { users: { select: { email: true, name: true } } },
   });
   const typedMembers = castToMembers(members);
@@ -36,21 +37,24 @@ export async function GET(
 
 export async function POST(
   request: NextRequest,
-): Promise<NextResponse<BoardMember | { error: string }>> {
+  { params }: { params: Promise<{ id: string }> },
+): Promise<NextResponse<BoardMember | RequestError>> {
   const session = await getSession();
 
   if (!session || !session.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { board_id, user_id, role } = await request.json();
+  const { id: board_id } = await params;
+  const { user_id, role } = await request.json();
 
-  if (
-    !board_id ||
-    !user_id ||
-    !role ||
-    !["read_only", "edit", "admin"].includes(role)
-  ) {
+  const canEdit = hasPermission(prisma, session, board_id, "edit", "POST");
+
+  if (!canEdit) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  if (!user_id || !role || !["read_only", "edit", "admin"].includes(role)) {
     return NextResponse.json({ error: "Invalid input" }, { status: 400 });
   }
 

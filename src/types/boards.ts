@@ -1,4 +1,7 @@
 export type MemberRole = "read_only" | "edit" | "admin";
+
+export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+
 export type InvitationStatus = "pending" | "accepted" | "expired";
 
 export interface WorkSchedule {
@@ -22,7 +25,23 @@ export interface User {
   updated_at: Date;
 }
 
-export interface Board {
+export interface ActiveBoard {
+  id: string;
+  name: string;
+  user_id: string;
+  work_schedule: WorkSchedule | null;
+  columns: Column[] & {
+    tasks: Task[] & {
+      subtasks: Subtask[];
+    };
+  };
+  board_members: BoardMember[];
+  invitations: Invitation[];
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface Boards {
   id: string;
   name: string;
   user_id: string;

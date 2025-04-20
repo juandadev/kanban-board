@@ -36,7 +36,7 @@ export function EditBoardModal() {
         <h2>Edit Board</h2>
         <div className={styles.form_container}>
           <TextField
-            label={"Board Name"}
+            label={"Boards Name"}
             id={"board-name"}
             value={boardName}
             onChange={handleBoardNameChange}

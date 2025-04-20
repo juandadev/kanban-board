@@ -5,11 +5,11 @@ import React, {
   useContext,
   useReducer,
 } from "react";
-import { Board, Column, Subtask, Task } from "@/types";
+import { Boards, Column, Subtask, Task } from "@/types/boards";
 
 type BoardStateType = {
   activeBoardId: number;
-  boards: Board[];
+  boards: Boards[];
   columns: Column[];
   tasks: Task[];
   subtasks: Subtask[];

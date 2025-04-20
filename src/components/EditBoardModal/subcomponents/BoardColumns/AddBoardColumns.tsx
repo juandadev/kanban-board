@@ -4,7 +4,7 @@ import React, { forwardRef, useImperativeHandle, useState } from "react";
 import { AddBoardItem } from "@/components/EditBoardModal/subcomponents/BoardColumns/AddBoardItem";
 import { useModal } from "@/context/modalContext";
 import { useBoardContext } from "@/context/boardContext";
-import { Column } from "@/types";
+import { Column } from "@/types/boards";
 
 const AddBoardColumns = forwardRef((props, ref) => {
   const [columns, setColumns] = useState<Omit<Column, "boardId">[]>([]);

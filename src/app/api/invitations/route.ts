@@ -2,14 +2,16 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 import { PrismaClient } from "@prisma/client";
 import { v4 as uuidv4 } from "uuid";
-import { Invitation } from "@/types";
+import { Invitation } from "@/types/boards";
 import { castToInvitation } from "@/lib/utils";
+import { RequestError } from "@/types/services";
+import { hasPermission } from "@/lib/services";
 
 const prisma = new PrismaClient();
 
 export async function POST(
   request: NextRequest,
-): Promise<NextResponse<Invitation | { error: string }>> {
+): Promise<NextResponse<Invitation | RequestError>> {
   const session = await getSession();
 
   if (!session || !session.user?.id) {
@@ -25,6 +27,12 @@ export async function POST(
     !["read_only", "edit", "admin"].includes(role)
   ) {
     return NextResponse.json({ error: "Invalid input" }, { status: 400 });
+  }
+
+  const canEdit = hasPermission(prisma, session, board_id, "admin", "POST");
+
+  if (!canEdit) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
   const board = await prisma.boards.findUnique({
