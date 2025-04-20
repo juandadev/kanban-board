@@ -1,5 +1,5 @@
-import { boards as PrismaBoard } from "@prisma/client";
-import { Board, WorkSchedule } from "@/types";
+import { boards as PrismaBoard, columns as PrismaColumn } from "@prisma/client";
+import { Board, Column, WorkSchedule } from "@/types";
 
 export function castToBoard(prismaBoard: PrismaBoard): Board {
   return {
@@ -12,4 +12,16 @@ export function castToBoard(prismaBoard: PrismaBoard): Board {
 
 export function castToBoards(prismaBoards: PrismaBoard[]): Board[] {
   return prismaBoards.map(castToBoard);
+}
+
+export function castToColumn(prismaColumn: PrismaColumn): Column {
+  return {
+    ...prismaColumn,
+    created_at: prismaColumn.created_at as Date,
+    updated_at: prismaColumn.updated_at as Date,
+  };
+}
+
+export function castToColumns(prismaColumns: PrismaColumn[]): Column[] {
+  return prismaColumns.map(castToColumn);
 }
