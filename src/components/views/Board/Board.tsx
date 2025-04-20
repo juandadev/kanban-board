@@ -2,22 +2,23 @@
 
 import React from "react";
 import styles from "./Board.module.css";
-import { Button } from "@/components/Button/Button";
+import { Button } from "@/components/shared/Button/Button";
 import { useActiveBoard } from "@/hooks/useActiveBoard";
 import { useModal } from "@/context/modalContext";
-import { EditBoardModal } from "@/components/EditBoardModal/EditBoardModal";
+import { EditBoardModal } from "@/components/shared/EditBoardModal/EditBoardModal";
 
 export function Board() {
-  const { board, columns } = useActiveBoard();
+  const { activeBoard, activeBoardId } = useActiveBoard();
   const { openModal } = useModal();
 
-  const renderColumns = columns.map((column) => (
-    <div key={column.id} className={styles.column}>
-      {column.name}
-    </div>
-  ));
+  const renderColumns =
+    activeBoard.columns.map((column) => (
+      <div key={column.id} className={styles.column}>
+        {column.name}
+      </div>
+    )) || [];
 
-  if (!board) {
+  if (!activeBoardId) {
     return (
       <section className={styles.container}>
         <div className={styles.emptyColumn}>
@@ -35,7 +36,7 @@ export function Board() {
     <>
       <section className={styles.container}>
         <div className={styles.emptyColumn}>
-          {columns.length === 0 ? (
+          {activeBoard.columns.length === 0 ? (
             <>
               <p>This board is empty. Create a new column to get started.</p>
               <Button onClick={() => openModal("editBoard")}>

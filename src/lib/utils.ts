@@ -16,7 +16,7 @@ import {
   Subtask,
   Task,
   WorkSchedule,
-} from "@/types";
+} from "@/types/board";
 
 export function castToBoard(prismaBoard: PrismaBoard): Board {
   return {

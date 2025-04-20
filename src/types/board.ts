@@ -1,4 +1,9 @@
+import { Dispatch } from "react";
+
 export type MemberRole = "read_only" | "edit" | "admin";
+
+export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+
 export type InvitationStatus = "pending" | "accepted" | "expired";
 
 export interface WorkSchedule {
@@ -20,6 +25,22 @@ export interface User {
   provider_id: string | null;
   created_at: Date;
   updated_at: Date;
+}
+
+export interface ActiveBoard {
+  id: string;
+  name: string;
+  user_id: string;
+  work_schedule: WorkSchedule | null;
+  columns: (Column & {
+    tasks: (Task & {
+      subtasks: Subtask[];
+    })[];
+  })[];
+  board_members: BoardMember[];
+  invitations: Invitation[];
+  created_at: Date | null;
+  updated_at: Date | null;
 }
 
 export interface Board {
@@ -96,3 +117,34 @@ export interface EstimateResult {
     hours: number;
   };
 }
+
+export interface BoardsContextType {
+  state: BoardsState;
+  dispatch: Dispatch<BoardsActions>;
+}
+
+export type BoardsState = {
+  boards: Board[];
+  activeBoardId: string;
+  activeBoard: ActiveBoard;
+};
+
+export type BoardsActions =
+  | {
+      type: "INITIALIZE_BOARDS";
+      payload: {
+        boards: Board[];
+      };
+    }
+  | {
+      type: "UPDATE_COLUMNS";
+      payload: {
+        columns: Omit<Column, "boardId">[];
+      };
+    }
+  | {
+      type: "UPDATE_BOARD_NAME";
+      payload: {
+        name: string;
+      };
+    };

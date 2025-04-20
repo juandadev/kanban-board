@@ -11,7 +11,7 @@ const plus_jakarta_sans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Kanban Board",
+  title: "Kanban Boards",
   description: "Create free kanban boards for your projects",
 };
 

@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 import { PrismaClient } from "@prisma/client";
-import { EstimateResult, WorkSchedule } from "@/types";
+import { EstimateResult, WorkSchedule } from "@/types/board";
+import { hasPermission } from "@/lib/services";
 
 const prisma = new PrismaClient();
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ): Promise<NextResponse<EstimateResult | { error: string }>> {
   const session = await getSession();
 
@@ -15,7 +16,7 @@ export async function GET(
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { id } = params;
+  const { id } = await params;
   const { searchParams } = new URL(request.url);
   const startDate = new Date(searchParams.get("startDate") || new Date());
 
@@ -32,21 +33,13 @@ export async function GET(
     });
 
     if (!board) {
-      return NextResponse.json({ error: "Board not found" }, { status: 404 });
+      return NextResponse.json({ error: "Boards not found" }, { status: 404 });
     }
 
-    const hasAccess = await prisma.boards.findFirst({
-      where: {
-        id,
-        OR: [
-          { user_id: session.user.id },
-          { board_members: { some: { user_id: session.user.id } } },
-        ],
-      },
-    });
+    const hasAccess = await hasPermission(prisma, session, id, "edit", "GET");
 
     if (!hasAccess) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
     const totalHours = board.columns

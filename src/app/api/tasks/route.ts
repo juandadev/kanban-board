@@ -1,14 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 import { PrismaClient } from "@prisma/client";
-import { Task } from "@/types";
+import { Task } from "@/types/board";
 import { castToTask, castToTasks } from "@/lib/utils";
+import { RequestError } from "@/types/services";
+import { hasPermission } from "@/lib/services";
 
 const prisma = new PrismaClient();
 
 export async function GET(
   request: NextRequest,
-): Promise<NextResponse<Task[] | { error: string }>> {
+): Promise<NextResponse<Task[] | RequestError>> {
   const session = await getSession();
 
   if (!session || !session.user?.id) {
@@ -27,7 +29,18 @@ export async function GET(
 
   const tasks = await prisma.tasks.findMany({
     where: { column_id: columnId },
+    include: {
+      columns: true,
+    },
   });
+
+  const boardId = tasks[0]?.columns?.board_id;
+  const canView = hasPermission(prisma, session, boardId, "read_only", "GET");
+
+  if (!canView) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
   const typedTasks = castToTasks(tasks);
 
   return NextResponse.json(typedTasks);
@@ -35,7 +48,7 @@ export async function GET(
 
 export async function POST(
   request: NextRequest,
-): Promise<NextResponse<Task | { error: string }>> {
+): Promise<NextResponse<Task | RequestError>> {
   const session = await getSession();
 
   if (!session || !session.user?.id) {
@@ -71,6 +84,13 @@ export async function POST(
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  const boardId = column.board_id;
+  const canEdit = hasPermission(prisma, session, boardId, "edit", "POST");
+
+  if (!canEdit) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
   const task = await prisma.tasks.create({
     data: {
       title,
@@ -81,6 +101,6 @@ export async function POST(
     },
   });
   const typedTask = castToTask(task);
-  
+
   return NextResponse.json(typedTask, { status: 201 });
 }
