@@ -4,10 +4,10 @@ import React, { forwardRef, useImperativeHandle, useState } from "react";
 import { AddBoardItem } from "@/components/EditBoardModal/subcomponents/BoardColumns/AddBoardItem";
 import { useModal } from "@/context/modalContext";
 import { useBoardContext } from "@/context/boardContext";
-import { ColumnType } from "@/types/Boards";
+import { Column } from "@/types";
 
 export const AddBoardColumns = forwardRef((props, ref) => {
-  const [columns, setColumns] = useState<Omit<ColumnType, "boardId">[]>([]);
+  const [columns, setColumns] = useState<Omit<Column, "boardId">[]>([]);
   const { closeModal } = useModal();
   const { dispatch } = useBoardContext();
 
@@ -22,7 +22,7 @@ export const AddBoardColumns = forwardRef((props, ref) => {
   const handleAddColumn = () => {
     setColumns((prevState) => {
       const columnId = prevState.length + 1;
-      const newColumnObj: Omit<ColumnType, "boardId"> = {
+      const newColumnObj: Omit<Column, "boardId"> = {
         id: columnId,
         name: "",
       };

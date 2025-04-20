@@ -1,11 +1,11 @@
 import { useBoardContext } from "@/context/boardContext";
-import { BoardType, ColumnType, SubtaskType, TaskType } from "@/types/Boards";
+import { Board, Column, Subtask, Task } from "@/types";
 
 type useActiveBoardReturnType = {
-  board: BoardType | null;
-  columns: ColumnType[];
-  tasks: TaskType[];
-  subtasks: SubtaskType[];
+  board: Board | null;
+  columns: Column[];
+  tasks: Task[];
+  subtasks: Subtask[];
 };
 
 export function useActiveBoard(): useActiveBoardReturnType {
@@ -23,19 +23,19 @@ export function useActiveBoard(): useActiveBoardReturnType {
   }
 
   const activeColumns = columns.filter(
-    (column) => column.boardId === activeBoard.id,
+    (column) => column.board_id === activeBoard.id,
   );
 
-  const activeTasks: TaskType[] = [];
+  const activeTasks: Task[] = [];
   activeColumns.forEach((column) => {
-    const filteredTasks = tasks.filter((task) => task.columnId === column.id);
+    const filteredTasks = tasks.filter((task) => task.column_id === column.id);
     activeTasks.push(...filteredTasks);
   });
 
-  const activeSubtasks: SubtaskType[] = [];
+  const activeSubtasks: Subtask[] = [];
   activeTasks.forEach((task) => {
     const filteredSubtasks = subtasks.filter(
-      (subtask) => subtask.taskId === task.id,
+      (subtask) => subtask.task_id === task.id,
     );
     activeSubtasks.push(...filteredSubtasks);
   });
