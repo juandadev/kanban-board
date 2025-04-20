@@ -2,7 +2,7 @@ import { Button } from "@/components/shared/Button/Button";
 import styles from "./AddBoardColumns.module.css";
 import React, { forwardRef, useImperativeHandle, useState } from "react";
 import { AddBoardItem } from "@/components/shared/EditBoardModal/subcomponents/BoardColumns/AddBoardItem";
-import { useModal } from "@/context/modalContext";
+import { useModal } from "@/context/ModalContext";
 import { useBoardContext } from "@/context/boards/BoardsContext";
 import { Column } from "@/types/board";
 
@@ -47,7 +47,9 @@ const AddBoardColumns = forwardRef((props, ref) => {
           setColumns={setColumns}
         />
       ))}
-      <Button onClick={handleAddColumn}>+ Add New Column</Button>
+      <Button variant={"secondary"} size={"small"} onClick={handleAddColumn}>
+        + Add New Column
+      </Button>
     </div>
   );
 });

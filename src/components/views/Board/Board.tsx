@@ -4,7 +4,7 @@ import React from "react";
 import styles from "./Board.module.css";
 import { Button } from "@/components/shared/Button/Button";
 import { useActiveBoard } from "@/hooks/useActiveBoard";
-import { useModal } from "@/context/modalContext";
+import { useModal } from "@/context/ModalContext";
 import { EditBoardModal } from "@/components/shared/EditBoardModal/EditBoardModal";
 
 export function Board() {
@@ -18,7 +18,7 @@ export function Board() {
       </div>
     )) || [];
 
-  if (!activeBoardId) {
+  if (activeBoardId) {
     return (
       <section className={styles.container}>
         <div className={styles.emptyColumn}>

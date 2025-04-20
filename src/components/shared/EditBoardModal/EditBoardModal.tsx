@@ -1,4 +1,4 @@
-import { Modal } from "@/components/shared/Modal/Modal";
+import Modal from "@/components/shared/Modal/Modal";
 import styles from "./EditBoardModal.module.css";
 import { TextField } from "@/components/shared/TextField/TextField";
 import AddBoardColumns from "@/components/shared/EditBoardModal/subcomponents/BoardColumns/AddBoardColumns";
@@ -12,9 +12,9 @@ type AddBoardColumnsRefType = {
 };
 
 export function EditBoardModal() {
-  const { board } = useActiveBoard();
+  const { activeBoard } = useActiveBoard();
   const { dispatch } = useBoardContext();
-  const [boardName, setBoardName] = useState<string>(board?.name || "");
+  const [boardName, setBoardName] = useState<string>(activeBoard?.name || "");
   const addBoardColumnsRef: MutableRefObject<AddBoardColumnsRefType | null> =
     useRef(null);
 
@@ -32,19 +32,21 @@ export function EditBoardModal() {
 
   return (
     <Modal type={"editBoard"}>
-      <div className={styles.modal_container}>
-        <h2>Edit Board</h2>
-        <div className={styles.form_container}>
-          <TextField
-            label={"Boards Name"}
-            id={"board-name"}
-            value={boardName}
-            onChange={handleBoardNameChange}
-          />
-        </div>
+      <Modal.Title>Edit Board</Modal.Title>
+      <Modal.Body>
+        <TextField
+          label={"Board Name"}
+          id={"board-name"}
+          value={boardName}
+          onChange={handleBoardNameChange}
+        />
         <AddBoardColumns ref={addBoardColumnsRef} />
-        <Button onClick={handleBoardSave}>Save Changes</Button>
-      </div>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button size={"small"} fluid onClick={handleBoardSave}>
+          Save Changes
+        </Button>
+      </Modal.Footer>
     </Modal>
   );
 }

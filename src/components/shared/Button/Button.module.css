@@ -39,6 +39,7 @@
   &[data-size="small"] {
     padding: 8px 18px 9px 17px;
     font: var(--font-heading-s);
+    font-size: 13px;
   }
 
   &[data-fluid="true"] {
