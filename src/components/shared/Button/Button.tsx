@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Button.module.css";
 
 type ButtonProps = React.ComponentProps<"button"> & {
-  variant?: "primary" | "secondary" | "danger";
+  variant?: "primary" | "secondary" | "danger" | "transparent";
   size?: "small" | "large";
   fluid?: boolean;
 };
