@@ -9,8 +9,18 @@ type TextFieldProps = React.ComponentProps<"input"> & {
 export function TextField({ id, label, ...restProps }: TextFieldProps) {
   return (
     <div className={styles.field_container}>
-      {label && <label htmlFor={id}>{label}</label>}
-      <input id={id} type="text" {...restProps} />
+      {label && (
+        <label className={styles.field_label} htmlFor={id}>
+          {label}
+        </label>
+      )}
+      <input
+        data-error={false}
+        className={styles.field_input}
+        id={id}
+        type="text"
+        {...restProps}
+      />
     </div>
   );
 }

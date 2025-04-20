@@ -3,10 +3,12 @@
 
   /* COLORS */
   --palette-black: #000112;
-  --palette-very-dark-grey: #20212c;
+  --palette-black-rgb: #000112;
+  --palette-very-dark-grey: 32, 33, 44;
   --palette-dark-grey: #2b2c37;
   --palette-dark-lines: #3e3f4e;
   --palette-medium-grey: #828fa3;
+  --palette-medium-grey-rgb: 130, 143, 163;
   --palette-light-lines: #e4ebfa;
   --palette-light-grey: #f4f7fd;
   --palette-white: #ffffff;
@@ -17,17 +19,17 @@
   --palette-red-hover: #ff9898;
 
   /* TYPOGRAPHY */
-  --font-heading-xl: 700 1.5rem / 1.7 "__Plus_Jakarta_Sans_0981d5",
+  --font-heading-xl: 700 1.5rem / 30px "__Plus_Jakarta_Sans_0981d5",
     "__Plus_Jakarta_Sans_Fallback_0981d5", sans-serif;
-  --font-heading-l: 700 1.125rem / 1.7 "__Plus_Jakarta_Sans_0981d5",
+  --font-heading-l: 700 1.125rem / 23px "__Plus_Jakarta_Sans_0981d5",
     "__Plus_Jakarta_Sans_Fallback_0981d5", sans-serif;
-  --font-heading-m: 700 0.9375rem / 1.7 "__Plus_Jakarta_Sans_0981d5",
+  --font-heading-m: 700 0.9375rem / 19px "__Plus_Jakarta_Sans_0981d5",
     "__Plus_Jakarta_Sans_Fallback_0981d5", sans-serif;
-  --font-heading-s: 700 0.75rem / 1.7 "__Plus_Jakarta_Sans_0981d5",
+  --font-heading-s: 700 0.75rem / 15px "__Plus_Jakarta_Sans_0981d5",
     "__Plus_Jakarta_Sans_Fallback_0981d5", sans-serif;
-  --font-body-l: 500 0.8125rem / 1.7 "__Plus_Jakarta_Sans_0981d5",
+  --font-body-l: 500 0.8125rem / 23px "__Plus_Jakarta_Sans_0981d5",
     "__Plus_Jakarta_Sans_Fallback_0981d5", sans-serif;
-  --font-body-m: 500 0.75rem / 1.7 "__Plus_Jakarta_Sans_0981d5",
+  --font-body-m: 700 0.75rem / 15px "__Plus_Jakarta_Sans_0981d5",
     "__Plus_Jakarta_Sans_Fallback_0981d5", sans-serif;
 
   /* LIGHT MODE */
