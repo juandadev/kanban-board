@@ -1,0 +1,125 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model board_members {
+  id         String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  board_id   String      @db.Uuid
+  user_id    String      @db.Uuid
+  role       member_role
+  created_at DateTime?   @default(now()) @db.Timestamptz(6)
+  updated_at DateTime?   @default(now()) @db.Timestamptz(6)
+  boards     boards      @relation(fields: [board_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users      users       @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([board_id, user_id])
+  @@index([board_id], map: "idx_board_members_board_id")
+  @@index([user_id], map: "idx_board_members_user_id")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model boards {
+  id            String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name          String          @db.VarChar(255)
+  user_id       String          @db.Uuid
+  work_schedule Json?
+  created_at    DateTime?       @default(now()) @db.Timestamptz(6)
+  updated_at    DateTime?       @default(now()) @db.Timestamptz(6)
+  board_members board_members[]
+  users         users           @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  columns       columns[]
+  invitations   invitations[]
+
+  @@index([user_id], map: "idx_boards_user_id")
+}
+
+model columns {
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name       String    @db.VarChar(255)
+  board_id   String    @db.Uuid
+  created_at DateTime? @default(now()) @db.Timestamptz(6)
+  updated_at DateTime? @default(now()) @db.Timestamptz(6)
+  boards     boards    @relation(fields: [board_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  tasks      tasks[]
+
+  @@index([board_id], map: "idx_columns_board_id")
+}
+
+model invitations {
+  id         String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  board_id   String            @db.Uuid
+  inviter_id String            @db.Uuid
+  email      String            @db.VarChar(255)
+  token      String            @unique @db.VarChar(255)
+  status     invitation_status @default(pending)
+  role       member_role
+  expires_at DateTime          @db.Timestamptz(6)
+  created_at DateTime?         @default(now()) @db.Timestamptz(6)
+  updated_at DateTime?         @default(now()) @db.Timestamptz(6)
+  boards     boards            @relation(fields: [board_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users      users             @relation(fields: [inviter_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([board_id], map: "idx_invitations_board_id")
+  @@index([inviter_id], map: "idx_invitations_inviter_id")
+  @@index([token], map: "idx_invitations_token")
+}
+
+model subtasks {
+  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title        String    @db.VarChar(255)
+  is_completed Boolean   @default(false)
+  task_id      String    @db.Uuid
+  created_at   DateTime? @default(now()) @db.Timestamptz(6)
+  updated_at   DateTime? @default(now()) @db.Timestamptz(6)
+  tasks        tasks     @relation(fields: [task_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([task_id], map: "idx_subtasks_task_id")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model tasks {
+  id              String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title           String     @db.VarChar(255)
+  description     String?
+  status          String?    @db.VarChar(50)
+  column_id       String     @db.Uuid
+  estimated_hours Decimal?   @db.Decimal
+  created_at      DateTime?  @default(now()) @db.Timestamptz(6)
+  updated_at      DateTime?  @default(now()) @db.Timestamptz(6)
+  subtasks        subtasks[]
+  columns         columns    @relation(fields: [column_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([column_id], map: "idx_tasks_column_id")
+}
+
+model users {
+  id            String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email         String          @unique @db.VarChar(255)
+  name          String?         @db.VarChar(255)
+  password_hash String?         @db.VarChar(255)
+  provider      String?         @db.VarChar(50)
+  provider_id   String?         @db.VarChar(255)
+  created_at    DateTime?       @default(now()) @db.Timestamptz(6)
+  updated_at    DateTime?       @default(now()) @db.Timestamptz(6)
+  board_members board_members[]
+  boards        boards[]
+  invitations   invitations[]
+}
+
+enum invitation_status {
+  pending
+  accepted
+  expired
+}
+
+enum member_role {
+  read_only
+  edit
+  admin
+}

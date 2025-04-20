@@ -1,13 +1,13 @@
-import { Button } from "@/components/Button/Button";
+import { Button } from "@/components/shared/Button/Button";
 import styles from "./AddBoardColumns.module.css";
 import React, { forwardRef, useImperativeHandle, useState } from "react";
-import { AddBoardItem } from "@/components/EditBoardModal/subcomponents/BoardColumns/AddBoardItem";
+import { AddBoardItem } from "@/components/shared/EditBoardModal/subcomponents/BoardColumns/AddBoardItem";
 import { useModal } from "@/context/modalContext";
-import { useBoardContext } from "@/context/boardContext";
-import { ColumnType } from "@/types/Boards";
+import { useBoardContext } from "@/context/boards/BoardsContext";
+import { Column } from "@/types/board";
 
-export const AddBoardColumns = forwardRef((props, ref) => {
-  const [columns, setColumns] = useState<Omit<ColumnType, "boardId">[]>([]);
+const AddBoardColumns = forwardRef((props, ref) => {
+  const [columns, setColumns] = useState<Omit<Column, "boardId">[]>([]);
   const { closeModal } = useModal();
   const { dispatch } = useBoardContext();
 
@@ -20,15 +20,16 @@ export const AddBoardColumns = forwardRef((props, ref) => {
   };
 
   const handleAddColumn = () => {
-    setColumns((prevState) => {
-      const columnId = prevState.length + 1;
-      const newColumnObj: Omit<ColumnType, "boardId"> = {
-        id: columnId,
-        name: "",
-      };
-
-      return [...prevState, newColumnObj];
-    });
+    // TODO: Fix this
+    // setColumns((prevState) => {
+    //   const columnId = prevState.length + 1;
+    //   const newColumnObj: Omit<Column, "boardId"> = {
+    //     id: columnId.toString(),
+    //     name: "",
+    //   };
+    //
+    //   return [...prevState, newColumnObj];
+    // });
   };
 
   useImperativeHandle(ref, () => ({
@@ -50,3 +51,7 @@ export const AddBoardColumns = forwardRef((props, ref) => {
     </div>
   );
 });
+
+AddBoardColumns.displayName = "AddBoardColumns";
+
+export default AddBoardColumns;

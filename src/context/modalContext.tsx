@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 export type ModalType = "editBoard" | null;
 
 type ModalContextType = {
-  openModal: (modalType: ModalType) => void;
+  openModal: (_modalType: ModalType) => void;
   closeModal: () => void;
   activeModal: ModalType;
 };

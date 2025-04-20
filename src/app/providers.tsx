@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { BoardProvider } from "@/context/boardContext";
+import { BoardProvider } from "@/context/boards/BoardsContext";
 import { ModalProvider } from "@/context/modalContext";
 
 type ProvidersProps = {

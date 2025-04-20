@@ -1,15 +1,13 @@
 import React from "react";
-import styles from "@/components/EditBoardModal/subcomponents/BoardColumns/AddBoardColumns.module.css";
-import { TextField } from "@/components/TextField/TextField";
-import { Button } from "@/components/Button/Button";
-import { ColumnType } from "@/types/Boards";
+import styles from "@/components/shared/EditBoardModal/subcomponents/BoardColumns/AddBoardColumns.module.css";
+import { TextField } from "@/components/shared/TextField/TextField";
+import { Button } from "@/components/shared/Button/Button";
+import { Column } from "@/types/board";
 
 type AddBoardItemProps = {
-  id: number;
-  columns: Omit<ColumnType, "boardId">[];
-  setColumns: React.Dispatch<
-    React.SetStateAction<Omit<ColumnType, "boardId">[]>
-  >;
+  id: string;
+  columns: Omit<Column, "boardId">[];
+  setColumns: React.Dispatch<React.SetStateAction<Omit<Column, "boardId">[]>>;
 };
 
 export function AddBoardItem({ id, columns, setColumns }: AddBoardItemProps) {
@@ -21,7 +19,7 @@ export function AddBoardItem({ id, columns, setColumns }: AddBoardItemProps) {
     const { id: targetId } = event.target as HTMLButtonElement;
 
     setColumns((prevState) => {
-      return prevState.filter((column) => column.id !== parseInt(targetId));
+      return prevState.filter((column) => column.id !== targetId);
     });
   };
 
@@ -30,7 +28,7 @@ export function AddBoardItem({ id, columns, setColumns }: AddBoardItemProps) {
 
     setColumns((prevState) => {
       return prevState.map((column) => {
-        if (column.id === parseInt(targetId)) {
+        if (column.id === targetId) {
           return {
             ...column,
             name: event.target.value,
