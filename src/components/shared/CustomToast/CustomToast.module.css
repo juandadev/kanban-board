@@ -1,0 +1,29 @@
+.toast_container {
+  font: var(--font-heading-m);
+  background: var(--background-color-1);
+  padding: 1rem;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  display: flex;
+  gap: 0.5rem;
+  box-shadow: 0 4px 6px 0 rgba(54, 78, 126, 0.1);
+}
+
+.toast_icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 100%;
+
+  &[data-variant="loading"] {
+    background-color: var(--palette-medium-grey);
+  }
+
+  &[data-variant="success"] {
+    background-color: var(--palette-green);
+  }
+
+  &[data-variant="error"] {
+    background-color: var(--palette-red);
+  }
+}

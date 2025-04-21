@@ -141,16 +141,22 @@ export type BoardsActions =
       };
     }
   | {
+      type: "SET_ACTIVE_BOARD";
+      payload: {
+        activeBoard: ActiveBoard;
+      };
+    }
+  | {
       type: "CREATE_BOARD";
       payload: {
-        name: string;
+        board: Board;
       };
     }
   | {
       type: "UPDATE_COLUMNS";
       payload: {
         boardId: string;
-        columns: NewBoardColumn[];
+        columns: Column[];
       };
     };
 

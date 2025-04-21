@@ -18,8 +18,6 @@ export async function getBoards(): Promise<
 
     return await response.json();
   } catch (error) {
-    console.error(error);
-
     return {
       message: error instanceof Error ? error.message : String(error),
       payload: {},
@@ -39,8 +37,6 @@ export async function getBoardById(
 
     return await response.json();
   } catch (error) {
-    console.error(error);
-
     return {
       message: error instanceof Error ? error.message : String(error),
       payload: {},

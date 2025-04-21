@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/app/providers";
+import { ToastContainer } from "react-toastify";
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   weight: ["500", "700"],
@@ -24,6 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={plus_jakarta_sans.className}>
         <Providers>{children}</Providers>
+        <ToastContainer position={"bottom-center"} />
         <div className="modal"></div>
       </body>
     </html>
