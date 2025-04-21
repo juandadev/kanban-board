@@ -9,15 +9,21 @@ import { Button } from "@/components/shared/Button/Button";
 import PlusIcon from "@/icons/PlusIcon";
 import VerticalEllipsisIcon from "@/icons/VerticalEllipsisIcon";
 import { useActiveBoard } from "@/hooks/useActiveBoard";
+import { Menu } from "@/components/shared/Navbar/subcomponents/Menu";
 
 export function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = React.useState<boolean>(false);
   const { activeBoardId } = useActiveBoard();
+
+  const handleMenuToggle = () => {
+    setIsMenuOpen((prevState) => !prevState);
+  };
 
   return (
     <nav className={styles.container}>
-      <div className={styles.sub_container}>
+      <div className={styles.sub_container} onClick={handleMenuToggle}>
         <KanbanLogoIcon size={25} />
-        <BoardName />
+        <BoardName isMenuOpen={isMenuOpen} />
       </div>
       <div className={styles.sub_container}>
         <Button
@@ -31,6 +37,7 @@ export function Navbar() {
           <VerticalEllipsisIcon size={20} />
         </Button>
       </div>
+      <Menu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
     </nav>
   );
 }
