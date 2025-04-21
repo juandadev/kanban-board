@@ -4,6 +4,7 @@
   height: 100%;
   column-gap: 1.5rem;
   justify-content: center;
+  background-color: var(--background-color-2);
 }
 
 .emptyColumn {
@@ -16,4 +17,6 @@
 
 .emptyColumn p {
   text-align: center;
+  font: var(--font-heading-l);
+  color: var(--palette-medium-grey);
 }

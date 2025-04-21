@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Menu.module.css";
 import { MenuItem } from "@/components/shared/Navbar/subcomponents/MenuItem";
 import { useActiveBoard } from "@/hooks/useActiveBoard";
+import { useModal } from "@/context/ModalContext";
 
 interface MenuProps {
   isMenuOpen: boolean;
@@ -10,6 +11,7 @@ interface MenuProps {
 
 export function Menu({ isMenuOpen, setIsMenuOpen }: MenuProps) {
   const { boards, activeBoardId } = useActiveBoard();
+  const { openModal } = useModal();
 
   const handleMenuClose = () => {
     setIsMenuOpen(false);
@@ -17,6 +19,11 @@ export function Menu({ isMenuOpen, setIsMenuOpen }: MenuProps) {
 
   const handleMenuClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
+  };
+
+  const handleNewBoardClick = () => {
+    handleMenuClose();
+    openModal("createBoard");
   };
 
   if (!isMenuOpen) return null;
@@ -34,7 +41,13 @@ export function Menu({ isMenuOpen, setIsMenuOpen }: MenuProps) {
               {board.name}
             </MenuItem>
           ))}
-          <MenuItem variant={"primary"}>+ Create New Board</MenuItem>
+          <MenuItem
+            aria-label={"Create new board"}
+            variant={"primary"}
+            onClick={handleNewBoardClick}
+          >
+            + Create New Board
+          </MenuItem>
         </div>
         {/* TODO: Implement theme switcher here */}
       </div>
