@@ -1,7 +1,7 @@
 import { Button } from "@/components/shared/Button/Button";
 import styles from "./AddBoardColumns.module.css";
 import React, { forwardRef, useImperativeHandle, useState } from "react";
-import { AddBoardItem } from "@/components/shared/EditBoardModal/subcomponents/BoardColumns/AddBoardItem";
+import { AddBoardItem } from "@/components/shared/AddNewBoardModal/subcomponents/BoardColumns/AddBoardItem";
 import { useModal } from "@/context/ModalContext";
 import { NewBoardColumn } from "@/types/board";
 

@@ -1,6 +1,6 @@
 import Modal from "@/components/shared/Modal/Modal";
 import { TextField } from "@/components/shared/TextField/TextField";
-import AddBoardColumns from "@/components/shared/EditBoardModal/subcomponents/BoardColumns/AddBoardColumns";
+import AddBoardColumns from "@/components/shared/AddNewBoardModal/subcomponents/BoardColumns/AddBoardColumns";
 import React, { MutableRefObject, useRef, useState } from "react";
 import { useActiveBoard } from "@/hooks/useActiveBoard";
 import { Button } from "@/components/shared/Button/Button";
@@ -10,7 +10,7 @@ type AddBoardColumnsRefType = {
   handleModalClose: () => void;
 };
 
-export function EditBoardModal() {
+export function AddNewBoardModal() {
   const { activeBoard } = useActiveBoard();
   const { dispatch } = useBoardContext();
   const [boardName, setBoardName] = useState<string>(activeBoard?.name || "");
@@ -30,8 +30,8 @@ export function EditBoardModal() {
   };
 
   return (
-    <Modal type={"editBoard"}>
-      <Modal.Title>Edit Board</Modal.Title>
+    <Modal type={"createBoard"}>
+      <Modal.Title>Add New Board</Modal.Title>
       <Modal.Body>
         <TextField
           label={"Board Name"}
@@ -44,7 +44,7 @@ export function EditBoardModal() {
       </Modal.Body>
       <Modal.Footer>
         <Button size={"small"} fluid onClick={handleBoardSave}>
-          Save Changes
+          Create New Board
         </Button>
       </Modal.Footer>
     </Modal>

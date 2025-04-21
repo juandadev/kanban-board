@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "@/components/shared/EditBoardModal/subcomponents/BoardColumns/AddBoardColumns.module.css";
+import styles from "@/components/shared/AddNewBoardModal/subcomponents/BoardColumns/AddBoardColumns.module.css";
 import { TextField } from "@/components/shared/TextField/TextField";
 import { Button } from "@/components/shared/Button/Button";
 import { NewBoardColumn } from "@/types/board";
