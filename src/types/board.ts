@@ -118,6 +118,10 @@ export interface EstimateResult {
   };
 }
 
+export interface CreateNewBoardPayload extends Board {
+  columns: Column[];
+}
+
 export interface BoardsContextType {
   state: BoardsState;
   dispatch: Dispatch<BoardsActions>;
@@ -137,15 +141,16 @@ export type BoardsActions =
       };
     }
   | {
-      type: "UPDATE_COLUMNS";
+      type: "CREATE_BOARD";
       payload: {
-        columns: Omit<Column, "boardId">[];
+        name: string;
       };
     }
   | {
-      type: "UPDATE_BOARD_NAME";
+      type: "UPDATE_COLUMNS";
       payload: {
-        name: string;
+        boardId: string;
+        columns: NewBoardColumn[];
       };
     };
 

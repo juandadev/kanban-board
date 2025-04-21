@@ -28,7 +28,7 @@ export function MenuItem({
     >
       <div className={styles.menu_item_label}>
         <BoardIcon size={16} color={iconColors[variant]} />
-        {children}
+        <p>{children}</p>
       </div>
     </div>
   );

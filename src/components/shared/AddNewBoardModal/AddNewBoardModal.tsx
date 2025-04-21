@@ -7,6 +7,8 @@ import styles from "./AddNewBoardModal.module.css";
 import { NewBoardColumn } from "@/types/board";
 import { Controller, useForm } from "react-hook-form";
 import { REQUIRED_FIELD } from "@/lib/validation-texts";
+import { useModal } from "@/context/ModalContext";
+import { useActiveBoard } from "@/hooks/useActiveBoard";
 
 export interface NewBoardValues {
   "board-name": string;
@@ -14,12 +16,17 @@ export interface NewBoardValues {
 }
 
 export function AddNewBoardModal() {
-  const { handleSubmit, control } = useForm<NewBoardValues>();
+  const { handleSubmit, control, reset } = useForm<NewBoardValues>();
+  const { closeModal } = useModal();
+  const { createBoard } = useActiveBoard();
 
   const handleBoardSave: React.MouseEventHandler<HTMLButtonElement> = () => {};
 
   const onSubmit = (data: NewBoardValues) => {
     console.log("Form data:", data);
+    createBoard({ name: data["board-name"] });
+    reset();
+    closeModal();
   };
 
   return (
@@ -41,7 +48,7 @@ export function AddNewBoardModal() {
                 id={"board-name"}
                 label={"Board Name"}
                 placeholder={"e.g. Web Design"}
-                data-error={fieldState.isTouched && !!fieldState.error}
+                data-error={!!fieldState.error}
                 errorMessage={fieldState.error?.message}
                 {...field}
               />

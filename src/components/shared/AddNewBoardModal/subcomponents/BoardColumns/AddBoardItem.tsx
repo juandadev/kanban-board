@@ -37,7 +37,7 @@ export function AddBoardItem({
           <TextField
             id={id}
             placeholder={`e.g. ${placeholder}`}
-            data-error={fieldState.isTouched && !!fieldState.error}
+            data-error={!!fieldState.error}
             errorMessage={fieldState.error?.message}
             {...field}
           />

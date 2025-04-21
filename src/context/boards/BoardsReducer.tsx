@@ -14,33 +14,26 @@ export const boardReducer = (
       };
     }
 
-    case "UPDATE_COLUMNS": {
-      // const { columns } = action.payload;
-      //
-      // const assignColumnsToBoard: Column[] = columns.map((column) => ({
-      //   ...column,
-      //   boardId: state.activeBoardId,
-      // }));
-      //
-      // return {
-      //   ...state,
-      //   columns: [...state.columns, ...assignColumnsToBoard],
-      // };
-      return state;
+    case "CREATE_BOARD": {
+      const { name } = action.payload;
+
+      return {
+        ...state,
+        boards: [
+          ...state.boards,
+          {
+            id: Date.now().toString(),
+            name,
+            user_id: "",
+            work_schedule: null,
+            created_at: undefined,
+            updated_at: undefined,
+          },
+        ],
+      };
     }
 
-    case "UPDATE_BOARD_NAME": {
-      // return {
-      //   ...state,
-      //   boards: state.boards.map((board) => {
-      //     if (board.id !== state.activeBoardId) return board;
-      //
-      //     return {
-      //       ...board,
-      //       name: action.payload.name,
-      //     };
-      //   }),
-      // };
+    case "UPDATE_COLUMNS": {
       return state;
     }
 
