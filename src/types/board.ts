@@ -148,3 +148,8 @@ export type BoardsActions =
         name: string;
       };
     };
+
+export interface NewBoardColumn {
+  id: number;
+  name: string;
+}

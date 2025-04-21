@@ -1,16 +1,23 @@
 import React from "react";
-import styles from "@/components/shared/EditBoardModal/subcomponents/BoardColumns/AddBoardColumns.module.css";
+import styles from "@/components/shared/AddNewBoardModal/subcomponents/BoardColumns/AddBoardColumns.module.css";
 import { TextField } from "@/components/shared/TextField/TextField";
 import { Button } from "@/components/shared/Button/Button";
-import { Column } from "@/types/board";
+import { NewBoardColumn } from "@/types/board";
+import CrossIcon from "@/icons/CrossIcon";
 
 type AddBoardItemProps = {
-  id: string;
-  columns: Omit<Column, "boardId">[];
-  setColumns: React.Dispatch<React.SetStateAction<Omit<Column, "boardId">[]>>;
+  id: number;
+  columns: NewBoardColumn[];
+  setColumns: React.Dispatch<React.SetStateAction<NewBoardColumn[]>>;
+  placeholder: string;
 };
 
-export function AddBoardItem({ id, columns, setColumns }: AddBoardItemProps) {
+export function AddBoardItem({
+  id,
+  columns,
+  setColumns,
+  placeholder,
+}: AddBoardItemProps) {
   const columnValue = columns.find((column) => column.id === id)?.name;
 
   const handleRemoveColumn: React.MouseEventHandler<HTMLButtonElement> = (
@@ -19,7 +26,7 @@ export function AddBoardItem({ id, columns, setColumns }: AddBoardItemProps) {
     const { id: targetId } = event.target as HTMLButtonElement;
 
     setColumns((prevState) => {
-      return prevState.filter((column) => column.id !== targetId);
+      return prevState.filter((column) => column.id !== parseInt(targetId));
     });
   };
 
@@ -28,7 +35,7 @@ export function AddBoardItem({ id, columns, setColumns }: AddBoardItemProps) {
 
     setColumns((prevState) => {
       return prevState.map((column) => {
-        if (column.id === targetId) {
+        if (column.id === parseInt(targetId)) {
           return {
             ...column,
             name: event.target.value,
@@ -45,9 +52,15 @@ export function AddBoardItem({ id, columns, setColumns }: AddBoardItemProps) {
         id={id.toString()}
         value={columnValue}
         onChange={handleColumnChange}
+        placeholder={`e.g. ${placeholder}`}
       />
-      <Button id={id.toString()} onClick={handleRemoveColumn}>
-        X
+      <Button
+        id={id.toString()}
+        aria-label={"Remove column"}
+        variant={"transparent"}
+        onClick={handleRemoveColumn}
+      >
+        <CrossIcon style={{ pointerEvents: "none" }} size={14} />
       </Button>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
-export type ModalType = "editBoard" | null;
+export type ModalType = "createBoard" | null;
 
 type ModalContextType = {
   openModal: (_modalType: ModalType) => void;
@@ -25,6 +25,8 @@ export function ModalProvider({ children }: { children: ReactNode }) {
 
 export function useModal() {
   const context = useContext(ModalContext);
+
   if (!context) throw new Error("useModal must be used within a ModalProvider");
+
   return context;
 }

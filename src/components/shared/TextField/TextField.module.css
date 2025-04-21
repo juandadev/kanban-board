@@ -4,3 +4,32 @@
   gap: 0.5rem;
   flex: 1;
 }
+
+.field_label {
+  font: var(--font-heading-s);
+  color: var(--palette-medium-grey);
+}
+
+.field_input {
+  font: var(--font-body-l);
+  color: var(--palette-black);
+  padding: 8px 16px 9px 16px;
+  background-color: transparent;
+  border: 1px solid rgba(var(--palette-medium-grey-rgb), 0.25);
+  border-radius: 4px;
+
+  &::placeholder {
+    font: var(--font-body-l);
+    color: rgba(var(--palette-black-rgb), 0.25);
+  }
+
+  &[data-error="true"] {
+    border-color: var(--palette-red);
+  }
+}
+
+@media (min-width: 768px) {
+  .field_label {
+    font: var(--font-body-m);
+  }
+}
