@@ -150,6 +150,6 @@ export type BoardsActions =
     };
 
 export interface NewBoardColumn {
-  id: number;
+  id: string;
   name: string;
 }

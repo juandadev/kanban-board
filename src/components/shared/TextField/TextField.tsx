@@ -4,9 +4,15 @@ import styles from "./TextField.module.css";
 type TextFieldProps = React.ComponentProps<"input"> & {
   id: string;
   label?: string;
+  errorMessage?: string;
 };
 
-export function TextField({ id, label, ...restProps }: TextFieldProps) {
+export function TextField({
+  id,
+  label,
+  errorMessage,
+  ...restProps
+}: TextFieldProps) {
   return (
     <div className={styles.field_container}>
       {label && (
@@ -21,6 +27,9 @@ export function TextField({ id, label, ...restProps }: TextFieldProps) {
         type="text"
         {...restProps}
       />
+      {errorMessage && (
+        <span className={styles.field_error_message}>{errorMessage}</span>
+      )}
     </div>
   );
 }

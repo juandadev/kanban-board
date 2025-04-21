@@ -1,9 +1,10 @@
 import { Button } from "@/components/shared/Button/Button";
 import styles from "./AddBoardColumns.module.css";
-import React, { forwardRef, useImperativeHandle, useState } from "react";
+import React from "react";
 import { AddBoardItem } from "@/components/shared/AddNewBoardModal/subcomponents/BoardColumns/AddBoardItem";
-import { useModal } from "@/context/ModalContext";
-import { NewBoardColumn } from "@/types/board";
+import { Control, useFieldArray } from "react-hook-form";
+import { NewBoardValues } from "@/components/shared/AddNewBoardModal/AddNewBoardModal";
+import { v4 as uuidv4 } from "uuid";
 
 const columnWords = [
   "Todo",
@@ -28,49 +29,41 @@ const columnWords = [
   "Completed",
 ];
 
-const AddBoardColumns = forwardRef((props, ref) => {
-  const [columns, setColumns] = useState<NewBoardColumn[]>([]);
-  const { closeModal } = useModal();
+interface AddBoardColumnsProps {
+  control: Control<NewBoardValues>;
+}
 
-  const handleModalClose = () => {
-    closeModal();
-  };
+export function AddBoardColumns({ control }: AddBoardColumnsProps) {
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "columns",
+  });
 
   const handleAddColumn = () => {
-    setColumns((prevState) => {
-      const columnId = prevState.length + 1;
-      const newColumnObj: NewBoardColumn = {
-        id: columnId,
-        name: "",
-      };
-
-      return [...prevState, newColumnObj];
-    });
+    append({ id: uuidv4(), name: "" });
   };
-
-  useImperativeHandle(ref, () => ({
-    handleModalClose,
-  }));
 
   return (
     <div className={styles.container}>
       <span className={styles.title}>Board Columns</span>
-      {columns.map((column) => (
+      {fields.map((column, index) => (
         <AddBoardItem
           key={column.id}
           id={column.id}
-          columns={columns}
-          setColumns={setColumns}
-          placeholder={columnWords[column.id - 1]}
+          placeholder={columnWords[index]}
+          index={index}
+          control={control}
+          remove={remove}
         />
       ))}
-      <Button variant={"secondary"} size={"small"} onClick={handleAddColumn}>
+      <Button
+        type={"button"}
+        variant={"secondary"}
+        size={"small"}
+        onClick={handleAddColumn}
+      >
         + Add New Column
       </Button>
     </div>
   );
-});
-
-AddBoardColumns.displayName = "AddBoardColumns";
-
-export default AddBoardColumns;
+}

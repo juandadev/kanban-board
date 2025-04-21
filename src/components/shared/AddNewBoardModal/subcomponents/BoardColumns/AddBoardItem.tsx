@@ -2,57 +2,46 @@ import React from "react";
 import styles from "@/components/shared/AddNewBoardModal/subcomponents/BoardColumns/AddBoardColumns.module.css";
 import { TextField } from "@/components/shared/TextField/TextField";
 import { Button } from "@/components/shared/Button/Button";
-import { NewBoardColumn } from "@/types/board";
 import CrossIcon from "@/icons/CrossIcon";
+import { Control, Controller } from "react-hook-form";
+import { REQUIRED_FIELD } from "@/lib/validation-texts";
+import { NewBoardValues } from "@/components/shared/AddNewBoardModal/AddNewBoardModal";
 
 type AddBoardItemProps = {
-  id: number;
-  columns: NewBoardColumn[];
-  setColumns: React.Dispatch<React.SetStateAction<NewBoardColumn[]>>;
+  id: string;
   placeholder: string;
+  index: number;
+  control: Control<NewBoardValues>;
+  remove: (_index: number) => void;
 };
 
 export function AddBoardItem({
   id,
-  columns,
-  setColumns,
   placeholder,
+  index,
+  control,
+  remove,
 }: AddBoardItemProps) {
-  const columnValue = columns.find((column) => column.id === id)?.name;
-
-  const handleRemoveColumn: React.MouseEventHandler<HTMLButtonElement> = (
-    event,
-  ) => {
-    const { id: targetId } = event.target as HTMLButtonElement;
-
-    setColumns((prevState) => {
-      return prevState.filter((column) => column.id !== parseInt(targetId));
-    });
-  };
-
-  const handleColumnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { id: targetId } = event.target as HTMLButtonElement;
-
-    setColumns((prevState) => {
-      return prevState.map((column) => {
-        if (column.id === parseInt(targetId)) {
-          return {
-            ...column,
-            name: event.target.value,
-          };
-        }
-        return column;
-      });
-    });
+  const handleRemoveColumn = () => {
+    remove(index);
   };
 
   return (
     <div className={styles.add_column_item}>
-      <TextField
-        id={id.toString()}
-        value={columnValue}
-        onChange={handleColumnChange}
-        placeholder={`e.g. ${placeholder}`}
+      <Controller
+        control={control}
+        name={`columns.${index}.name`}
+        defaultValue=""
+        rules={{ required: REQUIRED_FIELD }}
+        render={({ field, fieldState }) => (
+          <TextField
+            id={id}
+            placeholder={`e.g. ${placeholder}`}
+            data-error={fieldState.isTouched && !!fieldState.error}
+            errorMessage={fieldState.error?.message}
+            {...field}
+          />
+        )}
       />
       <Button
         id={id.toString()}

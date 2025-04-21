@@ -38,17 +38,20 @@ export function Board() {
   }
 
   return (
-    <section className={styles.container}>
-      <div className={styles.emptyColumn}>
-        {activeBoard.columns.length === 0 ? (
-          <>
-            <p>This board is empty. Create a new column to get started.</p>
-            <Button>Add new Column</Button>
-          </>
-        ) : (
-          renderColumns
-        )}
-      </div>
-    </section>
+    <>
+      <section className={styles.container}>
+        <div className={styles.emptyColumn}>
+          {activeBoard.columns.length === 0 ? (
+            <>
+              <p>This board is empty. Create a new column to get started.</p>
+              <Button>Add new Column</Button>
+            </>
+          ) : (
+            renderColumns
+          )}
+        </div>
+      </section>
+      <AddNewBoardModal />
+    </>
   );
 }

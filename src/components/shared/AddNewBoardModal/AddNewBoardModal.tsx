@@ -1,49 +1,63 @@
+import React from "react";
 import Modal from "@/components/shared/Modal/Modal";
 import { TextField } from "@/components/shared/TextField/TextField";
-import AddBoardColumns from "@/components/shared/AddNewBoardModal/subcomponents/BoardColumns/AddBoardColumns";
-import React, { MutableRefObject, useRef, useState } from "react";
-import { useActiveBoard } from "@/hooks/useActiveBoard";
+import { AddBoardColumns } from "@/components/shared/AddNewBoardModal/subcomponents/BoardColumns/AddBoardColumns";
 import { Button } from "@/components/shared/Button/Button";
-import { useBoardContext } from "@/context/boards/BoardsContext";
+import styles from "./AddNewBoardModal.module.css";
+import { NewBoardColumn } from "@/types/board";
+import { Controller, useForm } from "react-hook-form";
+import { REQUIRED_FIELD } from "@/lib/validation-texts";
 
-type AddBoardColumnsRefType = {
-  handleModalClose: () => void;
-};
+export interface NewBoardValues {
+  "board-name": string;
+  columns: NewBoardColumn[];
+}
 
 export function AddNewBoardModal() {
-  const { activeBoard } = useActiveBoard();
-  const { dispatch } = useBoardContext();
-  const [boardName, setBoardName] = useState<string>(activeBoard?.name || "");
-  const addBoardColumnsRef: MutableRefObject<AddBoardColumnsRefType | null> =
-    useRef(null);
+  const { handleSubmit, control } = useForm<NewBoardValues>();
 
-  const handleBoardNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setBoardName(e.target.value);
-  };
+  const handleBoardSave: React.MouseEventHandler<HTMLButtonElement> = () => {};
 
-  const handleBoardSave: React.MouseEventHandler<HTMLButtonElement> = () => {
-    addBoardColumnsRef.current?.handleModalClose();
-    dispatch({
-      type: "UPDATE_BOARD_NAME",
-      payload: { name: boardName },
-    });
+  const onSubmit = (data: NewBoardValues) => {
+    console.log("Form data:", data);
   };
 
   return (
     <Modal type={"createBoard"}>
       <Modal.Title>Add New Board</Modal.Title>
       <Modal.Body>
-        <TextField
-          label={"Board Name"}
-          id={"board-name"}
-          value={boardName}
-          onChange={handleBoardNameChange}
-          placeholder={"e.g. Web Design"}
-        />
-        <AddBoardColumns ref={addBoardColumnsRef} />
+        <form
+          id={"create-board-form"}
+          className={styles.form_container}
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <Controller
+            name="board-name"
+            control={control}
+            defaultValue=""
+            rules={{ required: REQUIRED_FIELD }}
+            render={({ field, fieldState }) => (
+              <TextField
+                id={"board-name"}
+                label={"Board Name"}
+                placeholder={"e.g. Web Design"}
+                data-error={fieldState.isTouched && !!fieldState.error}
+                errorMessage={fieldState.error?.message}
+                {...field}
+              />
+            )}
+          />
+          <AddBoardColumns control={control} />
+        </form>
       </Modal.Body>
       <Modal.Footer>
-        <Button size={"small"} fluid onClick={handleBoardSave}>
+        <Button
+          size={"small"}
+          fluid
+          onClick={handleBoardSave}
+          type={"submit"}
+          form={"create-board-form"}
+        >
           Create New Board
         </Button>
       </Modal.Footer>

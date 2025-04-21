@@ -1,4 +1,5 @@
 .field_container {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -26,6 +27,15 @@
   &[data-error="true"] {
     border-color: var(--palette-red);
   }
+}
+
+.field_error_message {
+  position: absolute;
+  bottom: 9px;
+  right: 1rem;
+  font: var(--font-body-l);
+  color: var(--palette-red);
+  background-color: var(--background-color-1);
 }
 
 @media (min-width: 768px) {
