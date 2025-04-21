@@ -3,8 +3,8 @@
 
   /* COLORS */
   --palette-black: #000112;
-  --palette-black-rgb: #000112;
-  --palette-very-dark-grey: 32, 33, 44;
+  --palette-black-rgb: 0, 1, 18;
+  --palette-very-dark-grey: #20212c;
   --palette-dark-grey: #2b2c37;
   --palette-dark-lines: #3e3f4e;
   --palette-medium-grey: #828fa3;

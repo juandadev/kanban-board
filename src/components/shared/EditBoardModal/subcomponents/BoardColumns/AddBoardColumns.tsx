@@ -3,33 +3,49 @@ import styles from "./AddBoardColumns.module.css";
 import React, { forwardRef, useImperativeHandle, useState } from "react";
 import { AddBoardItem } from "@/components/shared/EditBoardModal/subcomponents/BoardColumns/AddBoardItem";
 import { useModal } from "@/context/ModalContext";
-import { useBoardContext } from "@/context/boards/BoardsContext";
-import { Column } from "@/types/board";
+import { NewBoardColumn } from "@/types/board";
+
+const columnWords = [
+  "Todo",
+  "Doing",
+  "Done",
+  "Backlog",
+  "In Progress",
+  "Review",
+  "Blocked",
+  "Testing",
+  "Ready",
+  "Deployed",
+  "Planning",
+  "Research",
+  "Design",
+  "Development",
+  "QA",
+  "Staging",
+  "Production",
+  "Awaiting Feedback",
+  "On Hold",
+  "Completed",
+];
 
 const AddBoardColumns = forwardRef((props, ref) => {
-  const [columns, setColumns] = useState<Omit<Column, "boardId">[]>([]);
+  const [columns, setColumns] = useState<NewBoardColumn[]>([]);
   const { closeModal } = useModal();
-  const { dispatch } = useBoardContext();
 
   const handleModalClose = () => {
-    dispatch({
-      type: "UPDATE_COLUMNS",
-      payload: { columns },
-    });
     closeModal();
   };
 
   const handleAddColumn = () => {
-    // TODO: Fix this
-    // setColumns((prevState) => {
-    //   const columnId = prevState.length + 1;
-    //   const newColumnObj: Omit<Column, "boardId"> = {
-    //     id: columnId.toString(),
-    //     name: "",
-    //   };
-    //
-    //   return [...prevState, newColumnObj];
-    // });
+    setColumns((prevState) => {
+      const columnId = prevState.length + 1;
+      const newColumnObj: NewBoardColumn = {
+        id: columnId,
+        name: "",
+      };
+
+      return [...prevState, newColumnObj];
+    });
   };
 
   useImperativeHandle(ref, () => ({
@@ -38,13 +54,14 @@ const AddBoardColumns = forwardRef((props, ref) => {
 
   return (
     <div className={styles.container}>
-      <span>Board Columns</span>
+      <span className={styles.title}>Board Columns</span>
       {columns.map((column) => (
         <AddBoardItem
           key={column.id}
           id={column.id}
           columns={columns}
           setColumns={setColumns}
+          placeholder={columnWords[column.id - 1]}
         />
       ))}
       <Button variant={"secondary"} size={"small"} onClick={handleAddColumn}>

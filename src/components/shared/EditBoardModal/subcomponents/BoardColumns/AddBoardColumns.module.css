@@ -4,6 +4,11 @@
   gap: 1rem;
 }
 
+.title {
+  font: var(--font-heading-s);
+  color: var(--palette-medium-grey);
+}
+
 .add_column_item {
   display: flex;
   gap: 1rem;

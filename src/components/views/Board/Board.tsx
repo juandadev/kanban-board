@@ -18,7 +18,7 @@ export function Board() {
       </div>
     )) || [];
 
-  if (activeBoardId) {
+  if (!activeBoardId) {
     return (
       <section className={styles.container}>
         <div className={styles.emptyColumn}>

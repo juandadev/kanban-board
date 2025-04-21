@@ -1,5 +1,4 @@
 import Modal from "@/components/shared/Modal/Modal";
-import styles from "./EditBoardModal.module.css";
 import { TextField } from "@/components/shared/TextField/TextField";
 import AddBoardColumns from "@/components/shared/EditBoardModal/subcomponents/BoardColumns/AddBoardColumns";
 import React, { MutableRefObject, useRef, useState } from "react";
@@ -39,6 +38,7 @@ export function EditBoardModal() {
           id={"board-name"}
           value={boardName}
           onChange={handleBoardNameChange}
+          placeholder={"e.g. Web Design"}
         />
         <AddBoardColumns ref={addBoardColumnsRef} />
       </Modal.Body>
