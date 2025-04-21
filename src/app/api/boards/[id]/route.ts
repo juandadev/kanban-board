@@ -1,28 +1,39 @@
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-import { ActiveBoard, Board } from "@/types/board";
 import { getSession, Session } from "@/lib/auth";
-import { RequestError } from "@/types/services";
+import {
+  DeleteBoardResponse,
+  GenericErrorResponse,
+  GetBoardResponse,
+  PatchBoardResponse,
+} from "@/types/services";
 import { castToBoard } from "@/lib/utils";
 import { hasPermission } from "@/lib/services";
+import { BOARD_REQUESTS, REQUEST_ERRORS } from "@/lib/validation-texts";
 
 const prisma = new PrismaClient();
 
 export async function GET(
   _request: Request,
   { params }: { params: Promise<{ id: string }> },
-): Promise<NextResponse<ActiveBoard | RequestError>> {
+): Promise<NextResponse<GetBoardResponse | GenericErrorResponse>> {
   const session: Session | null = await getSession();
 
   if (!session || !session.user?.id) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json(
+      { message: REQUEST_ERRORS.UNAUTHORIZED, payload: {} },
+      { status: 401 },
+    );
   }
 
   const { id } = await params;
   const canView = hasPermission(prisma, session, id, "read_only", "GET");
 
   if (!canView) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    return NextResponse.json(
+      { message: REQUEST_ERRORS.FORBIDDEN, payload: {} },
+      { status: 403 },
+    );
   }
 
   try {
@@ -44,7 +55,10 @@ export async function GET(
     });
 
     if (!board) {
-      return NextResponse.json({ error: "Boards not found" }, { status: 404 });
+      return NextResponse.json(
+        { message: REQUEST_ERRORS.NOT_FOUND, payload: {} },
+        { status: 404 },
+      );
     }
 
     const hasAccess = await prisma.boards.findFirst({
@@ -58,16 +72,21 @@ export async function GET(
     });
 
     if (!hasAccess) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json(
+        { message: REQUEST_ERRORS.UNAUTHORIZED, payload: {} },
+        { status: 401 },
+      );
     }
 
-    // @ts-expect-error doesn't match with prisma schema
-    return NextResponse.json(board);
+    return NextResponse.json({
+      message: BOARD_REQUESTS.GET_BOARD_SUCCESS,
+      payload: { board },
+    });
   } catch (error) {
     console.error(error);
 
     return NextResponse.json(
-      { error: "Internal server error" },
+      { message: REQUEST_ERRORS.INTERNAL_SERVER_ERROR, payload: {} },
       { status: 500 },
     );
   }
@@ -76,11 +95,14 @@ export async function GET(
 export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
-): Promise<NextResponse<Board | RequestError>> {
+): Promise<NextResponse<PatchBoardResponse | GenericErrorResponse>> {
   const session = await getSession();
 
   if (!session || !session.user?.id) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json(
+      { message: REQUEST_ERRORS.UNAUTHORIZED, payload: {} },
+      { status: 401 },
+    );
   }
 
   const { id } = await params;
@@ -88,7 +110,10 @@ export async function PATCH(
   const canEdit = hasPermission(prisma, session, id, "edit", "PATCH");
 
   if (!canEdit) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    return NextResponse.json(
+      { message: REQUEST_ERRORS.FORBIDDEN, payload: {} },
+      { status: 403 },
+    );
   }
 
   try {
@@ -101,17 +126,23 @@ export async function PATCH(
     });
 
     if (!board) {
-      return NextResponse.json({ error: "Board not found" }, { status: 404 });
+      return NextResponse.json(
+        { message: REQUEST_ERRORS.NOT_FOUND, payload: {} },
+        { status: 404 },
+      );
     }
 
     const typedBoard = castToBoard(board);
 
-    return NextResponse.json(typedBoard);
+    return NextResponse.json({
+      message: BOARD_REQUESTS.PUT_BOARDS_SUCCESS,
+      payload: { board: typedBoard },
+    });
   } catch (error) {
     console.error(error);
 
     return NextResponse.json(
-      { error: "Internal server error" },
+      { message: REQUEST_ERRORS.INTERNAL_SERVER_ERROR, payload: {} },
       { status: 500 },
     );
   }
@@ -120,18 +151,24 @@ export async function PATCH(
 export async function DELETE(
   _request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
-): Promise<NextResponse<Board | RequestError>> {
+): Promise<NextResponse<DeleteBoardResponse | GenericErrorResponse>> {
   const session = await getSession();
 
   if (!session || !session.user?.id) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json(
+      { message: REQUEST_ERRORS.UNAUTHORIZED, payload: {} },
+      { status: 401 },
+    );
   }
 
   const { id } = await params;
   const canEdit = hasPermission(prisma, session, id, "edit", "DELETE");
 
   if (!canEdit) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    return NextResponse.json(
+      { message: REQUEST_ERRORS.FORBIDDEN, payload: {} },
+      { status: 403 },
+    );
   }
 
   try {
@@ -140,17 +177,23 @@ export async function DELETE(
     });
 
     if (!board) {
-      return NextResponse.json({ error: "Board not found" }, { status: 404 });
+      return NextResponse.json(
+        { message: REQUEST_ERRORS.NOT_FOUND, payload: {} },
+        { status: 404 },
+      );
     }
 
     const typedBoard = castToBoard(board);
 
-    return NextResponse.json(typedBoard);
+    return NextResponse.json({
+      message: BOARD_REQUESTS.DELETE_BOARDS_SUCCESS,
+      payload: { board: typedBoard },
+    });
   } catch (error) {
     console.error(error);
 
     return NextResponse.json(
-      { error: "Internal server error" },
+      { message: REQUEST_ERRORS.INTERNAL_SERVER_ERROR, payload: {} },
       { status: 500 },
     );
   }

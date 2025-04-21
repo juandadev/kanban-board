@@ -1,8 +1,14 @@
 // noinspection ExceptionCaughtLocallyJS
 
-import { Board } from "@/types/board";
+import {
+  GenericErrorResponse,
+  GetBoardsByIdResponse,
+  GetBoardsResponse,
+} from "@/types/services";
 
-export async function getBoards(): Promise<Board[]> {
+export async function getBoards(): Promise<
+  GetBoardsResponse | GenericErrorResponse
+> {
   const response = await fetch("/api/boards");
 
   try {
@@ -13,7 +19,31 @@ export async function getBoards(): Promise<Board[]> {
     return await response.json();
   } catch (error) {
     console.error(error);
-    // TODO: Implement a better response structure for success and failure
-    return [];
+
+    return {
+      message: error instanceof Error ? error.message : String(error),
+      payload: {},
+    };
+  }
+}
+
+export async function getBoardById(
+  id: string,
+): Promise<GetBoardsByIdResponse | GenericErrorResponse> {
+  const response = await fetch(`/api/boards/${id}`);
+
+  try {
+    if (!response.ok) {
+      throw new Error(`Failed to fetch board with ID ${id}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+
+    return {
+      message: error instanceof Error ? error.message : String(error),
+      payload: {},
+    };
   }
 }

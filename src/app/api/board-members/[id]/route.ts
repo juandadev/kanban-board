@@ -1,21 +1,30 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 import { PrismaClient } from "@prisma/client";
-import { BoardMember, BoardMemberWithUser } from "@/types/board";
+import { BoardMember } from "@/types/board";
 import { castToMember, castToMembers } from "@/lib/utils";
-import { RequestError } from "@/types/services";
+import {
+  DeleteBoardMembersResponse,
+  GenericErrorResponse,
+  GetBoardMembersResponse,
+  PostBoardMembersResponse,
+} from "@/types/services";
 import { hasPermission } from "@/lib/services";
+import { BOARD_MEMBERS_REQUESTS, REQUEST_ERRORS } from "@/lib/validation-texts";
 
 const prisma = new PrismaClient();
 
 export async function GET(
   _request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
-): Promise<NextResponse<BoardMemberWithUser[] | RequestError>> {
+): Promise<NextResponse<GetBoardMembersResponse | GenericErrorResponse>> {
   const session = await getSession();
 
   if (!session || !session.user?.id) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json(
+      { message: REQUEST_ERRORS.UNAUTHORIZED, payload: {} },
+      { status: 401 },
+    );
   }
 
   const { id: board_id } = await params;
@@ -23,7 +32,10 @@ export async function GET(
   const canView = hasPermission(prisma, session, board_id, "read_only", "GET");
 
   if (!canView) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    return NextResponse.json(
+      { message: REQUEST_ERRORS.FORBIDDEN, payload: {} },
+      { status: 403 },
+    );
   }
 
   const members = await prisma.board_members.findMany({
@@ -32,17 +44,23 @@ export async function GET(
   });
   const typedMembers = castToMembers(members);
 
-  return NextResponse.json(typedMembers);
+  return NextResponse.json({
+    message: BOARD_MEMBERS_REQUESTS.GET_MEMBERS_SUCCESS,
+    payload: { members: typedMembers },
+  });
 }
 
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
-): Promise<NextResponse<BoardMember | RequestError>> {
+): Promise<NextResponse<PostBoardMembersResponse | GenericErrorResponse>> {
   const session = await getSession();
 
   if (!session || !session.user?.id) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json(
+      { message: REQUEST_ERRORS.UNAUTHORIZED, payload: {} },
+      { status: 401 },
+    );
   }
 
   const { id: board_id } = await params;
@@ -51,11 +69,17 @@ export async function POST(
   const canEdit = hasPermission(prisma, session, board_id, "admin", "POST");
 
   if (!canEdit) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    return NextResponse.json(
+      { message: REQUEST_ERRORS.FORBIDDEN, payload: {} },
+      { status: 403 },
+    );
   }
 
   if (!user_id || !role || !["read_only", "edit", "admin"].includes(role)) {
-    return NextResponse.json({ error: "Invalid input" }, { status: 400 });
+    return NextResponse.json(
+      { message: REQUEST_ERRORS.INVALID_INPUT, payload: {} },
+      { status: 400 },
+    );
   }
 
   const board = await prisma.boards.findUnique({
@@ -68,7 +92,10 @@ export async function POST(
     (board.user_id !== session.user.id &&
       !board.board_members.some((m) => m.role === "admin"))
   ) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json(
+      { message: REQUEST_ERRORS.UNAUTHORIZED, payload: {} },
+      { status: 401 },
+    );
   }
 
   const member = await prisma.board_members.create({
@@ -80,17 +107,26 @@ export async function POST(
   });
   const typedMember = castToMember(member);
 
-  return NextResponse.json(typedMember, { status: 201 });
+  return NextResponse.json(
+    {
+      message: BOARD_MEMBERS_REQUESTS.POST_MEMBERS_SUCCESS,
+      payload: { member: typedMember },
+    },
+    { status: 201 },
+  );
 }
 
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
-): Promise<NextResponse<BoardMember | RequestError>> {
+): Promise<NextResponse<DeleteBoardMembersResponse | GenericErrorResponse>> {
   const session = await getSession();
 
   if (!session || !session.user?.id) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json(
+      { message: REQUEST_ERRORS.UNAUTHORIZED, payload: {} },
+      { status: 401 },
+    );
   }
 
   const { id: board_id } = await params;
@@ -99,11 +135,17 @@ export async function DELETE(
   const canEdit = hasPermission(prisma, session, board_id, "admin", "DELETE");
 
   if (!canEdit) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    return NextResponse.json(
+      { message: REQUEST_ERRORS.FORBIDDEN, payload: {} },
+      { status: 403 },
+    );
   }
 
   if (!user_id) {
-    return NextResponse.json({ error: "Invalid input" }, { status: 400 });
+    return NextResponse.json(
+      { message: REQUEST_ERRORS.INVALID_INPUT, payload: {} },
+      { status: 400 },
+    );
   }
 
   const board = await prisma.boards.findUnique({
@@ -116,7 +158,10 @@ export async function DELETE(
     (board.user_id !== session.user.id &&
       !board.board_members.some((m) => m.role === "admin"))
   ) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json(
+      { message: REQUEST_ERRORS.UNAUTHORIZED, payload: {} },
+      { status: 401 },
+    );
   }
 
   const member = await prisma.board_members.delete({
@@ -128,7 +173,11 @@ export async function DELETE(
     },
   });
   const typedMember = castToMember(member);
-  // TODO: Consider returning a more sofisticated response structure either for success or failure
 
-  return NextResponse.json(typedMember);
+  return NextResponse.json({
+    message: BOARD_MEMBERS_REQUESTS.DELETE_MEMBERS_SUCCESS,
+    payload: {
+      member: { typedMember },
+    },
+  });
 }

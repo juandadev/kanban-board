@@ -1,17 +1,26 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 import { PrismaClient } from "@prisma/client";
-import { Board } from "@/types/board";
 import { castToBoard, castToBoards } from "@/lib/utils";
-import { RequestError } from "@/types/services";
+import {
+  GenericErrorResponse,
+  GetBoardsResponse,
+  PostBoardResponse,
+} from "@/types/services";
+import { BOARD_REQUESTS, REQUEST_ERRORS } from "@/lib/validation-texts";
 
 const prisma = new PrismaClient();
 
-export async function GET(): Promise<NextResponse<Board[] | RequestError>> {
+export async function GET(): Promise<
+  NextResponse<GetBoardsResponse | GenericErrorResponse>
+> {
   const session = await getSession();
 
   if (!session || !session.user?.id) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json(
+      { message: REQUEST_ERRORS.UNAUTHORIZED, payload: {} },
+      { status: 401 },
+    );
   }
 
   const boards = await prisma.boards.findMany({
@@ -25,22 +34,31 @@ export async function GET(): Promise<NextResponse<Board[] | RequestError>> {
 
   const typedBoards = castToBoards(boards);
 
-  return NextResponse.json(typedBoards);
+  return NextResponse.json({
+    message: BOARD_REQUESTS.GET_BOARDS_SUCCESS,
+    payload: { boards: typedBoards },
+  });
 }
 
 export async function POST(
   request: NextRequest,
-): Promise<NextResponse<Board | RequestError>> {
+): Promise<NextResponse<PostBoardResponse | GenericErrorResponse>> {
   const session = await getSession();
 
   if (!session || !session.user?.id) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json(
+      { message: REQUEST_ERRORS.UNAUTHORIZED, payload: {} },
+      { status: 401 },
+    );
   }
 
   const { name, work_schedule } = await request.json();
 
   if (!name) {
-    return NextResponse.json({ error: "Name is required" }, { status: 400 });
+    return NextResponse.json(
+      { message: REQUEST_ERRORS.INVALID_INPUT, payload: {} },
+      { status: 400 },
+    );
   }
 
   const board = await prisma.boards.create({
@@ -53,5 +71,11 @@ export async function POST(
 
   const typedBoard = castToBoard(board);
 
-  return NextResponse.json(typedBoard, { status: 201 });
+  return NextResponse.json(
+    {
+      message: BOARD_REQUESTS.POST_BOARDS_SUCCESS,
+      payload: { board: typedBoard },
+    },
+    { status: 201 },
+  );
 }
