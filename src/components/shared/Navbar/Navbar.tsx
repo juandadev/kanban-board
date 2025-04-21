@@ -9,6 +9,7 @@ import { Button } from "@/components/shared/Button/Button";
 import PlusIcon from "@/icons/PlusIcon";
 import VerticalEllipsisIcon from "@/icons/VerticalEllipsisIcon";
 import { useActiveBoard } from "@/hooks/useActiveBoard";
+import { Menu } from "@/components/shared/Navbar/subcomponents/Menu";
 
 export function Navbar() {
   const { activeBoardId } = useActiveBoard();
@@ -31,6 +32,7 @@ export function Navbar() {
           <VerticalEllipsisIcon size={20} />
         </Button>
       </div>
+      <Menu />
     </nav>
   );
 }

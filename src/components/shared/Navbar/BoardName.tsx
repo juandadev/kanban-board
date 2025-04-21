@@ -12,7 +12,7 @@ export function BoardName() {
   return (
     <span className={styles.title}>
       {activeBoard?.name || <KanbanTextLogoIcon size={25} />}
-      <ChevronDownIcon size={8} />
+      <ChevronDownIcon size={10} />
     </span>
   );
 }

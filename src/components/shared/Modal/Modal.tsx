@@ -7,13 +7,19 @@ import { useModal } from "@/context/ModalContext";
 import { ModalProps } from "@/types/modal";
 
 export function Modal({ children, type }: ModalProps) {
-  const { activeModal } = useModal();
+  const { activeModal, closeModal } = useModal();
+
+  const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+  };
 
   if (activeModal !== type) return null;
 
   return createPortal(
-    <div className={styles.modal_overlay}>
-      <div className={styles.modal_container}>{children}</div>
+    <div className={styles.modal_overlay} onClick={closeModal}>
+      <div className={styles.modal_container} onClick={handleModalClick}>
+        {children}
+      </div>
     </div>,
     document.querySelector(".modal") as Element,
   );
