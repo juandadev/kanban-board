@@ -14,22 +14,18 @@ export const boardReducer = (
       };
     }
 
+    case "SET_ACTIVE_BOARD": {
+      const { activeBoard } = action.payload;
+
+      return { ...state, activeBoard };
+    }
+
     case "CREATE_BOARD": {
-      const { name } = action.payload;
+      const { board } = action.payload;
 
       return {
         ...state,
-        boards: [
-          ...state.boards,
-          {
-            id: Date.now().toString(),
-            name,
-            user_id: "",
-            work_schedule: null,
-            created_at: undefined,
-            updated_at: undefined,
-          },
-        ],
+        boards: [...state.boards, { ...board }],
       };
     }
 

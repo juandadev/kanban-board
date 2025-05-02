@@ -13,6 +13,7 @@ export async function getBoards(): Promise<
 
   try {
     if (!response.ok) {
+      // TODO: Fixx error messages
       throw new Error("Failed to fetch boards");
     }
 
