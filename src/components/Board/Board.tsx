@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import { useModal } from "@/context/ModalContext";
 import { useActiveBoard } from "@/hooks/useActiveBoard";
-import { AddNewBoardModal } from "@/components/shared/AddNewBoardModal/AddNewBoardModal";
+import { AddNewBoardModal } from "@/components/AddNewBoardModal/AddNewBoardModal";
 
 export function Board() {
   const { activeBoard, activeBoardId } = useActiveBoard();

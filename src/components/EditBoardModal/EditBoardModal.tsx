@@ -1,9 +1,7 @@
 import { Modal } from "@/components/Modal/Modal";
-import { TextField } from "@/components/TextField/TextField";
 import { AddBoardColumns } from "@/components/EditBoardModal/subcomponents/BoardColumns/AddBoardColumns";
 import React, { RefObject, useRef, useState } from "react";
 import { useActiveBoard } from "@/hooks/useActiveBoard";
-import { useBoardContext } from "@/context/boardContext";
 import { Button } from "@/components/ui/button";
 import {
   DialogDescription,
@@ -11,15 +9,17 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useBoardContext } from "@/context/boards/BoardsContext";
+import { TextField } from "@/components/TextField/TextField";
 
 type AddBoardColumnsRefType = {
   handleModalClose: () => void;
 };
 
 export function EditBoardModal() {
-  const { board } = useActiveBoard();
+  const { activeBoard } = useActiveBoard();
   const { dispatch } = useBoardContext();
-  const [boardName, setBoardName] = useState<string>(board?.name || "");
+  const [boardName, setBoardName] = useState<string>(activeBoard.name);
   const addBoardColumnsRef: RefObject<AddBoardColumnsRefType | null> =
     useRef(null);
 
@@ -30,6 +30,7 @@ export function EditBoardModal() {
   const handleBoardSave: React.MouseEventHandler<HTMLButtonElement> = () => {
     addBoardColumnsRef.current?.handleModalClose();
 
+    // TODO: Check this logic to match the insertion from database
     dispatch({
       type: "UPDATE_BOARD_NAME",
       payload: { name: boardName },
@@ -37,7 +38,7 @@ export function EditBoardModal() {
   };
 
   return (
-    <Modal type="editBoard" aria-description="Edit board columns">
+    <Modal type="editBoard">
       <DialogHeader>
         <DialogTitle>Edit Board</DialogTitle>
         <DialogDescription className="sr-only">

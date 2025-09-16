@@ -1,14 +1,14 @@
 import React from "react";
 import { TextField } from "@/components/TextField/TextField";
-import { ColumnType } from "@/types/Boards";
 import { Button } from "@/components/ui/button";
 import { XIcon } from "lucide-react";
+import { NewBoardColumn } from "@/types/board";
 
 type AddBoardItemProps = {
   id: number;
   columns: NewBoardColumn[];
   setColumns: React.Dispatch<React.SetStateAction<NewBoardColumn[]>>;
-  placeholder: string;
+  placeholder?: string;
 };
 
 export function AddBoardItem({

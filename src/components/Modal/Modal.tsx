@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import { ModalType, useModal } from "@/context/modalContext";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { useModal } from "@/context/ModalContext";
 
 type ModalProps = {
   children: React.ReactNode;

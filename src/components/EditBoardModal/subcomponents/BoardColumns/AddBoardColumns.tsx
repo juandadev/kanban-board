@@ -1,14 +1,14 @@
 import React, { forwardRef, useImperativeHandle, useState } from "react";
-import { AddBoardItem } from "@/components/EditBoardModal/subcomponents/BoardColumns/AddBoardItem";
-import { useModal } from "@/context/modalContext";
-import { useBoardContext } from "@/context/boardContext";
-import { ColumnType } from "@/types/Boards";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { PlusIcon } from "lucide-react";
+import { useBoardContext } from "@/context/boards/BoardsContext";
+import { useModal } from "@/context/ModalContext";
+import { AddBoardItem } from "@/components/AddNewBoardModal/subcomponents/BoardColumns/AddBoardItem";
+import { NewBoardColumn } from "@/types/board";
 
 export const AddBoardColumns = forwardRef((props, ref) => {
-  const [columns, setColumns] = useState<Omit<ColumnType, "boardId">[]>([]);
+  const [columns, setColumns] = useState<NewBoardColumn[]>([]);
   const { closeModal } = useModal();
   const { dispatch } = useBoardContext();
 
@@ -23,7 +23,7 @@ export const AddBoardColumns = forwardRef((props, ref) => {
   const handleAddColumn = () => {
     setColumns((prevState) => {
       const columnId = prevState.length + 1;
-      const newColumnObj: Omit<ColumnType, "boardId"> = {
+      const newColumnObj: NewBoardColumn = {
         id: columnId,
         name: "",
       };
