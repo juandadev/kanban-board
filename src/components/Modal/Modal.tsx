@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { createPortal } from "react-dom";
 import { ModalType, useModal } from "@/context/modalContext";
 
 type ModalProps = {
@@ -14,10 +13,9 @@ export function Modal({ children, type }: ModalProps) {
 
   if (activeModal !== type) return null;
 
-  return createPortal(
+  return (
     <div>
       <div>{children}</div>
-    </div>,
-    document.querySelector(".modal") as Element,
+    </div>
   );
 }

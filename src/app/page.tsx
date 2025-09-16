@@ -4,7 +4,7 @@ import { Board } from "@/components/Board/Board";
 
 export default function Home() {
   return (
-    <main>
+    <main className="h-dvh">
       <Navbar />
       <Board />
     </main>
