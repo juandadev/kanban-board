@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import styles from "./Board.module.css";
 import { useActiveBoard } from "@/hooks/useActiveBoard";
 import { useModal } from "@/context/modalContext";
 import { EditBoardModal } from "@/components/EditBoardModal/EditBoardModal";
@@ -12,15 +11,13 @@ export function Board() {
   const { openModal } = useModal();
 
   const renderColumns = columns.map((column) => (
-    <div key={column.id} className={styles.column}>
-      {column.name}
-    </div>
+    <div key={column.id}>{column.name}</div>
   ));
 
   if (!board) {
     return (
-      <section className={styles.container}>
-        <div className={styles.emptyColumn}>
+      <section>
+        <div>
           <p>
             There is no selected board. Select one from the menu or create a new
             one
@@ -33,8 +30,8 @@ export function Board() {
 
   return (
     <>
-      <section className={styles.container}>
-        <div className={styles.emptyColumn}>
+      <section>
+        <div>
           {columns.length === 0 ? (
             <>
               <p>This board is empty. Create a new column to get started.</p>

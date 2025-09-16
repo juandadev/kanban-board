@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "@/components/EditBoardModal/subcomponents/BoardColumns/AddBoardColumns.module.css";
 import { TextField } from "@/components/TextField/TextField";
 import { ColumnType } from "@/types/Boards";
 import { Button } from "@/components/ui/button";
@@ -42,7 +41,7 @@ export function AddBoardItem({ id, columns, setColumns }: AddBoardItemProps) {
   };
 
   return (
-    <div className={styles.add_column_item}>
+    <div>
       <TextField
         id={id.toString()}
         value={columnValue}

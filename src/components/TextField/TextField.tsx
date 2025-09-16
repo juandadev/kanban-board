@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./TextField.module.css";
 
 type TextFieldProps = React.ComponentProps<"input"> & {
   label?: string;
@@ -7,7 +6,7 @@ type TextFieldProps = React.ComponentProps<"input"> & {
 
 export function TextField({ id, label, ...restProps }: TextFieldProps) {
   return (
-    <div className={styles.field_container}>
+    <div>
       {label && <label htmlFor={id}>{label}</label>}
       <input id={id} type="text" {...restProps} />
     </div>

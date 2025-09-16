@@ -1,4 +1,3 @@
-import styles from "./AddBoardColumns.module.css";
 import React, { forwardRef, useImperativeHandle, useState } from "react";
 import { AddBoardItem } from "@/components/EditBoardModal/subcomponents/BoardColumns/AddBoardItem";
 import { useModal } from "@/context/modalContext";
@@ -36,7 +35,7 @@ export const AddBoardColumns = forwardRef((props, ref) => {
   }));
 
   return (
-    <div className={styles.container}>
+    <div>
       <span>Board Columns</span>
       {columns.map((column) => (
         <AddBoardItem

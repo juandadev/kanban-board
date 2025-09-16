@@ -1,5 +1,4 @@
 import { Modal } from "@/components/Modal/Modal";
-import styles from "./EditBoardModal.module.css";
 import { TextField } from "@/components/TextField/TextField";
 import { AddBoardColumns } from "@/components/EditBoardModal/subcomponents/BoardColumns/AddBoardColumns";
 import React, { MutableRefObject, useRef, useState } from "react";
@@ -32,9 +31,9 @@ export function EditBoardModal() {
 
   return (
     <Modal type={"editBoard"}>
-      <div className={styles.modal_container}>
+      <div>
         <h2>Edit Board</h2>
-        <div className={styles.form_container}>
+        <div>
           <TextField
             label={"Board Name"}
             id={"board-name"}
