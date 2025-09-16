@@ -5,6 +5,7 @@ import { useActiveBoard } from "@/hooks/useActiveBoard";
 import { useModal } from "@/context/modalContext";
 import { EditBoardModal } from "@/components/EditBoardModal/EditBoardModal";
 import { Button } from "@/components/ui/button";
+import { PlusIcon } from "lucide-react";
 
 export function Board() {
   const { board, columns } = useActiveBoard();
@@ -16,7 +17,7 @@ export function Board() {
 
   if (!board) {
     return (
-      <section>
+      <section className="h-full">
         <div>
           <p>
             There is no selected board. Select one from the menu or create a new
@@ -30,15 +31,18 @@ export function Board() {
 
   return (
     <>
-      <section>
+      <section className="h-[calc(100dvh-68px)] flex items-center justify-center px-4 py-6">
         <div>
           {columns.length === 0 ? (
-            <>
-              <p>This board is empty. Create a new column to get started.</p>
-              <Button onClick={() => openModal("editBoard")}>
+            <div className="flex flex-col items-center gap-6">
+              <p className="font-bold text-lg text-center">
+                This board is empty. Create a new column to get started.
+              </p>
+              <Button className="w-fit" onClick={() => openModal("editBoard")}>
+                <PlusIcon />
                 Add new Column
               </Button>
-            </>
+            </div>
           ) : (
             renderColumns
           )}
