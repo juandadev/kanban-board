@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./Menu.module.css";
-import { MenuItem } from "@/components/shared/Navbar/subcomponents/MenuItem";
 import { useActiveBoard } from "@/hooks/useActiveBoard";
 import { useModal } from "@/context/ModalContext";
+import { MenuItem } from "@/components/Navbar/subcomponents/MenuItem";
 
 interface MenuProps {
   isMenuOpen: boolean;

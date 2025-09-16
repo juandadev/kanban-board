@@ -139,7 +139,7 @@ export type BoardsActions =
   | {
       type: "UPDATE_COLUMNS";
       payload: {
-        columns: Omit<Column, "boardId">[];
+        columns: NewBoardColumn[];
       };
     }
   | {

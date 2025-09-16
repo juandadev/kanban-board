@@ -1,11 +1,10 @@
 import React from "react";
-import styles from "./page.module.css";
-import { Navbar } from "@/components/shared/Navbar/Navbar";
-import { Board } from "@/components/views/Board/Board";
+import { Navbar } from "@/components/Navbar/Navbar";
+import { Board } from "@/components/Board/Board";
 
 export default function Home() {
   return (
-    <main className={styles.container}>
+    <main className="h-dvh">
       <Navbar />
       <Board />
     </main>

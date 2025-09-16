@@ -1,15 +1,14 @@
 import React from "react";
-import styles from "@/components/shared/AddNewBoardModal/subcomponents/BoardColumns/AddBoardColumns.module.css";
-import { TextField } from "@/components/shared/TextField/TextField";
-import { Button } from "@/components/shared/Button/Button";
+import { TextField } from "@/components/TextField/TextField";
+import { Button } from "@/components/ui/button";
+import { XIcon } from "lucide-react";
 import { NewBoardColumn } from "@/types/board";
-import CrossIcon from "@/icons/CrossIcon";
 
 type AddBoardItemProps = {
   id: number;
   columns: NewBoardColumn[];
   setColumns: React.Dispatch<React.SetStateAction<NewBoardColumn[]>>;
-  placeholder: string;
+  placeholder?: string;
 };
 
 export function AddBoardItem({
@@ -47,7 +46,7 @@ export function AddBoardItem({
   };
 
   return (
-    <div className={styles.add_column_item}>
+    <div className="flex gap-1 justify-between w-full">
       <TextField
         id={id.toString()}
         value={columnValue}
@@ -55,12 +54,12 @@ export function AddBoardItem({
         placeholder={`e.g. ${placeholder}`}
       />
       <Button
+        variant="ghost"
+        size="icon"
         id={id.toString()}
-        aria-label={"Remove column"}
-        variant={"transparent"}
         onClick={handleRemoveColumn}
       >
-        <CrossIcon style={{ pointerEvents: "none" }} size={14} />
+        <XIcon className="size-4" />
       </Button>
     </div>
   );

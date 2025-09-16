@@ -1,9 +1,8 @@
-import { Button } from "@/components/shared/Button/Button";
-import styles from "./AddBoardColumns.module.css";
 import React, { forwardRef, useImperativeHandle, useState } from "react";
-import { AddBoardItem } from "@/components/shared/AddNewBoardModal/subcomponents/BoardColumns/AddBoardItem";
 import { useModal } from "@/context/ModalContext";
 import { NewBoardColumn } from "@/types/board";
+import { Button } from "@/components/ui/button";
+import { AddBoardItem } from "@/components/AddNewBoardModal/subcomponents/BoardColumns/AddBoardItem";
 
 const columnWords = [
   "Todo",
@@ -53,8 +52,8 @@ const AddBoardColumns = forwardRef((props, ref) => {
   }));
 
   return (
-    <div className={styles.container}>
-      <span className={styles.title}>Board Columns</span>
+    <div>
+      <span>Board Columns</span>
       {columns.map((column) => (
         <AddBoardItem
           key={column.id}
@@ -64,7 +63,7 @@ const AddBoardColumns = forwardRef((props, ref) => {
           placeholder={columnWords[column.id - 1]}
         />
       ))}
-      <Button variant={"secondary"} size={"small"} onClick={handleAddColumn}>
+      <Button variant="secondary" size="sm" onClick={handleAddColumn}>
         + Add New Column
       </Button>
     </div>
