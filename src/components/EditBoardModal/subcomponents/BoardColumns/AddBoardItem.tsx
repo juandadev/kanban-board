@@ -2,6 +2,7 @@ import React from "react";
 import { TextField } from "@/components/TextField/TextField";
 import { ColumnType } from "@/types/Boards";
 import { Button } from "@/components/ui/button";
+import { XIcon } from "lucide-react";
 
 type AddBoardItemProps = {
   id: number;
@@ -41,14 +42,19 @@ export function AddBoardItem({ id, columns, setColumns }: AddBoardItemProps) {
   };
 
   return (
-    <div>
+    <div className="flex gap-1 justify-between w-full">
       <TextField
         id={id.toString()}
         value={columnValue}
         onChange={handleColumnChange}
       />
-      <Button id={id.toString()} onClick={handleRemoveColumn}>
-        X
+      <Button
+        variant="ghost"
+        size="icon"
+        id={id.toString()}
+        onClick={handleRemoveColumn}
+      >
+        <XIcon className="size-4" />
       </Button>
     </div>
   );

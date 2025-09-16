@@ -15,6 +15,10 @@ export function Board() {
     <div key={column.id}>{column.name}</div>
   ));
 
+  const handleEditColumnModal = () => {
+    openModal("editBoard");
+  };
+
   if (!board) {
     return (
       <section className="h-full">
@@ -38,7 +42,7 @@ export function Board() {
               <p className="font-bold text-lg text-center">
                 This board is empty. Create a new column to get started.
               </p>
-              <Button className="w-fit" onClick={() => openModal("editBoard")}>
+              <Button className="w-fit" onClick={handleEditColumnModal}>
                 <PlusIcon />
                 Add new Column
               </Button>

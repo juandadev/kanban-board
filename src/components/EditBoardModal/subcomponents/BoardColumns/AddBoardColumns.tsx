@@ -4,6 +4,8 @@ import { useModal } from "@/context/modalContext";
 import { useBoardContext } from "@/context/boardContext";
 import { ColumnType } from "@/types/Boards";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { PlusIcon } from "lucide-react";
 
 export const AddBoardColumns = forwardRef((props, ref) => {
   const [columns, setColumns] = useState<Omit<ColumnType, "boardId">[]>([]);
@@ -35,17 +37,28 @@ export const AddBoardColumns = forwardRef((props, ref) => {
   }));
 
   return (
-    <div>
-      <span>Board Columns</span>
-      {columns.map((column) => (
-        <AddBoardItem
-          key={column.id}
-          id={column.id}
-          columns={columns}
-          setColumns={setColumns}
-        />
-      ))}
-      <Button onClick={handleAddColumn}>+ Add New Column</Button>
+    <div className="space-y-2">
+      <Label asChild>
+        <span>Board Columns</span>
+      </Label>
+      <div className="space-y-3">
+        {columns.map((column) => (
+          <AddBoardItem
+            key={column.id}
+            id={column.id}
+            columns={columns}
+            setColumns={setColumns}
+          />
+        ))}
+        <Button
+          variant="secondary"
+          className="w-full"
+          onClick={handleAddColumn}
+        >
+          <PlusIcon />
+          Add New Column
+        </Button>
+      </div>
     </div>
   );
 });

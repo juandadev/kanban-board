@@ -2,6 +2,7 @@
 
 import React from "react";
 import { ModalType, useModal } from "@/context/modalContext";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 type ModalProps = {
   children: React.ReactNode;
@@ -9,13 +10,11 @@ type ModalProps = {
 };
 
 export function Modal({ children, type }: ModalProps) {
-  const { activeModal } = useModal();
-
-  if (activeModal !== type) return null;
+  const { activeModal, closeModal } = useModal();
 
   return (
-    <div>
-      <div>{children}</div>
-    </div>
+    <Dialog open={activeModal === type} onOpenChange={closeModal}>
+      <DialogContent className="gap-6">{children}</DialogContent>
+    </Dialog>
   );
 }
