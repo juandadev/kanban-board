@@ -6,13 +6,17 @@ import { XIcon } from "lucide-react";
 
 type AddBoardItemProps = {
   id: number;
-  columns: Omit<ColumnType, "boardId">[];
-  setColumns: React.Dispatch<
-    React.SetStateAction<Omit<ColumnType, "boardId">[]>
-  >;
+  columns: NewBoardColumn[];
+  setColumns: React.Dispatch<React.SetStateAction<NewBoardColumn[]>>;
+  placeholder: string;
 };
 
-export function AddBoardItem({ id, columns, setColumns }: AddBoardItemProps) {
+export function AddBoardItem({
+  id,
+  columns,
+  setColumns,
+  placeholder,
+}: AddBoardItemProps) {
   const columnValue = columns.find((column) => column.id === id)?.name;
 
   const handleRemoveColumn: React.MouseEventHandler<HTMLButtonElement> = (
@@ -47,6 +51,7 @@ export function AddBoardItem({ id, columns, setColumns }: AddBoardItemProps) {
         id={id.toString()}
         value={columnValue}
         onChange={handleColumnChange}
+        placeholder={`e.g. ${placeholder}`}
       />
       <Button
         variant="ghost"
