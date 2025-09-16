@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Navbar.module.css";
-import { Button } from "@/components/Button/Button";
 import { BoardName } from "@/components/Navbar/BoardName";
+import { Button } from "@/components/ui/button";
 
 export function Navbar() {
   return (

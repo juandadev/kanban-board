@@ -4,8 +4,8 @@ import { TextField } from "@/components/TextField/TextField";
 import { AddBoardColumns } from "@/components/EditBoardModal/subcomponents/BoardColumns/AddBoardColumns";
 import React, { MutableRefObject, useRef, useState } from "react";
 import { useActiveBoard } from "@/hooks/useActiveBoard";
-import { Button } from "@/components/Button/Button";
 import { useBoardContext } from "@/context/boardContext";
+import { Button } from "@/components/ui/button";
 
 type AddBoardColumnsRefType = {
   handleModalClose: () => void;

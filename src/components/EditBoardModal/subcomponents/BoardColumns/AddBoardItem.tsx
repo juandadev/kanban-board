@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "@/components/EditBoardModal/subcomponents/BoardColumns/AddBoardColumns.module.css";
 import { TextField } from "@/components/TextField/TextField";
-import { Button } from "@/components/Button/Button";
 import { ColumnType } from "@/types/Boards";
+import { Button } from "@/components/ui/button";
 
 type AddBoardItemProps = {
   id: number;

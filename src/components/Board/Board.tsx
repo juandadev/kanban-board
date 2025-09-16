@@ -2,10 +2,10 @@
 
 import React from "react";
 import styles from "./Board.module.css";
-import { Button } from "@/components/Button/Button";
 import { useActiveBoard } from "@/hooks/useActiveBoard";
 import { useModal } from "@/context/modalContext";
 import { EditBoardModal } from "@/components/EditBoardModal/EditBoardModal";
+import { Button } from "@/components/ui/button";
 
 export function Board() {
   const { board, columns } = useActiveBoard();
